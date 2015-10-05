@@ -20,6 +20,104 @@ return array(
                     ),
                 ),
             ),
+            'ban_hang' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/ban-hang[/:action][/:id]',
+                    'constraints' => array(
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[0-9]+'
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\BanHang',
+                        'action' => 'index'
+                    )
+                )
+            ),
+            'chi_nhanh' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/chi-nhanh[/:action][/:id]',
+                    'constraints' => array(
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[0-9]+'
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\ChiNhanh',
+                        'action' => 'index'
+                    )
+                )
+            ),
+            'chinh_sach' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/chinh-sach[/:action][/:id]',
+                    'constraints' => array(
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[0-9]+'
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\ChinhSach',
+                        'action' => 'index'
+                    )
+                )
+            ),
+            'doi_tac' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/doi-tac[/:action][/:id]',
+                    'constraints' => array(
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[0-9]+'
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\DoiTac',
+                        'action' => 'index'
+                    )
+                )
+            ),
+            'hang_hoa' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/hang-hoa[/:action][/:id]',
+                    'constraints' => array(
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[0-9]+'
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\HangHoa',
+                        'action' => 'index'
+                    )
+                )
+            ),
+            'tai_khoan' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/tai-khoan[/:action][/:id]',
+                    'constraints' => array(
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[0-9]+'
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\TaiKhoan',
+                        'action' => 'index'
+                    )
+                )
+            ),
+            'thanh_toan' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/thanh-toan[/:action][/:id]',
+                    'constraints' => array(
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[0-9]+'
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\ThanhToan',
+                        'action' => 'index'
+                    )
+                )
+            ),
         ),
     ),
     'service_manager' => array(
@@ -49,7 +147,8 @@ return array(
             'Application\Controller\ChinhSach' => 'Application\Controller\ChinhSachController',
             'Application\Controller\ThanhToan' => 'Application\Controller\ThanhToanController',
             'Application\Controller\BanHang' => 'Application\Controller\BanHangController',
-            'Application\Controller\ChiNhanh' => 'Application\Controller\ChiNhanhController'
+            'Application\Controller\ChiNhanh' => 'Application\Controller\ChiNhanhController',
+            'Application\Controller\TaiKhoan' => 'Application\Controller\TaiKhoanController'
         ),
     ),
     'view_manager' => array(
@@ -60,9 +159,10 @@ return array(
         'exception_template'       => 'error/index',
         'template_map' => array(
             'layout/layout'           => __DIR__ . '/../view/layout/layout.phtml',
-            'layout/ajax_layout'           => __DIR__ . '/../view/layout/ajax-layout.phtml',
+            'layout/layout_ajax'           => __DIR__ . '/../view/layout/ajax-layout.phtml',
             'layout/layout_default'           => __DIR__ . '/../view/layout/layout-default.phtml',
             'application/index/index' => __DIR__ . '/../view/application/index/index.phtml',
+            'application/partial/menu' => __DIR__ . '/../view/application/partial/menu.phtml',
             'error/404'               => __DIR__ . '/../view/error/404.phtml',
             'error/index'             => __DIR__ . '/../view/error/index.phtml',
         ),
@@ -75,6 +175,60 @@ return array(
         'router' => array(
             'routes' => array(
             ),
+        ),
+    ),
+    'navigation' => array(
+        'default' => array(
+            array(
+                'label' => 'Hàng hóa', 
+                'title' => 'Hàng hóa', 
+                'route' => 'hang_hoa',
+                'icon' => '<b class="glyphicon glyphicon-qrcode"></b>',
+                'order' => 0
+            ),              
+            array(
+                'label' => 'Đối tác', 
+                'title' => 'Đối tác', 
+                'route' => 'doi_tac',
+                'icon' => '<b class="glyphicon glyphicon-signal"></b>',
+                'order' => 1
+            ),
+            array(
+                'label' => 'Chính sách', 
+                'title' => 'Chính sách', 
+                'route' => 'chinh_sach',
+                'icon' => '<b class="glyphicon glyphicon-scissors"></b>',
+                'order' => 2
+            ),  
+            array(
+                'label' => 'Thanh toán', 
+                'title' => 'Thanh toán', 
+                'route' => 'thanh_toan',
+                'icon' => '<b class="glyphicon glyphicon-usd"></b>',
+                'order' => 3
+            ), 
+            array(
+                'label' => 'Bán hàng', 
+                'title' => 'Bán hàng', 
+                'route' => 'ban_hang',
+                'icon' => '<b class="glyphicon glyphicon-shopping-cart"></b>',
+                'order' => 4
+            ),  
+            array(
+                'label' => 'Chi nhánh', 
+                'title' => 'Chi nhánh', 
+                'route' => 'chi_nhanh',
+                'icon' => '<b class="fa fa-share-alt"></b>',
+                'order' => 5
+            ),
+            array(
+                'label' => 'Tài khoản', 
+                'title' => 'Tài khoản', 
+                'route' => 'tai_khoan',
+                'icon' => '<i class="fa fa-user fa-lg"></i>',
+                'order' => 6
+            ),
+                  
         ),
     ),
 );

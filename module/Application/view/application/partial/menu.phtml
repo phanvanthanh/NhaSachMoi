@@ -1,0 +1,9 @@
+<?php
+	foreach ($this->container as $page) {
+	?>
+		<li>
+			<a href="<?php echo $this->url($page->get('route')); ?>"><?php echo $page->get('icon'); ?> <span class="hidden-sm hidden-md"><?php echo $page->get('label'); ?></span></a>	
+		</li>
+	<?php
+	}	
+?>

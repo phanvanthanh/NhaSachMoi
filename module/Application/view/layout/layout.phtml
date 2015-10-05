@@ -82,7 +82,7 @@
                 </form> 
                 -->
                 <ul class="nav navbar-nav navbar-right">              
-                  <li><a href="#" class="active"><b class="glyphicon glyphicon-qrcode"></b> <span class="hidden-sm hidden-md">Hàng hóa</span></a></li>
+                  <!-- <li><a href="#" class="active"><b class="glyphicon glyphicon-qrcode"></b> <span class="hidden-sm hidden-md">Hàng hóa</span></a></li>
                   <li><a href="#"><b class="glyphicon glyphicon-signal"></b> <span class="hidden-sm hidden-md">Đối tác</span></a></li>
                   <li><a href="#"><b class="glyphicon glyphicon-scissors"></b> <span class="hidden-sm hidden-md">Chính sách</span></a></li> 
                   <li><a href="#"><b class="glyphicon glyphicon-usd"></b> <span class="hidden-sm hidden-md">Thanh toán</span></a></li>  
@@ -107,7 +107,11 @@
                       <li><a href="#">Quản lý mã vạch</a></li>
                       <li><a href="#">Thoát</a></li>
                     </ul>
-                  </li> 
+                  </li>  -->
+                  <?php
+                    $this->navigation()->menu()->setPartial('application/partial/menu');
+                    echo $this->navigation('Navigation')->menu()->render();
+                  ?>
 
                 </ul>
               </div>
