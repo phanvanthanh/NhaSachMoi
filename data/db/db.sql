@@ -15,10 +15,151 @@ CREATE DATABASE IF NOT EXISTS `nha_sach` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `nha_sach`;
 
 
+-- Dumping structure for table nha_sach.barcode
+CREATE TABLE IF NOT EXISTS `barcode` (
+  `id_barcode` int(11) NOT NULL AUTO_INCREMENT,
+  `ten_barcode` varchar(255) NOT NULL,
+  `length` int(11) DEFAULT NULL,
+  `state` int(11) NOT NULL,
+  PRIMARY KEY (`id_barcode`),
+  UNIQUE KEY `ten_barcode` (`ten_barcode`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+
+-- Dumping data for table nha_sach.barcode: ~0 rows (approximately)
+/*!40000 ALTER TABLE `barcode` DISABLE KEYS */;
+/*!40000 ALTER TABLE `barcode` ENABLE KEYS */;
+
+
+-- Dumping structure for table nha_sach.cong_no_khach_hang
+CREATE TABLE IF NOT EXISTS `cong_no_khach_hang` (
+  `id_cong_no` int(11) NOT NULL AUTO_INCREMENT,
+  `id_khach_hang` int(11) NOT NULL,
+  `ki` date NOT NULL,
+  `no_dau_ki` bigint(20) NOT NULL,
+  `no_phat_sinh` bigint(20) NOT NULL,
+  `du_no` bigint(20) NOT NULL,
+  PRIMARY KEY (`id_cong_no`),
+  KEY `fk_cong_no_doi_tac` (`id_khach_hang`),
+  CONSTRAINT `FK_cong_no_khach_hang_khach_hang` FOREIGN KEY (`id_khach_hang`) REFERENCES `khach_hang` (`id_khach_hang`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=722 DEFAULT CHARSET=utf8;
+
+-- Dumping data for table nha_sach.cong_no_khach_hang: ~0 rows (approximately)
+/*!40000 ALTER TABLE `cong_no_khach_hang` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cong_no_khach_hang` ENABLE KEYS */;
+
+
+-- Dumping structure for table nha_sach.cong_no_nha_cung_cap
+CREATE TABLE IF NOT EXISTS `cong_no_nha_cung_cap` (
+  `id_cong_no` int(11) NOT NULL AUTO_INCREMENT,
+  `id_nha_cung_cap` int(11) NOT NULL,
+  `ki` date NOT NULL,
+  `no_dau_ki` bigint(20) NOT NULL,
+  `no_phat_sinh` bigint(20) NOT NULL,
+  `du_no` bigint(20) NOT NULL,
+  PRIMARY KEY (`id_cong_no`),
+  KEY `fk_cong_no_doi_tac` (`id_nha_cung_cap`)
+) ENGINE=InnoDB AUTO_INCREMENT=722 DEFAULT CHARSET=utf8;
+
+-- Dumping data for table nha_sach.cong_no_nha_cung_cap: ~0 rows (approximately)
+/*!40000 ALTER TABLE `cong_no_nha_cung_cap` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cong_no_nha_cung_cap` ENABLE KEYS */;
+
+
+-- Dumping structure for table nha_sach.ct_hoa_don
+CREATE TABLE IF NOT EXISTS `ct_hoa_don` (
+  `id_ct_hoa_don` int(11) NOT NULL AUTO_INCREMENT,
+  `id_hoa_don` int(11) NOT NULL,
+  `id_san_pham` int(11) NOT NULL,
+  `gia` float NOT NULL,
+  `so_luong` int(11) NOT NULL,
+  `gia_nhap` float NOT NULL,
+  PRIMARY KEY (`id_ct_hoa_don`),
+  KEY `fk_cthoadon_hoadon` (`id_hoa_don`),
+  KEY `fk_cthoadon_sanpham` (`id_san_pham`),
+  CONSTRAINT `FK_ct_hoa_don_san_pham` FOREIGN KEY (`id_san_pham`) REFERENCES `san_pham` (`id_san_pham`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_ct_hoa_don_hoa_don` FOREIGN KEY (`id_hoa_don`) REFERENCES `hoa_don` (`id_hoa_don`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=6521 DEFAULT CHARSET=utf8;
+
+-- Dumping data for table nha_sach.ct_hoa_don: ~0 rows (approximately)
+/*!40000 ALTER TABLE `ct_hoa_don` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ct_hoa_don` ENABLE KEYS */;
+
+
+-- Dumping structure for table nha_sach.ct_phieu_nhap
+CREATE TABLE IF NOT EXISTS `ct_phieu_nhap` (
+  `id_ct_phieu_nhap` int(11) NOT NULL AUTO_INCREMENT,
+  `id_san_pham` int(11) NOT NULL,
+  `id_phieu_nhap` int(11) NOT NULL,
+  `gia_nhap` float NOT NULL,
+  `so_luong` int(11) NOT NULL,
+  PRIMARY KEY (`id_ct_phieu_nhap`),
+  KEY `fk_ctphieunhap_sanpham` (`id_san_pham`),
+  KEY `fk_ctphieunhap_phieunhap` (`id_phieu_nhap`),
+  CONSTRAINT `FK_ct_phieu_nhap_phieu_nhap` FOREIGN KEY (`id_phieu_nhap`) REFERENCES `phieu_nhap` (`id_phieu_nhap`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_ct_phieu_nhap_san_pham` FOREIGN KEY (`id_san_pham`) REFERENCES `san_pham` (`id_san_pham`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=2073 DEFAULT CHARSET=utf8;
+
+-- Dumping data for table nha_sach.ct_phieu_nhap: ~0 rows (approximately)
+/*!40000 ALTER TABLE `ct_phieu_nhap` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ct_phieu_nhap` ENABLE KEYS */;
+
+
+-- Dumping structure for table nha_sach.don_vi_tinh
+CREATE TABLE IF NOT EXISTS `don_vi_tinh` (
+  `id_don_vi_tinh` int(11) NOT NULL AUTO_INCREMENT,
+  `don_vi_tinh` varchar(250) DEFAULT NULL,
+  PRIMARY KEY (`id_don_vi_tinh`),
+  UNIQUE KEY `don_vi_tinh` (`don_vi_tinh`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Dumping data for table nha_sach.don_vi_tinh: ~0 rows (approximately)
+/*!40000 ALTER TABLE `don_vi_tinh` DISABLE KEYS */;
+/*!40000 ALTER TABLE `don_vi_tinh` ENABLE KEYS */;
+
+
+-- Dumping structure for table nha_sach.gia_xuat
+CREATE TABLE IF NOT EXISTS `gia_xuat` (
+  `id_gia_xuat` int(11) NOT NULL AUTO_INCREMENT,
+  `id_san_pham` int(11) NOT NULL,
+  `id_kenh_phan_phoi` int(11) unsigned NOT NULL,
+  `gia_xuat` float NOT NULL,
+  PRIMARY KEY (`id_gia_xuat`),
+  KEY `fk_giaxuat_sanpham` (`id_san_pham`),
+  KEY `fk_gia_xuat_term_taxonomy` (`id_kenh_phan_phoi`),
+  CONSTRAINT `FK_gia_xuat_kenh_phan_phoi` FOREIGN KEY (`id_kenh_phan_phoi`) REFERENCES `kenh_phan_phoi` (`id_kenh_phan_phoi`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_gia_xuat_san_pham` FOREIGN KEY (`id_san_pham`) REFERENCES `san_pham` (`id_san_pham`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=8740 DEFAULT CHARSET=utf8;
+
+-- Dumping data for table nha_sach.gia_xuat: ~0 rows (approximately)
+/*!40000 ALTER TABLE `gia_xuat` DISABLE KEYS */;
+/*!40000 ALTER TABLE `gia_xuat` ENABLE KEYS */;
+
+
+-- Dumping structure for table nha_sach.hoa_don
+CREATE TABLE IF NOT EXISTS `hoa_don` (
+  `id_hoa_don` int(11) NOT NULL AUTO_INCREMENT,
+  `id_khach_hang` int(11) NOT NULL,
+  `id_user` int(11) DEFAULT NULL,
+  `ma_hoa_don` char(255) NOT NULL,
+  `ngay_xuat` date NOT NULL,
+  `status` int(11) NOT NULL,
+  PRIMARY KEY (`id_hoa_don`),
+  UNIQUE KEY `ma_hoa_don` (`ma_hoa_don`),
+  KEY `fk_hoadon_doitac` (`id_khach_hang`),
+  KEY `fk_hoadon_user` (`id_user`),
+  CONSTRAINT `FK_hoa_don_khach_hang` FOREIGN KEY (`id_khach_hang`) REFERENCES `khach_hang` (`id_khach_hang`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_hoa_don_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=1450 DEFAULT CHARSET=utf8;
+
+-- Dumping data for table nha_sach.hoa_don: ~0 rows (approximately)
+/*!40000 ALTER TABLE `hoa_don` DISABLE KEYS */;
+/*!40000 ALTER TABLE `hoa_don` ENABLE KEYS */;
+
+
 -- Dumping structure for table nha_sach.jos_admin_resource
 CREATE TABLE IF NOT EXISTS `jos_admin_resource` (
-  `resource_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Resource ID',
-  `parent_id` int(10) NOT NULL COMMENT 'Resource Parent',
+  `resource_id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Resource ID',
+  `parent_id` int(11) NOT NULL COMMENT 'Resource Parent',
   `resource` varchar(255) NOT NULL COMMENT 'Resource',
   `resource_name` varchar(255) NOT NULL DEFAULT 'Resource New' COMMENT 'Resource Name',
   `resource_type` varchar(20) NOT NULL COMMENT 'Type resource',
@@ -49,7 +190,7 @@ INSERT INTO `jos_admin_resource` (`resource_id`, `parent_id`, `resource`, `resou
 
 -- Dumping structure for table nha_sach.jos_admin_role
 CREATE TABLE IF NOT EXISTS `jos_admin_role` (
-  `role_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Role ID',
+  `role_id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Role ID',
   `role_name` varchar(50) DEFAULT NULL COMMENT 'Role Name Is UserType In Jos_Users',
   PRIMARY KEY (`role_id`),
   UNIQUE KEY `role_name` (`role_name`)
@@ -65,39 +206,220 @@ INSERT INTO `jos_admin_role` (`role_id`, `role_name`) VALUES
 
 -- Dumping structure for table nha_sach.jos_admin_rule
 CREATE TABLE IF NOT EXISTS `jos_admin_rule` (
-  `rule_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Rule ID',
-  `role_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Role ID',
-  `resource_id` int(10) unsigned NOT NULL COMMENT 'Resource ID',
+  `rule_id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Rule ID',
+  `role_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT 'Role ID',
+  `resource_id` int(11) unsigned NOT NULL COMMENT 'Resource ID',
   PRIMARY KEY (`rule_id`),
   KEY `IDX_JOS_RULE_RESOURCE_ID_ROLE_ID` (`resource_id`,`role_id`),
   KEY `IDX_JOS_RULE_ROLE_ID_RESOURCE_ID` (`role_id`,`resource_id`),
   CONSTRAINT `FK_jos_admin_rule_jos_admin_resource` FOREIGN KEY (`resource_id`) REFERENCES `jos_admin_resource` (`resource_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_JOS_RULE_ROLE_ID_JOS_ROLE_ROLE_ID` FOREIGN KEY (`role_id`) REFERENCES `jos_admin_role` (`role_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=utf8 COMMENT='Admin Rule Table';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Admin Rule Table';
 
 -- Dumping data for table nha_sach.jos_admin_rule: ~0 rows (approximately)
 /*!40000 ALTER TABLE `jos_admin_rule` DISABLE KEYS */;
 /*!40000 ALTER TABLE `jos_admin_rule` ENABLE KEYS */;
 
 
+-- Dumping structure for table nha_sach.kenh_phan_phoi
+CREATE TABLE IF NOT EXISTS `kenh_phan_phoi` (
+  `id_kenh_phan_phoi` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id_kho` int(11) NOT NULL,
+  `kenh_phan_phoi` varchar(250) NOT NULL DEFAULT '0',
+  `chiec_khau` decimal(10,2) NOT NULL DEFAULT '0.00',
+  PRIMARY KEY (`id_kenh_phan_phoi`),
+  UNIQUE KEY `id_kho_kenh_phan_phoi` (`id_kho`,`kenh_phan_phoi`),
+  KEY `id_kho` (`id_kho`),
+  CONSTRAINT `FK_kenh_phan_phoi_kho` FOREIGN KEY (`id_kho`) REFERENCES `kho` (`id_kho`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Dumping data for table nha_sach.kenh_phan_phoi: ~0 rows (approximately)
+/*!40000 ALTER TABLE `kenh_phan_phoi` DISABLE KEYS */;
+/*!40000 ALTER TABLE `kenh_phan_phoi` ENABLE KEYS */;
+
+
+-- Dumping structure for table nha_sach.khach_hang
+CREATE TABLE IF NOT EXISTS `khach_hang` (
+  `id_khach_hang` int(11) NOT NULL AUTO_INCREMENT,
+  `id_kenh_phan_phoi` int(11) unsigned NOT NULL,
+  `ho_ten` varchar(100) NOT NULL,
+  `dia_chi` varchar(255) NOT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `mo_ta` longtext,
+  `dien_thoai_co_dinh` int(11) DEFAULT NULL,
+  `di_dong` int(11) DEFAULT NULL,
+  `hinh_anh` varchar(255) DEFAULT NULL,
+  `website` varchar(255) DEFAULT NULL,
+  `twitter` varchar(255) DEFAULT NULL,
+  `ngay_dang_ky` date NOT NULL,
+  PRIMARY KEY (`id_khach_hang`),
+  KEY `ho_ten` (`ho_ten`),
+  KEY `id_kenh_phan_phoi` (`id_kenh_phan_phoi`),
+  CONSTRAINT `FK_khach_hang_kenh_phan_phoi` FOREIGN KEY (`id_kenh_phan_phoi`) REFERENCES `kenh_phan_phoi` (`id_kenh_phan_phoi`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=419 DEFAULT CHARSET=utf8;
+
+-- Dumping data for table nha_sach.khach_hang: ~0 rows (approximately)
+/*!40000 ALTER TABLE `khach_hang` DISABLE KEYS */;
+/*!40000 ALTER TABLE `khach_hang` ENABLE KEYS */;
+
+
 -- Dumping structure for table nha_sach.kho
 CREATE TABLE IF NOT EXISTS `kho` (
-  `id_kho` int(10) NOT NULL AUTO_INCREMENT,
+  `id_kho` int(11) NOT NULL AUTO_INCREMENT,
   `ten_kho` varchar(255) NOT NULL,
   `dia_chi_kho` varchar(255) NOT NULL,
   PRIMARY KEY (`id_kho`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
--- Dumping data for table nha_sach.kho: ~0 rows (approximately)
+-- Dumping data for table nha_sach.kho: ~2 rows (approximately)
 /*!40000 ALTER TABLE `kho` DISABLE KEYS */;
+INSERT INTO `kho` (`id_kho`, `ten_kho`, `dia_chi_kho`) VALUES
+	(1, 'Nha Sach Vinh Quang', 'Duong Pham Ngu Lao Tra Vinh'),
+	(2, 'Nha Sach Vinh Quang 2', 'Duong Kho Dau Tra Vinh');
 /*!40000 ALTER TABLE `kho` ENABLE KEYS */;
+
+
+-- Dumping structure for table nha_sach.loai_san_pham
+CREATE TABLE IF NOT EXISTS `loai_san_pham` (
+  `id_loai_san_pham` int(11) NOT NULL AUTO_INCREMENT,
+  `ten_loai` varchar(250) DEFAULT NULL,
+  PRIMARY KEY (`id_loai_san_pham`),
+  UNIQUE KEY `ten_loai` (`ten_loai`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Dumping data for table nha_sach.loai_san_pham: ~0 rows (approximately)
+/*!40000 ALTER TABLE `loai_san_pham` DISABLE KEYS */;
+/*!40000 ALTER TABLE `loai_san_pham` ENABLE KEYS */;
+
+
+-- Dumping structure for table nha_sach.nha_cung_cap
+CREATE TABLE IF NOT EXISTS `nha_cung_cap` (
+  `id_nha_cung_cap` int(11) NOT NULL AUTO_INCREMENT,
+  `id_kho` int(11) NOT NULL,
+  `ho_ten` varchar(100) NOT NULL,
+  `dia_chi` varchar(255) NOT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `mo_ta` longtext,
+  `dien_thoai_co_dinh` int(11) DEFAULT NULL,
+  `di_dong` int(11) DEFAULT NULL,
+  `hinh_anh` varchar(255) DEFAULT NULL,
+  `website` varchar(255) DEFAULT NULL,
+  `twitter` varchar(255) DEFAULT NULL,
+  `ngay_dang_ky` date NOT NULL,
+  PRIMARY KEY (`id_nha_cung_cap`),
+  KEY `ho_ten` (`ho_ten`),
+  KEY `FK_nha_cung_cap_kho` (`id_kho`),
+  CONSTRAINT `FK_nha_cung_cap_kho` FOREIGN KEY (`id_kho`) REFERENCES `kho` (`id_kho`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=419 DEFAULT CHARSET=utf8;
+
+-- Dumping data for table nha_sach.nha_cung_cap: ~0 rows (approximately)
+/*!40000 ALTER TABLE `nha_cung_cap` DISABLE KEYS */;
+/*!40000 ALTER TABLE `nha_cung_cap` ENABLE KEYS */;
+
+
+-- Dumping structure for table nha_sach.phieu_chi
+CREATE TABLE IF NOT EXISTS `phieu_chi` (
+  `id_phieu_chi` int(11) NOT NULL AUTO_INCREMENT,
+  `id_user` int(11) NOT NULL,
+  `id_cong_no` int(11) NOT NULL,
+  `ma_phieu_chi` char(20) DEFAULT NULL,
+  `ly_do` longtext,
+  `so_tien` bigint(20) NOT NULL,
+  `ngay_thanh_toan` date NOT NULL,
+  PRIMARY KEY (`id_phieu_chi`),
+  KEY `fk_phieuchi_user` (`id_user`),
+  KEY `fk_phieuchi_congno` (`id_cong_no`),
+  CONSTRAINT `FK_phieu_chi_cong_no_nha_cung_cap` FOREIGN KEY (`id_cong_no`) REFERENCES `cong_no_nha_cung_cap` (`id_cong_no`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_phieu_chi_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8;
+
+-- Dumping data for table nha_sach.phieu_chi: ~0 rows (approximately)
+/*!40000 ALTER TABLE `phieu_chi` DISABLE KEYS */;
+/*!40000 ALTER TABLE `phieu_chi` ENABLE KEYS */;
+
+
+-- Dumping structure for table nha_sach.phieu_nhap
+CREATE TABLE IF NOT EXISTS `phieu_nhap` (
+  `id_phieu_nhap` int(11) NOT NULL AUTO_INCREMENT,
+  `id_user` int(11) NOT NULL,
+  `id_nha_cung_cap` int(11) NOT NULL,
+  `ma_phieu_nhap` char(255) NOT NULL,
+  `ngay_nhap` date NOT NULL,
+  `status` int(11) NOT NULL,
+  PRIMARY KEY (`id_phieu_nhap`),
+  KEY `fk_phieunhap_user` (`id_user`),
+  KEY `fk_phieunhap_doitac` (`id_nha_cung_cap`),
+  CONSTRAINT `FK_phieu_nhap_nha_cung_cap` FOREIGN KEY (`id_nha_cung_cap`) REFERENCES `nha_cung_cap` (`id_nha_cung_cap`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_phieu_nhap_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=1208 DEFAULT CHARSET=utf8;
+
+-- Dumping data for table nha_sach.phieu_nhap: ~0 rows (approximately)
+/*!40000 ALTER TABLE `phieu_nhap` DISABLE KEYS */;
+/*!40000 ALTER TABLE `phieu_nhap` ENABLE KEYS */;
+
+
+-- Dumping structure for table nha_sach.phieu_thu
+CREATE TABLE IF NOT EXISTS `phieu_thu` (
+  `id_phieu_thu` int(11) NOT NULL AUTO_INCREMENT,
+  `id_user` int(11) NOT NULL,
+  `id_cong_no` int(11) NOT NULL,
+  `ma_phieu_thu` char(20) DEFAULT NULL,
+  `ly_do` longtext,
+  `so_tien` bigint(20) NOT NULL,
+  `ngay_thanh_toan` date NOT NULL,
+  PRIMARY KEY (`id_phieu_thu`),
+  KEY `fk_phieuthu_user` (`id_user`),
+  KEY `fk_phieuthu_congno` (`id_cong_no`),
+  CONSTRAINT `FK_phieu_thu_cong_no_khach_hang` FOREIGN KEY (`id_cong_no`) REFERENCES `cong_no_khach_hang` (`id_cong_no`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_phieu_thu_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=722 DEFAULT CHARSET=utf8;
+
+-- Dumping data for table nha_sach.phieu_thu: ~0 rows (approximately)
+/*!40000 ALTER TABLE `phieu_thu` DISABLE KEYS */;
+/*!40000 ALTER TABLE `phieu_thu` ENABLE KEYS */;
+
+
+-- Dumping structure for table nha_sach.san_pham
+CREATE TABLE IF NOT EXISTS `san_pham` (
+  `id_san_pham` int(11) NOT NULL AUTO_INCREMENT,
+  `id_kho` int(11) NOT NULL,
+  `id_don_vi_tinh` int(11) DEFAULT NULL,
+  `id_loai_san_pham` int(11) NOT NULL,
+  `id_barcode` int(11) NOT NULL,
+  `ma_san_pham` char(255) NOT NULL,
+  `ma_vach` varchar(255) NOT NULL,
+  `ten_san_pham` varchar(255) NOT NULL,
+  `mo_ta` longtext,
+  `hinh_anh` varchar(255) DEFAULT NULL,
+  `nhan` varchar(255) DEFAULT NULL,
+  `ton_kho` float NOT NULL,
+  `loai_gia` int(11) DEFAULT NULL,
+  `gia_nhap` float DEFAULT NULL,
+  `gia_bia` float DEFAULT NULL,
+  `chiec_khau` float DEFAULT NULL,
+  PRIMARY KEY (`id_san_pham`),
+  KEY `fk_sanpham_termtaxonomy` (`id_don_vi_tinh`),
+  KEY `fk_sanpham_zftermtaxonomy` (`id_loai_san_pham`),
+  KEY `kho` (`id_kho`),
+  KEY `ma_san_pham` (`ma_san_pham`),
+  KEY `id_barcode` (`id_barcode`),
+  KEY `ma_vach` (`ma_vach`),
+  CONSTRAINT `FK_san_pham_barcode` FOREIGN KEY (`id_barcode`) REFERENCES `barcode` (`id_barcode`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_san_pham_don_vi_tinh` FOREIGN KEY (`id_don_vi_tinh`) REFERENCES `don_vi_tinh` (`id_don_vi_tinh`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_san_pham_kho` FOREIGN KEY (`id_kho`) REFERENCES `kho` (`id_kho`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_san_pham_loai_san_pham` FOREIGN KEY (`id_loai_san_pham`) REFERENCES `loai_san_pham` (`id_loai_san_pham`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=1751 DEFAULT CHARSET=utf8;
+
+-- Dumping data for table nha_sach.san_pham: ~0 rows (approximately)
+/*!40000 ALTER TABLE `san_pham` DISABLE KEYS */;
+/*!40000 ALTER TABLE `san_pham` ENABLE KEYS */;
 
 
 -- Dumping structure for table nha_sach.user
 CREATE TABLE IF NOT EXISTS `user` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT,
-  `role_id` int(10) unsigned NOT NULL,
-  `kho_id` int(11) DEFAULT NULL,
+  `role_id` int(11) unsigned NOT NULL,
+  `id_kho` int(11) DEFAULT NULL,
   `username` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   `display_name` varchar(50) DEFAULT NULL,
@@ -110,11 +432,11 @@ CREATE TABLE IF NOT EXISTS `user` (
   `di_dong` varchar(12) DEFAULT NULL,
   `twitter` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`user_id`),
-  KEY `kho` (`kho_id`),
+  KEY `kho` (`id_kho`),
   KEY `FK_user_jos_admin_role` (`role_id`),
-  CONSTRAINT `FK_user_kho` FOREIGN KEY (`kho_id`) REFERENCES `kho` (`id_kho`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_user_jos_admin_role` FOREIGN KEY (`role_id`) REFERENCES `jos_admin_role` (`role_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+  CONSTRAINT `FK_user_jos_admin_role` FOREIGN KEY (`role_id`) REFERENCES `jos_admin_role` (`role_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_user_kho` FOREIGN KEY (`id_kho`) REFERENCES `kho` (`id_kho`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table nha_sach.user: ~0 rows (approximately)
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;

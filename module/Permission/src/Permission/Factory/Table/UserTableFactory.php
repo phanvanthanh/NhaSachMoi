@@ -8,7 +8,7 @@ use Zend\Db\TableGateway\TableGateway;
 use Permission\Model\Entity\User;
 use Permission\Model\UserTable;
 
-class UsersTableFactory implements FactoryInterface
+class UserTableFactory implements FactoryInterface
 {
 
     public function createService(ServiceLocatorInterface $servicelocator)

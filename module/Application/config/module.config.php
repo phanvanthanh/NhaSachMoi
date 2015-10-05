@@ -20,35 +20,6 @@ return array(
                     ),
                 ),
             ),
-            
-            'permission' => array(
-                'type'    => 'Literal',
-                'options' => array(
-                    'route'    => '/permission',
-                    'defaults' => array(
-                        '__NAMESPACE__' => 'Permission\Controller',
-                        'controller'    => 'User',
-                        'action'        => 'login',
-                    ),
-                ),
-                'may_terminate' => true,
-                'child_routes' => array(
-                    'permission' => array(
-                        'type' => 'Segment',
-                        'options' => array(
-                            'route' => '/permission[/:action][/:id]',
-                            'constraints' => array(
-                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'id' => '[0-9]+'
-                            ),
-                            'defaults' => array(
-                                'controller' => 'Permission\Controller\Permission',
-                                'action' => 'index'
-                            )
-                        )
-                    ),
-                ),
-            ),
         ),
     ),
     'service_manager' => array(
@@ -72,7 +43,13 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'Application\Controller\Index' => 'Application\Controller\IndexController'
+            'Application\Controller\Index' => 'Application\Controller\IndexController',
+            'Application\Controller\HangHoa' => 'Application\Controller\HangHoaController',
+            'Application\Controller\DoiTac' => 'Application\Controller\DoiTacController',
+            'Application\Controller\ChinhSach' => 'Application\Controller\ChinhSachController',
+            'Application\Controller\ThanhToan' => 'Application\Controller\ThanhToanController',
+            'Application\Controller\BanHang' => 'Application\Controller\BanHangController',
+            'Application\Controller\ChiNhanh' => 'Application\Controller\ChiNhanhController'
         ),
     ),
     'view_manager' => array(
