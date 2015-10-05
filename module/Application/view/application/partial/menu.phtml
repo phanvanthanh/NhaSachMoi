@@ -1,7 +1,8 @@
 <?php
 	foreach ($this->container as $page) {
+
 	?>
-		<li>
+		<li class="<?php if($page->get('route')==$page->getRouteMatch()->getMatchedRouteName()){ echo 'active'; } ?>" id="<?php echo $page->get('id'); ?>" >
 			<a href="<?php echo $this->url($page->get('route')); ?>"><?php echo $page->get('icon'); ?> <span class="hidden-sm hidden-md"><?php echo $page->get('label'); ?></span></a>	
 		</li>
 	<?php
