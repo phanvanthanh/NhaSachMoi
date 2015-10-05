@@ -1,0 +1,114 @@
+<div class="row">
+  <div class="col-xs-12 col-sm-5 col-md-4 col-lg-3">
+    <div class="nav-side-menu">
+      <!-- <div class="brand text-left">Hàng hóa</div> -->
+      <!-- <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i> -->
+      <div class="menu-list">        
+        <ul id="menu-content" class="menu-content out"> <!-- menu-content collapse out -->
+          <li class="active" onclick="setLocation('/permission/permission/list-user')">
+            <a href="#">
+            <i class="fa fa-dashboard fa-lg"></i> Danh sách tài khoản
+            </a>
+          </li>
+          <li onclick="setLocation('/permission/permission')">
+            <a href="#">
+            <i class="fa fa-dashboard fa-lg"></i> Phân quyền
+            </a>
+          </li>
+          <li onclick="setLocation('/permission/permission/edit')" data-toggle="collapse" data-target="#products" class="collapsed">
+            <a href="#"><i class="fa fa-gift fa-lg"></i> Sửa quyền </a>
+          </li>          
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-12 col-sm-7 col-md-8 col-lg-9">
+    <?php
+      $form = $this->edit_permission_form;
+      $form->setAttribute('action', $this->url("permission/permission", array('action' => 'index')));
+      $form->prepare();
+      echo $this->form()->openTag($form);
+    ?> 
+      <div class="">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+          <h3>Phân quyền</h3>
+        </div>
+      </div>
+      <div class="">        
+        <div class="col-xs-8 col-sm-10 col-md-10 col-lg-10">
+          <div class="form-group has-success">          
+            <?php
+              echo $this->formElement($form->get('role_id')); 
+            ?>
+          </div>
+        </div>
+        <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2 text-right">
+          <button class="btn btn-default">Lưu</button>
+        </div>
+      </div>
+      <div class="">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <div class="table-responsive" id="no-more-tables">
+            <table class="table table-bordered table-hover cf">
+              <thead class="cf">
+                <tr>
+                  <th class="active">STT</th>
+                  <th class="active">Tài nguyên</th>
+                  <th class="active text-center td-kich-hoat">Kích hoạt</th>                  
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    <?php echo $this->form()->closeTag($form); ?>
+  </div>
+</div>
+              
+<script type="text/javascript">
+  jQuery(document).ready(function(){
+    jQuery('#role-id').on('change', function(){
+      var url = "/permission/permission/permission-of-user";     
+      var param = {
+          "role_id": jQuery(this).val(),
+        };    
+      jQuery.ajax({
+        url:url,
+        type: "POST",
+        data: param,
+        dataType: "HTML", 
+        beforeSend: function(){
+          // xử lý đang gửi dữ liệu
+          jQuery('#no-more-tables table tbody').html('');
+        },
+        success: function(data){
+          // nếu lỗi      
+          if($.isNumeric(data.trim())){
+            // đặt bảng về trạng thái ban đầu
+            jQuery('#no-more-tables table tbody').html('');
+            /*
+            // thông báo lỗi
+            jQuery('#alert').attr('class','alert alert-danger').children('span').text('Vui lòng chọn tên giảng viên để phân quyền!');
+            jQuery('#alert').slideDown('slow').delay(1000).slideUp('slow');*/
+          }
+          // ngược lại lấy dữ liệu thành công
+          else{
+            jQuery('#no-more-tables table tbody').html(data);
+            /*
+            jQuery('#alert').attr('class','alert alert-success').children('span').text('Chúc mừng, thực thi thành công!');
+            jQuery('#alert').slideDown('slow').delay(1000).slideUp('slow');*/
+          }
+        },
+        error: function(xhr,status,errmgs){
+          // đặt bảng về trạng thái ban đầu
+            jQuery('#no-more-tables table tbody').html('');
+          // gửi dữ liệu không thành công
+          jQuery('#alert').attr('class','alert alert-danger').children('span').text('Lỗi, thực thi không thành công. Vui lòng kiểm tra lại!');
+          jQuery('#alert').slideDown('slow').delay(1000).slideUp('slow');
+        }
+      });    
+    });
+  });
+</script>

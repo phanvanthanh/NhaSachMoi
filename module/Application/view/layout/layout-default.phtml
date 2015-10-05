@@ -1,0 +1,54 @@
+<?php echo $this->doctype(); ?>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <?php echo $this->headTitle('ZF2 '. $this->translate('Skeleton Application'))->setSeparator(' - ')->setAutoEscape(false) ?>
+
+        <?php echo $this->headMeta()
+            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+        ?>
+
+        <!-- Le styles -->
+        <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/default/favicon.ico'))
+            ->prependStylesheet($this->basePath() . '/css/datatable/dataTables.bootstrap.min.css')
+            ->prependStylesheet($this->basePath() . '/css/jquery-ui.css')
+            
+            ->prependStylesheet($this->basePath() . '/css/datetime-picker/bootstrap-datetimepicker.css')
+            ->prependStylesheet($this->basePath() . '/css/custom/custom.css')
+            ->prependStylesheet($this->basePath() . '/css/style.css')
+            ->prependStylesheet($this->basePath() . '/css/bootstrap-theme.min.css')
+            ->prependStylesheet($this->basePath() . '/css/bootstrap.min.css')
+            ->prependStylesheet($this->basePath() . '/font-awesome-4.2.0/css/font-awesome.min.css'); 
+        ?>
+
+        <!-- Scripts -->
+        <?php echo $this->headScript()            
+            ->prependFile($this->basePath() . '/js/datatable/dataTables.bootstrap.min.js')
+            ->prependFile($this->basePath() . '/js/datatable/jquery.dataTables.min.js')
+            ->prependFile($this->basePath() . '/js/jquery-ui.js')
+            ->prependFile($this->basePath() . '/js/sticky/jquery.sticky.js')
+            ->prependFile($this->basePath() . '/js/datetime-picker/bootstrap-datetimepicker.js')
+            ->prependFile($this->basePath() . '/js/function/function.js')
+            ->prependFile($this->basePath() . '/js/custom/custom.js')
+            ->prependFile($this->basePath() . '/js/export/export-excel.js')
+            ->prependFile($this->basePath() . '/js/bootstrap.min.js')
+            ->prependFile($this->basePath() . '/js/jquery.min.js')
+            ->prependFile($this->basePath() . '/js/respond.min.js', 'text/javascript', array('conditional' => 'lt IE 9',))
+            ->prependFile($this->basePath() . '/js/html5shiv.js',   'text/javascript', array('conditional' => 'lt IE 9',)); 
+        ?>
+        
+        
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+    </head>
+    <body>
+    </body>
+</html>

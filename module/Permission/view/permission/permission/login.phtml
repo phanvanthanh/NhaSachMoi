@@ -1,0 +1,36 @@
+<?php
+  $login_form->setAttribute('action', $this->url("permission/permission", array('action'=>'login')));
+  $login_form->setAttribute('class','form');
+  $login_form->setAttribute('role','form');
+  $login_form->setAttribute('method','post');
+  $login_form->prepare();
+  echo $this->form()->openTag($login_form);
+?> 
+<div class="row">
+    <div class="col-xs-12 hidden-sm hidden-md hidden-lg">&nbsp;</div>
+    <div class="col-xs-12 col-sm-8 col-md-8 col-lg-6 col-sm-offset-2 col-md-offset-2 col-lg-offset-3 text-right">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="text-left">Đăng nhập</h3><br>         
+          <div class="form-group has-success">
+            <?php
+              $login_form->get('url')->setAttribute('value',$this->url_login);
+              echo $this->formInput($login_form->get('url'));
+              echo $this->formInput($login_form->get('username'));
+            ?>
+          </div>
+          <div class="form-group has-success">
+            <?php echo $this->formInput($login_form->get('password')); ?>
+          </div>
+          <div class="form-group has-success">
+            <a href="<php echo $this->url('home'); ?>" class="btn btn-default active">Quay lại</a>&nbsp;
+            <?php 
+              $login_form->get('submit')->setAttribute('class','btn btn-default');
+              echo $this->formRow($login_form->get('submit')); 
+            ?>
+          </div>
+        </div>            
+      </div>
+    </div>
+</div>    
+<?php echo $this->form()->closeTag($login_form); ?>

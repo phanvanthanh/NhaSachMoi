@@ -1,0 +1,111 @@
+<div class="row">
+  <div class="col-xs-12 col-sm-5 col-md-4 col-lg-3">
+    <div class="nav-side-menu">
+      <!-- <div class="brand text-left">Hàng hóa</div> -->
+      <!-- <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i> -->
+      <div class="menu-list">        
+        <ul id="menu-content" class="menu-content out"> <!-- menu-content collapse out -->
+          <li class="active" onclick="setLocation('/permission/permission/list-user')">
+            <a href="#">
+            <i class="fa fa-dashboard fa-lg"></i> Danh sách tài khoản
+            </a>
+          </li>
+          <li onclick="setLocation('/permission/permission')">
+            <a href="#">
+            <i class="fa fa-dashboard fa-lg"></i> Phân quyền
+            </a>
+          </li>
+          <li onclick="setLocation('/permission/permission/edit')" data-toggle="collapse" data-target="#products" class="collapsed">
+            <a href="#"><i class="fa fa-gift fa-lg"></i> Sửa quyền </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-12 col-sm-7 col-md-8 col-lg-9">
+    <div class="">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+        <h3>Cập nhật thông tin tài nguyên</h3>
+      </div>
+    </div>      
+    <div class="">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="table-responsive" id="no-more-tables">
+          <table class="table table-bordered table-hover cf">
+            <thead class="cf">
+              <tr>
+                <th class="active">STT</th>
+                <th class="active">Tên tài nguyên</th>
+                <th class="active">Is white list</th>
+                <th class="active text-center td-kich-hoat">Sửa</th>
+              </tr>
+            </thead>
+            <tbody>  
+              <?php
+                $resources=$this->resources;
+                foreach ($resources as $key => $resource) {
+                  $key++;
+                  $level='';
+                  for ($i=0; $i < $resource['level']; $i++) { 
+                    $level.='__ ';
+                  }
+              ?>
+                  <tr>
+                    <td class="text-center" data-title="STT"><?php echo $key; ?></td>
+                    <td data-title="Tên tài nguyên"><?php echo $level.$resource['resource_name']; ?></td>
+                    <td data-title="Is white list" class="text-center">
+                      <?php
+                        $url=$this->url('permission/permission', array('action'=>'change-white-list', 'id'=>$resource['resource_id']));
+                      ?>
+                      <a class="btn <?php echo ($resource['is_white_list']==1) ? 'btn-success':'btn-default'; ?>" href="<?php echo $url; ?>"><?php echo ($resource['is_white_list']==1) ? 'Y':'N'; ?></a>
+                    </td>
+                    <td data-title="Kích hoạt" class="text-center">
+                      <a class="btn btn-default modal-cap-nhat-quyen" permission-id="<?php echo $resource['resource_id']; ?>" permission-data="<?php echo $resource['resource_name']; ?>">Sửa</a>
+                    </td>
+                  </tr>
+              <?php
+                }
+              ?>
+              
+              
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="modal-cap-nhat-quyen" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Cập nhật thông tin quyền</h4>
+          </div>
+          <div class="modal-body"> 
+            <?php
+              $form = $this->edit_resource_form;
+              $form->setAttribute('action', $this->url("permission/permission", array('action' => 'edit')));
+              $form->prepare();
+              echo $this->form()->openTag($form);
+            ?>             
+            <div class="row">                  
+              <div class="col-xs-8 col-sm-9 col-md-10 col-lg-10">
+                
+                <div class="form-group has-success">
+                  <?php echo $this->formHidden($form->get('resource_id')); ?>
+                  <?php echo $this->formInput($form->get('resource_name')); ?>                  
+                  
+                </div>
+              </div>
+              <div class="col-xs-4 col-sm-3 col-md-2 col-lg-2 text-right">
+                <button type="submit" class="btn btn-default">Lưu</button>
+              </div>
+            </div>
+            <?php echo $this->form()->closeTag($form); ?>
+          </div>            
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
