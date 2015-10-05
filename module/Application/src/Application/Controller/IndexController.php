@@ -16,6 +16,7 @@ class IndexController extends AbstractActionController
 {
     public function indexAction()
     {
-        return new ViewModel();
+        $product_table	= $this->getServiceLocator()->get('Application\Model\SanPhamTable');
+    	$all_product	= $product_table->getSanPhamByArrayConditionAndArrayColumn(array(), array());
     }
 }

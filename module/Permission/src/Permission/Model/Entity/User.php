@@ -3,8 +3,9 @@ namespace Permission\Model\Entity;
 
 class User
 {
-    protected $kho_id;
+    
     protected $user_id;
+    protected $id_kho;
     protected $username;
     protected $password;
     protected $display_name;
@@ -21,7 +22,7 @@ class User
     public function exchangeArray($data)
     {
         $this->user_id = (isset($data['user_id'])) ? $data['user_id'] : null;
-        $this->kho_id = (isset($data['kho_id'])) ? $data['kho_id'] : null;
+        $this->id_kho = (isset($data['id_kho'])) ? $data['id_kho'] : null;
         $this->username = (isset($data['username'])) ? $data['username'] : null;
         $this->password = (isset($data['password'])) ? $data['password'] : null;
         $this->display_name = (isset($data['display_name'])) ? $data['display_name'] : null;
@@ -157,14 +158,14 @@ class User
         return $this->twitter;
     }
 
-    public function setKhoId($kho_id)
+    public function setIdKho($id_kho)
     {
-        $this->kho_id=$kho_id;
+        $this->id_kho=$id_kho;
     }
 
-    public function getKhoId()
+    public function getIdKho()
     {
-        return $this->kho_id;
+        return $this->id_kho;
     }
 
     

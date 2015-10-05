@@ -36,4 +36,14 @@ class Module
             ),
         );
     }
+
+    public function getServiceConfig()
+    {
+        return array(
+            'factories' => array(
+                'Application\Model\SanPhamTable' => 'Application\Factory\Table\SanPhamTableFactory',
+            )
+            
+        );
+    }
 }
