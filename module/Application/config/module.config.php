@@ -465,7 +465,7 @@ return array(
                     array(
                         'label' => ' Danh sách tài khoản', 
                         'title' => ' Danh sách tài khoản', 
-                        'route' => '/tai-khoan/danh-sach-tai-khoan',
+                        'route' => '/tai-khoan',
                         'id'=>'#',
                         'icon' => '',
                         'order' => 1
