@@ -178,6 +178,7 @@ return array(
             'layout/layout_default'           => __DIR__ . '/../view/layout/layout-default.phtml',
             'application/index/index' => __DIR__ . '/../view/application/index/index.phtml',
             'application/partial/menu' => __DIR__ . '/../view/application/partial/menu.phtml',
+            'application/partial/menu_right' => __DIR__ . '/../view/application/partial/menu-right.phtml',
             'error/404'               => __DIR__ . '/../view/error/404.phtml',
             'error/index'             => __DIR__ . '/../view/error/index.phtml',
         ),
@@ -199,14 +200,22 @@ return array(
                 'title' => 'Hàng hóa', 
                 'route' => 'hang_hoa',
                 'id'=>'hang_hoa',
+                'class' => '',
+                'attr'  => '',
+                'sub_class' => '',
+                'sub_attr'  => '',
                 'icon' => '<b class="glyphicon glyphicon-qrcode"></b>',
-                'order' => 0
+                'order' => 0,                
             ),              
             array(
                 'label' => 'Đối tác', 
                 'title' => 'Đối tác', 
                 'route' => 'doi_tac',
                 'id'=>'doi_tac',
+                'class' => '',
+                'attr'  => '',
+                'sub_class' => '',
+                'sub_attr'  => '',
                 'icon' => '<b class="glyphicon glyphicon-signal"></b>',
                 'order' => 1
             ),
@@ -215,6 +224,10 @@ return array(
                 'title' => 'Chính sách', 
                 'route' => 'chinh_sach',
                 'id'=>'chinh_sach',
+                'class' => '',
+                'attr'  => '',
+                'sub_class' => '',
+                'sub_attr'  => '',
                 'icon' => '<b class="glyphicon glyphicon-scissors"></b>',
                 'order' => 2
             ),  
@@ -223,6 +236,10 @@ return array(
                 'title' => 'Thanh toán', 
                 'route' => 'thanh_toan',
                 'id'=>'thanh_toan',
+                'class' => '',
+                'attr'  => '',
+                'sub_class' => '',
+                'sub_attr'  => '',
                 'icon' => '<b class="glyphicon glyphicon-usd"></b>',
                 'order' => 3
             ), 
@@ -231,6 +248,10 @@ return array(
                 'title' => 'Bán hàng', 
                 'route' => 'ban_hang',
                 'id'=>'ban_hang',
+                'class' => '',
+                'attr'  => '',
+                'sub_class' => '',
+                'sub_attr'  => '',
                 'icon' => '<b class="glyphicon glyphicon-shopping-cart"></b>',
                 'order' => 4
             ),  
@@ -239,6 +260,10 @@ return array(
                 'title' => 'Chi nhánh', 
                 'route' => 'chi_nhanh',
                 'id'=>'chi_nhanh',
+                'class' => '',
+                'attr'  => '',
+                'sub_class' => '',
+                'sub_attr'  => '',
                 'icon' => '<b class="fa fa-share-alt"></b>',
                 'order' => 5
             ),
@@ -247,6 +272,10 @@ return array(
                 'title' => 'Thông báo', 
                 'route' => 'thong_bao',
                 'id'=>'thong_bao',
+                'class' => 'dropdown',
+                'attr'  => '',
+                'sub_class' => 'dropdown-toggle',
+                'sub_attr'  => 'data-toggle="dropdown"',
                 'icon' => '<b class="fa fa-bell shake"></b>',
                 'order' => 6
             ),
@@ -254,9 +283,43 @@ return array(
                 'label' => 'Tài khoản', 
                 'title' => 'Tài khoản', 
                 'route' => 'tai_khoan',
-                'id'=>'tai_khoan',
+                'id'    =>'tai_khoan',
+                'class' => 'dropdown',
+                'attr'  => '',
+                'sub_class' => 'dropdown-toggle',
+                'sub_attr'  => 'data-toggle="dropdown"',
                 'icon' => '<i class="fa fa-user fa-lg"></i>',
-                'order' => 7
+                'order' => 7,
+                'pages' => array(
+                    array(
+                        'label' => 'Quản lý tài khoản', 
+                        'title' => 'Quản lý tài khoản', 
+                        'route' => '/tai-khoan',
+                        'id'=>'#',
+                        'icon' => '',
+                        'order' => 2
+                    ),
+                    array(
+                        'label' => 'Thoát', 
+                        'title' => 'Thoát', 
+                        'route' => '/permission/permission/logout',
+                        'id'=>'#',
+                        'icon' => '',
+                        'order' => 1
+                    ),
+                ),
+            ),
+                  
+        ),
+    ),
+
+    'navigation_right' => array(
+        'default' => array(
+            array(
+                'route' => 'hang_hoa',
+                'pages' => array(
+                    
+                ),
             ),
                   
         ),

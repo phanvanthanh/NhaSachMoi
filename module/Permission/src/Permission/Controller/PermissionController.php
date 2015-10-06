@@ -292,8 +292,8 @@ class PermissionController extends AbstractActionController
         $this->layout('layout/layout_default'); 
         // kiểm tra nếu đã đăng nhập rồi thì không cho zô
         $read=$this->getAuthService()->getStorage()->read();
-        if(isset($read['username']) and $read['username']){
-            return $this->redirect()->toRoute('home');
+        if(isset($read['user_id']) and $read['user_id']){
+            return $this->redirect()->toRoute('hang_hoa');
         }
         // tạo form login
         $login_form = $this->getServiceLocator()->get('Permission\Form\LoginForm');
@@ -327,11 +327,12 @@ class PermissionController extends AbstractActionController
                     $user=$user_table->getUserByArrayConditionAndArrayColumn(array('username'=>$username), array('user_id'));
                     $user_id=$user[0]['user_id'];
                     $white_list=$jos_admin_resource_table->getResourceByUsername($username);
-                    $this->getAuthService()->getStorage()->write(array('username'=>$username, 'user_id'=>$user_id,'white_list' => $white_list));         
+                    $this->getAuthService()->getStorage()->write(array('user_id'=>$user_id,'white_list' => $white_list));         
                     
                     // thông báo đăng nhập thành công
                     $this->flashMessenger()->addSuccessMessage('Đăng nhập thành công!');
-                    return $this->redirect()->toUrl($url_login);
+                    return $this->redirect()->toRoute('hang_hoa');
+                    //return $this->redirect()->toUrl($url_login);
                 }
             }                
         }

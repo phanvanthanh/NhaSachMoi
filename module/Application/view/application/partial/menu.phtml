@@ -1,8 +1,20 @@
 <?php
 	foreach ($this->container as $page) {
 	?>
-		<li <?php if($page->get('route')==$page->getRouteMatch()->getMatchedRouteName()){ echo 'class="active"'; } ?> id="<?php echo $page->get('id'); ?>" >
-			<a href="<?php echo $this->url($page->get('route')); ?>"><?php echo $page->get('icon'); ?> <span class="hidden-sm hidden-md"><?php echo $page->get('label'); ?></span></a>	
+		<li class="<?php if($page->get('route')==$page->getRouteMatch()->getMatchedRouteName()){ echo ' active '; } echo $page->get('class'); ?>" id="<?php echo $page->get('id'); ?>" <?php echo $page->get('attr'); ?>>
+			<a href="<?php echo $this->url($page->get('route')); ?>" class="<?php echo $page->get('sub_class'); ?>" <?php echo $page->get('sub_attr'); ?>><?php echo $page->get('icon'); ?> <span class="hidden-sm hidden-md"><?php echo $page->get('label'); ?></span></a>
+			<?php 
+				if($page->get('pages')){
+					echo '<ul class="dropdown-menu">';
+					$key=0;
+					foreach ($page->get('pages') as $child_page) {
+						$key++;
+						if($key>1){ echo '<li class="divider"></li>'; }
+						echo '<li><a href="'.$child_page->get("route").'" id="'.$child_page->get('id').'">'.$child_page->get('icon').$child_page->get('label').'</a></li>';
+					}
+					echo '</ul>';
+				}
+			?>	
 		</li>
 	<?php
 	}	
