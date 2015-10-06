@@ -48,7 +48,7 @@ class Module
             return $response;
         }        
         $read=$sm->get("AuthService")->getStorage()->read();
-        $white_lists=$read['white_list'];
+        $white_lists=$read['white_list'];       
         // url cần chuyển tới
         $params=$event->getRouteMatch()->getParams();
         $controller=$params['controller'];
@@ -64,6 +64,19 @@ class Module
             }
         }                
         if($is_white_list==0){
+            if((!$auth->hasIdentity() || !isset($read['user_id']))){
+                // nếu chưa đăng nhập thì chỉ được vào trang đăng nhập
+                $response = $event->getResponse();
+                $response->getHeaders()
+                    ->addHeaderLine('Location', $event->getRouter()
+                    ->assemble(array(
+                    'action' => 'login'
+                ), array(
+                    'name' => 'permission/permission'
+                )));
+                $response->setStatusCode(302);
+                return $response;
+            }
             die('Xin loi, Duong dan khong hop le. Vui long kiem tra lai!');
         }         
     }

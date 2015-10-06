@@ -28,7 +28,7 @@ return array(
                     'route'    => '/permission',
                     'defaults' => array(
                         '__NAMESPACE__' => 'Permission\Controller',
-                        'controller'    => 'User',
+                        'controller'    => 'Permission',
                         'action'        => 'login',
                     ),
                 ),
@@ -44,7 +44,7 @@ return array(
                             ),
                             'defaults' => array(
                                 'controller' => 'Permission\Controller\Permission',
-                                'action' => 'index'
+                                'action' => 'login'
                             )
                         )
                     ),
