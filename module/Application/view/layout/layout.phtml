@@ -50,7 +50,7 @@
 
     </head>
     <body>        
-        <div id="alert" class="alert alert-success">
+        <div id="alert" class="alert alert-success hide">
           <button type="button" class="close" data-dismiss="alert">x</button>
           <span>Thông báo</span>
         </div>
@@ -111,6 +111,32 @@
               </div>
             </div>
             <div class="col-xs-12 col-sm-7 col-md-8 col-lg-9">
+              <?php
+                // báo cáo xử lý băng zend
+                $flash=$this->flashMessenger();
+                $flash->setMessageOpenFormat('<div%s>
+                 <button type="button" id="btn-flash-messenger" class="close" data-dismiss="alert" aria-hidden="true">
+                     &times;
+                 </button>
+                 <ul><li>')
+                 ->setMessageSeparatorString('</li><li>')
+                 ->setMessageCloseString('</li></ul></div>');
+                 $error=$flash->render('error', array('alert', 'alert-dismissable','alert-danger'));
+                 echo $error;
+                 $info=$flash->render('info',    array('alert', 'alert-dismissable', 'alert-info'));
+                 echo $info;
+                 $default=$flash->render('default', array('alert', 'alert-dismissable', 'alert-warning'));
+                 echo $default;
+                 $success=$flash->render('success', array('alert', 'alert-dismissable', 'alert-success'));
+                 echo $success;                     
+                if($error||$success||$info||$default)
+                { 
+                  echo "
+                    <script type='text/javascript'>
+                      jQuery('.alert').slideDown('slow').delay(1000).slideUp('slow');
+                    </script>";                       
+                }
+              ?> 
               <?php echo $this->content; ?>
             </div>
           </div>             

@@ -20,6 +20,10 @@ class HangHoaController extends AbstractActionController
     }
 
     public function danhSachSanPhamAction(){
-
+    	$return=array();
+    	$san_pham_table=$this->getServiceLocator()->get('Application\Model\SanPhamTable');
+    	$danh_sach_san_pham=$san_pham_table->getSanPhamByArrayConditionAndArrayColumn(array(), array('ten_san_pham', 'ma_san_pham', 'ton_kho', 'id_loai_san_pham','nhan'));
+    	$return['danh_sach_san_pham']=$danh_sach_san_pham;
+    	return $return;
     }
 }

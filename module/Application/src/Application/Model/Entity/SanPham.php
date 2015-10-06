@@ -7,7 +7,9 @@ class SanPham
     protected $id_san_pham;
     protected $id_kho;
     protected $id_don_vi_tinh;
-    protected $id_loai;
+    protected $id_loai_san_pham;
+    protected $id_barcode;
+    protected $ma_vach;
     protected $ma_san_pham;
     protected $ten_san_pham;
     protected $mo_ta;
@@ -18,8 +20,6 @@ class SanPham
     protected $gia_nhap;
     protected $gia_bia;
     protected $chiec_khau;
-    protected $ma_vach;
-    protected $id_barcode;
    
     
 
