@@ -1,9 +1,9 @@
 <?php
-	foreach ($this->container as $page) {
+	foreach ($this->container as $page) {		
 		if($page->get('route')==$page->getRouteMatch()->getMatchedRouteName()){
 			if($page->get('pages')){
 				foreach ($page->get('pages') as $child_page) { ?>
-					<li class="" onclick="setLocation('<?php $child_page->get('route'); ?>')">
+					<li class="<?php if($child_page->get('route')==$page->getRouter()->getRequestUri()->getPath()){ echo 'active'; } ?>" onclick="setLocation('<?php echo $child_page->get('route'); ?>')">
                       <a href="#">
                       	<?php echo $child_page->get('icon').' '.$child_page->get('title'); ?>
                       </a>

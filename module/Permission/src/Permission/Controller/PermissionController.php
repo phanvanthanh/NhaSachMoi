@@ -63,11 +63,11 @@ class PermissionController extends AbstractActionController
                         }
                     }
                     $this->flashMessenger()->addSuccessMessage('Chúc mừng, Cập nhật quyền thành công.');               
-                    return $this->redirect()->toRoute('permission/permission', array('index'));
+                    return $this->redirect()->toRoute('permission/permission', array('action'=>'index'));
                 } 
                 // Lỗi, role id không tồn tại
                 $this->flashMessenger()->addErrorMessage('Thông báo, Role không tồn tại. Vui lòng kiểm tra lại!');               
-                return $this->redirect()->toRoute('permission/permission', array('index'));
+                return $this->redirect()->toRoute('permission/permission', array('action'=>'index'));
             }
         }
         $return_array['resources']=$resources;

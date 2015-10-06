@@ -43,6 +43,7 @@ class Module
             'factories' => array(
                 'Application\Model\SanPhamTable' => 'Application\Factory\Table\SanPhamTableFactory',
                 'Navigation' => 'Application\Navigation\MyNavigationFactory',
+                'NavigationRight' => 'Application\Navigation\MyNavigationRightFactory',
             )
             
         );

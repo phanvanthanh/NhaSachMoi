@@ -318,7 +318,187 @@ return array(
             array(
                 'route' => 'hang_hoa',
                 'pages' => array(
+                    array(
+                        'label' => ' Bảng giá', 
+                        'title' => ' Bảng giá', 
+                        'route' => '/hang-hoa',
+                        'id'=>'#',
+                        'icon' => '',
+                        'order' => 1
+                    ),
+                    array(
+                        'label' => ' Danh sách sản phẩm', 
+                        'title' => ' Danh sách sản phẩm', 
+                        'route' => '/hang-hoa/danh-sach-san-pham',
+                        'id'=>'#',
+                        'icon' => '',
+                        'order' => 1
+                    ),
                     
+                    array(
+                        'label' => ' Nhập hàng', 
+                        'title' => ' Nhập hàng', 
+                        'route' => '/hang-hoa/nhap-hang',
+                        'id'=>'#',
+                        'icon' => '',
+                        'order' => 1
+                    ),
+                    array(
+                        'label' => ' Xuất hàng', 
+                        'title' => ' Xuất hàng', 
+                        'route' => '/hang-hoa/xuat-hang',
+                        'id'=>'#',
+                        'icon' => '',
+                        'order' => 1
+                    ),
+                    array(
+                        'label' => ' Đổi trả hàng', 
+                        'title' => ' Đổi trả hàng', 
+                        'route' => '/hang-hoa/doi-tra-hang',
+                        'id'=>'#',
+                        'icon' => '',
+                        'order' => 1
+                    ),
+                ),
+            ),
+
+            array(
+                'route' => 'doi_tac',
+                'pages' => array(
+                    array(
+                        'label' => ' Khách hàng', 
+                        'title' => ' Khách hàng', 
+                        'route' => '/doi-tac/khach-hang',
+                        'id'=>'#',
+                        'icon' => '',
+                        'order' => 1
+                    ),  
+                    array(
+                        'label' => ' Nhà cung cấp', 
+                        'title' => ' Nhà cung cấp', 
+                        'route' => '/doi-tac/nha-cung-cap',
+                        'id'=>'#',
+                        'icon' => '',
+                        'order' => 1
+                    ),                   
+                ),
+            ),
+
+            array(
+                'route' => 'thanh_toan',
+                'pages' => array(
+                    array(
+                        'label' => ' Tổng hợp thu chi', 
+                        'title' => ' Tổng hợp thu chi', 
+                        'route' => '/thanh-toan/tong-hop-thu-chi',
+                        'id'=>'#',
+                        'icon' => '',
+                        'order' => 1
+                    ), 
+                    array(
+                        'label' => ' Khách hàng', 
+                        'title' => ' Khách hàng', 
+                        'route' => '/thanh-toan/khach-hang',
+                        'id'=>'#',
+                        'icon' => '',
+                        'order' => 1
+                    ),   
+                    array(
+                        'label' => ' Nhà cung cấp', 
+                        'title' => ' Nhà cung cấp', 
+                        'route' => '/thanh-toan/nha-cung-cap',
+                        'id'=>'#',
+                        'icon' => '',
+                        'order' => 1
+                    ),  
+                    array(
+                        'label' => ' Phiếu thu', 
+                        'title' => ' Phiếu thu', 
+                        'route' => '/thanh-toan/phieu-thu',
+                        'id'=>'#',
+                        'icon' => '',
+                        'order' => 1
+                    ),
+                    array(
+                        'label' => ' Phiếu chi', 
+                        'title' => ' Phiếu chi', 
+                        'route' => '/thanh-toan/phieu-chi',
+                        'id'=>'#',
+                        'icon' => '',
+                        'order' => 1
+                    ),                 
+                ),
+            ),
+
+            array(
+                'route' => 'ban_hang',
+                'pages' => array(
+                    array(
+                        'label' => ' Doanh thu', 
+                        'title' => ' Doanh thu', 
+                        'route' => '/ban-hang/doanh-thu',
+                        'id'=>'#',
+                        'icon' => '',
+                        'order' => 1
+                    ),  
+                    array(
+                        'label' => ' Phiếu xuất', 
+                        'title' => ' phiếu xuất', 
+                        'route' => '/ban-hang/phieu-xuat',
+                        'id'=>'#',
+                        'icon' => '',
+                        'order' => 1
+                    ),
+                    array(
+                        'label' => ' Phiếu nhập', 
+                        'title' => ' Phiếu nhập', 
+                        'route' => '/ban-hang/phieu-nhap',
+                        'id'=>'#',
+                        'icon' => '',
+                        'order' => 1
+                    ),                              
+                ),
+            ),
+            array(
+                'route' => 'tai_khoan',
+                'pages' => array(
+                    array(
+                        'label' => ' Danh sách tài khoản', 
+                        'title' => ' Danh sách tài khoản', 
+                        'route' => '/tai-khoan/danh-sach-tai-khoan',
+                        'id'=>'#',
+                        'icon' => '',
+                        'order' => 1
+                    ),  
+                    array(
+                        'label' => ' Thoát', 
+                        'title' => ' Thoát', 
+                        'route' => '/permission/permission/logout',
+                        'id'=>'#',
+                        'icon' => '',
+                        'order' => 1
+                    ),                              
+                ),
+            ),
+            array(
+                'route' => 'permission/permission',
+                'pages' => array(
+                    array(
+                        'label' => ' Phân quyền', 
+                        'title' => ' Phân quyền', 
+                        'route' => '/permission/permission/index',
+                        'id'=>'#',
+                        'icon' => '',
+                        'order' => 1
+                    ),  
+                    array(
+                        'label' => ' Sửa quyền', 
+                        'title' => ' Sửa quyền', 
+                        'route' => '/permission/permission/edit',
+                        'id'=>'#',
+                        'icon' => '',
+                        'order' => 1
+                    ),                              
                 ),
             ),
                   

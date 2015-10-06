@@ -18,4 +18,8 @@ class HangHoaController extends AbstractActionController
     {
         
     }
+
+    public function danhSachSanPhamAction(){
+
+    }
 }
