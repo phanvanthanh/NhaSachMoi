@@ -319,21 +319,22 @@ return array(
                 'route' => 'hang_hoa',
                 'pages' => array(
                     array(
-                        'label' => ' Bảng giá', 
-                        'title' => ' Bảng giá', 
+                        'label' => ' Danh sách sản phẩm', 
+                        'title' => ' Danh sách sản phẩm', 
                         'route' => '/hang-hoa',
                         'id'=>'#',
                         'icon' => '',
                         'order' => 1
                     ),
+
                     array(
-                        'label' => ' Danh sách sản phẩm', 
-                        'title' => ' Danh sách sản phẩm', 
-                        'route' => '/hang-hoa/danh-sach-san-pham',
+                        'label' => ' Bảng giá', 
+                        'title' => ' Bảng giá', 
+                        'route' => '/hang-hoa/bang-gia',
                         'id'=>'#',
                         'icon' => '',
                         'order' => 1
-                    ),
+                    ),                    
                     
                     array(
                         'label' => ' Nhập hàng', 
@@ -381,6 +382,34 @@ return array(
                         'icon' => '',
                         'order' => 1
                     ),                   
+                ),
+            ),
+
+            array(
+                'route' => 'chinh_sach',
+                'pages' => array(
+                    array(
+                        'label' => ' Chính sách', 
+                        'title' => ' Chính sách', 
+                        'route' => '/chinh-sach',
+                        'id'=>'#',
+                        'icon' => '',
+                        'order' => 1
+                    ),                  
+                ),
+            ),
+
+            array(
+                'route' => 'chi_nhanh',
+                'pages' => array(
+                    array(
+                        'label' => ' Chi nhánh', 
+                        'title' => ' Chi nhánh', 
+                        'route' => '/chi-nhanh',
+                        'id'=>'#',
+                        'icon' => '',
+                        'order' => 1
+                    ),                  
                 ),
             ),
 

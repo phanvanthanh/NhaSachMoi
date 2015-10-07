@@ -19,7 +19,7 @@ class SanPhamTable
 
     /*
         sử dụng trong phương thức saveSanPham
-        sử dụng trong Application/Controller/HangHoaController danhSachSanPhamAction
+        sử dụng trong Application/Controller/HangHoaController indexAction
     */
     public function getSanPhamByArrayConditionAndArrayColumn($array_conditions=array(), $array_columns=array()){
         /*

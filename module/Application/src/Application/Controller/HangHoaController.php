@@ -13,26 +13,33 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Application\Model\Entity\SanPham;
 
+
 class HangHoaController extends AbstractActionController
 {
     public function indexAction()
     {
-        
+        $return=array();
+        $id_kho=$this->AuthService()->getIdKho();       
+        $san_pham_table=$this->getServiceLocator()->get('Application\Model\SanPhamTable');
+        $danh_sach_san_pham=$san_pham_table->getSanPhamByArrayConditionAndArrayColumn(array('id_kho'=>$id_kho), array('ten_san_pham', 'ma_san_pham', 'ton_kho', 'loai_san_pham','nhan'));
+        $return['danh_sach_san_pham']=$danh_sach_san_pham;
+        return $return;
     }
 
-    public function danhSachSanPhamAction(){
-    	$return=array();
-    	$san_pham_table=$this->getServiceLocator()->get('Application\Model\SanPhamTable');
-    	$danh_sach_san_pham=$san_pham_table->getSanPhamByArrayConditionAndArrayColumn(array(), array('ten_san_pham', 'ma_san_pham', 'ton_kho', 'loai_san_pham','nhan'));
-    	$return['danh_sach_san_pham']=$danh_sach_san_pham;
-    	return $return;
+    public function bangGiaAction(){
+    	
     }
 
     public function themSanPhamAction(){
+        
+    }
+
+    public function createDataAction(){
+        
         $san_pham_table=$this->getServiceLocator()->get('Application\Model\SanPhamTable');
-        for ($i=0; $i < 1000; $i++) { 
+        for ($i=1000; $i < 2000; $i++) { 
             $san_pham_moi=new SanPham();
-            $san_pham_moi->setIdKho(1);
+            $san_pham_moi->setIdKho(2);
             $san_pham_moi->setIdDonViTinh(1);
             $san_pham_moi->setIdBarcode(1);
             $san_pham_moi->setMaSanPham('masp_'.$i);
@@ -49,5 +56,7 @@ class HangHoaController extends AbstractActionController
             $san_pham_moi->setChiecKhau($i);
             $san_pham_table->saveSanPham($san_pham_moi);
         }
+
+        die();
     }
 }

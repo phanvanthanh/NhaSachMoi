@@ -1,14 +1,11 @@
 <?php
-namespace Permission\Model\Entity;
+namespace Application\Model\Entity;
 
-class User
+class KhachHang
 {
     
-    protected $user_id;
-    protected $id_kho;
-    protected $username;
-    protected $password;
-    protected $display_name;
+    protected $id_khach_hang;
+    protected $id_kenh_phan_phoi;
     protected $ho_ten;
     protected $dia_chi;
     protected $email;
@@ -16,18 +13,13 @@ class User
     protected $mo_ta;
     protected $dien_thoai_co_dinh;
     protected $di_dong;
-    protected $twitter;
     protected $hinh_anh;
-
-    
+    protected $ngay_dang_ky;
 
     public function exchangeArray($data)
     {
-        $this->user_id = (isset($data['user_id'])) ? $data['user_id'] : null;
-        $this->id_kho = (isset($data['id_kho'])) ? $data['id_kho'] : null;
-        $this->username = (isset($data['username'])) ? $data['username'] : null;
-        $this->password = (isset($data['password'])) ? $data['password'] : null;
-        $this->display_name = (isset($data['display_name'])) ? $data['display_name'] : null;
+        $this->id_khach_hang = (isset($data['id_khach_hang'])) ? $data['id_khach_hang'] : null;
+        $this->id_kenh_phan_phoi = (isset($data['id_kenh_phan_phoi'])) ? $data['id_kenh_phan_phoi'] : null;
         $this->ho_ten = (isset($data['ho_ten'])) ? $data['ho_ten'] : null;
         $this->dia_chi = (isset($data['dia_chi'])) ? $data['dia_chi'] : null;
         $this->email = (isset($data['email'])) ? $data['email'] : null;
@@ -35,8 +27,8 @@ class User
         $this->mo_ta = (isset($data['mo_ta'])) ? $data['mo_ta'] : null;
         $this->dien_thoai_co_dinh = (isset($data['dien_thoai_co_dinh'])) ? $data['dien_thoai_co_dinh'] : null;
         $this->di_dong = (isset($data['di_dong'])) ? $data['di_dong'] : null;
-        $this->twitter = (isset($data['twitter'])) ? $data['twitter'] : null;
         $this->hinh_anh = (isset($data['hinh_anh'])) ? $data['hinh_anh'] : null;
+        $this->ngay_dang_ky = (isset($data['ngay_dang_ky'])) ? $data['ngay_dang_ky'] : null;
     }
 
     
@@ -46,47 +38,23 @@ class User
         return get_object_vars($this);
     }
 
-    public function setUserId($user_id)
+    public function setIdKhachHang($id_khach_hang)
     {
-        $this->user_id=$user_id;
-
+        $this->id_khach_hang=$id_khach_hang;
     }
-    public function getUserId()
+    public function getIdKhachHang()
     {
-        return $this->user_id;           
-    }
+        return $this->id_khach_hang;
+    } 
 
-    public function setUsername($username)
+    public function setIdKenhPhanPhoi($id_kenh_phan_phoi)
     {
-        $this->username=$username;
+        $this->id_kenh_phan_phoi=$id_kenh_phan_phoi;
     }
-
-    public function getUsername()
+    public function getIdKenhPhanPhoi()
     {
-        return $this->username;
-    }
-
-    public function setPassword($password)
-    {
-        return $this->password=$password;
-    }
-
-    public function getPassword()
-    {
-        return $this->password;
-    }
-
-
-
-    public function setDisplayName($display_name)
-    {
-        $this->display_name=$display_name;
-    }
-
-    public function getDisplayName()
-    {
-        return $this->display_name;
-    }
+        return $this->id_kenh_phan_phoi;
+    }    
 
     public function setHoTen($ho_ten)
     {
@@ -149,27 +117,7 @@ class User
     public function getDiDong()
     {
         return $this->di_dong;
-    }
-
-
-    public function setTwitter($twitter)
-    {
-        $this->twitter=$twitter;
-    }
-    public function getTwitter()
-    {
-        return $this->twitter;
-    }
-
-    public function setIdKho($id_kho)
-    {
-        $this->id_kho=$id_kho;
-    }
-
-    public function getIdKho()
-    {
-        return $this->id_kho;
-    }
+    }    
 
     public function setHinhAnh($hinh_anh)
     {
@@ -180,5 +128,12 @@ class User
         return $this->hinh_anh;
     }
 
-    
+    public function setNgayDangKy($ngay_dang_ky)
+    {
+        $this->ngay_dang_ky=$ngay_dang_ky;
+    }
+    public function getNgayDangKy()
+    {
+        return $this->ngay_dang_ky;
+    }
 }

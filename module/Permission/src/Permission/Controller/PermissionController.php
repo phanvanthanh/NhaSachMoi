@@ -324,10 +324,11 @@ class PermissionController extends AbstractActionController
                     $storage->forgetMe();
                     $jos_admin_resource_table=$this->getServiceLocator()->get('Permission\Model\JosAdminResourceTable');
                     $user_table=$this->getServiceLocator()->get('Permission\Model\UserTable');
-                    $user=$user_table->getUserByArrayConditionAndArrayColumn(array('username'=>$username), array('user_id'));
+                    $user=$user_table->getUserByArrayConditionAndArrayColumn(array('username'=>$username), array('user_id', 'id_kho'));
                     $user_id=$user[0]['user_id'];
+                    $id_kho=$user[0]['id_kho'];
                     $white_list=$jos_admin_resource_table->getResourceByUsername($username);
-                    $this->getAuthService()->getStorage()->write(array('user_id'=>$user_id,'white_list' => $white_list));         
+                    $this->getAuthService()->getStorage()->write(array('user_id'=>$user_id, 'id_kho'=>$id_kho, 'white_list' => $white_list));         
                     
                     // thông báo đăng nhập thành công
                     $this->flashMessenger()->addSuccessMessage('Đăng nhập thành công!');

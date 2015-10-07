@@ -15,6 +15,7 @@ return array(
     'controller_plugins' => array(
         'invokables' => array(
             'tree_plugin' => 'Permission\Controller\Plugin\TreePlugin', 
+            'auth_service' => 'Permission\Controller\Plugin\AuthService', 
         ),
         'shared'=>array(
             'tree_plugin'=>false,
