@@ -3,6 +3,10 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
         <?php echo $this->headTitle('ZF2 '. $this->translate('Skeleton Application'))->setSeparator(' - ')->setAutoEscape(false) ?>
 
         <?php echo $this->headMeta()
@@ -10,7 +14,7 @@
             ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
         ?>
 
-        <!-- Le styles -->
+        <!-- Le styles -->        
         <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/default/favicon.ico'))
             ->prependStylesheet($this->basePath() . '/css/datatable/dataTables.bootstrap.min.css')
             ->prependStylesheet($this->basePath() . '/css/jquery-ui.css')
@@ -22,6 +26,8 @@
             ->prependStylesheet($this->basePath() . '/css/bootstrap.min.css')
             ->prependStylesheet($this->basePath() . '/font-awesome-4.2.0/css/font-awesome.min.css'); 
         ?>
+        <link href="<?php echo $this->basePath();?>/css/HTML5admin.css" rel="stylesheet">
+        <link href="<?php echo $this->basePath();?>/css/plugins/animate.css" rel="stylesheet">
 
         <!-- Scripts -->
         <?php echo $this->headScript()            
@@ -136,13 +142,26 @@
                       jQuery('.alert').slideDown('slow').delay(1000).slideUp('slow');
                     </script>";                       
                 }
-              ?> 
+              ?>               
               <?php echo $this->content; ?>
             </div>
           </div>             
         </div><!-- content -->
         <div id="footer">
-          
+          <datalist id="languages">
+            <option value="HTML">
+            <option value="CSS">
+            <option value="JavaScript">
+            <option value="Java">
+            <option value="Ruby">
+            <option value="PHP">
+            <option value="Go">
+            <option value="Erlang">
+            <option value="Python">
+            <option value="C">
+            <option value="C#">
+            <option value="C++">
+          </datalist>
         </div><!-- footer -->
     </body>
 </html>

@@ -7,7 +7,7 @@ $(document).ready(function(){
     jQuery('#alert').show('slow').delay(3000).hide('slow');
     */    
 
-    //tableResponsive();
+    tableResponsive();
 
     jQuery('.modal-cap-nhat-quyen').on('click', function(){
         var permission_id=jQuery(this).attr('permission-id');
