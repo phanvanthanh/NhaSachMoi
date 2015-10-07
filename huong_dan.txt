@@ -1,0 +1,4 @@
+1. Vao thu muc config dong module ACL lai: // ACL
+2. Su dung trinh duyet vao dia chi: permission/permission/update
+3. Su dung trinh duyet vao dia chi: permission/permission/index de chinh lai quyen cua user
+4. Vao thu muc config mo lai module ACL: ACL

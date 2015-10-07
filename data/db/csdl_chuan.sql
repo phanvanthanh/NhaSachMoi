@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS `barcode` (
   UNIQUE KEY `ten_barcode` (`ten_barcode`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
--- Dumping data for table nha_sach.barcode: ~1 rows (approximately)
+-- Dumping data for table nha_sach.barcode: ~0 rows (approximately)
 /*!40000 ALTER TABLE `barcode` DISABLE KEYS */;
 /*!40000 ALTER TABLE `barcode` ENABLE KEYS */;
 
@@ -112,7 +112,7 @@ CREATE TABLE IF NOT EXISTS `don_vi_tinh` (
   UNIQUE KEY `don_vi_tinh` (`don_vi_tinh`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
--- Dumping data for table nha_sach.don_vi_tinh: ~1 rows (approximately)
+-- Dumping data for table nha_sach.don_vi_tinh: ~0 rows (approximately)
 /*!40000 ALTER TABLE `don_vi_tinh` DISABLE KEYS */;
 /*!40000 ALTER TABLE `don_vi_tinh` ENABLE KEYS */;
 
@@ -169,8 +169,39 @@ CREATE TABLE IF NOT EXISTS `jos_admin_resource` (
   PRIMARY KEY (`resource_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=148 DEFAULT CHARSET=utf8 COMMENT='Admin Resource Table';
 
--- Dumping data for table nha_sach.jos_admin_resource: ~30 rows (approximately)
+-- Dumping data for table nha_sach.jos_admin_resource: ~0 rows (approximately)
 /*!40000 ALTER TABLE `jos_admin_resource` DISABLE KEYS */;
+INSERT INTO `jos_admin_resource` (`resource_id`, `parent_id`, `resource`, `resource_name`, `resource_type`, `resource_object`, `is_white_list`, `is_hidden`) VALUES
+	(149, 0, 'Permission', 'Permission Module', 'Module', 'ACL', 0, 0),
+	(150, 149, 'Permission\\Controller\\Permission', 'Permission\\Controller\\Permission Controller', 'Controller', 'ACL', 0, 0),
+	(151, 150, 'index', 'index Action', 'Action', 'ACL', 0, 0),
+	(152, 150, 'permissionOfUser', 'permissionOfUser Action', 'Action', 'ACL', 0, 0),
+	(153, 150, 'edit', 'edit Action', 'Action', 'ACL', 0, 0),
+	(154, 150, 'changeWhiteList', 'changeWhiteList Action', 'Action', 'ACL', 0, 0),
+	(155, 150, 'update', 'update Action', 'Action', 'ACL', 0, 0),
+	(156, 150, 'login', 'login Action', 'Action', 'ACL', 0, 0),
+	(157, 150, 'logout', 'logout Action', 'Action', 'ACL', 0, 0),
+	(158, 0, 'Application', 'Application Module', 'Module', 'ACL', 0, 0),
+	(159, 158, 'Application\\Controller\\Index', 'Application\\Controller\\Index Controller', 'Controller', 'ACL', 0, 0),
+	(160, 159, 'index', 'index Action', 'Action', 'ACL', 0, 0),
+	(161, 158, 'Application\\Controller\\HangHoa', 'Application\\Controller\\HangHoa Controller', 'Controller', 'ACL', 0, 0),
+	(162, 161, 'index', 'index Action', 'Action', 'ACL', 0, 0),
+	(163, 161, 'danhSachSanPham', 'danhSachSanPham Action', 'Action', 'ACL', 0, 0),
+	(164, 161, 'themSanPham', 'themSanPham Action', 'Action', 'ACL', 0, 0),
+	(165, 158, 'Application\\Controller\\DoiTac', 'Application\\Controller\\DoiTac Controller', 'Controller', 'ACL', 0, 0),
+	(166, 165, 'index', 'index Action', 'Action', 'ACL', 0, 0),
+	(167, 158, 'Application\\Controller\\ChinhSach', 'Application\\Controller\\ChinhSach Controller', 'Controller', 'ACL', 0, 0),
+	(168, 167, 'index', 'index Action', 'Action', 'ACL', 0, 0),
+	(169, 158, 'Application\\Controller\\ThanhToan', 'Application\\Controller\\ThanhToan Controller', 'Controller', 'ACL', 0, 0),
+	(170, 169, 'index', 'index Action', 'Action', 'ACL', 0, 0),
+	(171, 158, 'Application\\Controller\\BanHang', 'Application\\Controller\\BanHang Controller', 'Controller', 'ACL', 0, 0),
+	(172, 171, 'index', 'index Action', 'Action', 'ACL', 0, 0),
+	(173, 158, 'Application\\Controller\\ChiNhanh', 'Application\\Controller\\ChiNhanh Controller', 'Controller', 'ACL', 0, 0),
+	(174, 173, 'index', 'index Action', 'Action', 'ACL', 0, 0),
+	(175, 158, 'Application\\Controller\\TaiKhoan', 'Application\\Controller\\TaiKhoan Controller', 'Controller', 'ACL', 0, 0),
+	(176, 175, 'index', 'index Action', 'Action', 'ACL', 0, 0),
+	(177, 158, 'Application\\Controller\\ThongBao', 'Application\\Controller\\ThongBao Controller', 'Controller', 'ACL', 0, 0),
+	(178, 177, 'index', 'index Action', 'Action', 'ACL', 0, 0);
 /*!40000 ALTER TABLE `jos_admin_resource` ENABLE KEYS */;
 
 
@@ -202,7 +233,7 @@ CREATE TABLE IF NOT EXISTS `jos_admin_rule` (
   CONSTRAINT `FK_JOS_RULE_ROLE_ID_JOS_ROLE_ROLE_ID` FOREIGN KEY (`role_id`) REFERENCES `jos_admin_role` (`role_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=245 DEFAULT CHARSET=utf8 COMMENT='Admin Rule Table';
 
--- Dumping data for table nha_sach.jos_admin_rule: ~34 rows (approximately)
+-- Dumping data for table nha_sach.jos_admin_rule: ~0 rows (approximately)
 /*!40000 ALTER TABLE `jos_admin_rule` DISABLE KEYS */;
 /*!40000 ALTER TABLE `jos_admin_rule` ENABLE KEYS */;
 
@@ -257,7 +288,7 @@ CREATE TABLE IF NOT EXISTS `kho` (
   PRIMARY KEY (`id_kho`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
--- Dumping data for table nha_sach.kho: ~2 rows (approximately)
+-- Dumping data for table nha_sach.kho: ~1 rows (approximately)
 /*!40000 ALTER TABLE `kho` DISABLE KEYS */;
 INSERT INTO `kho` (`id_kho`, `ten_kho`, `dia_chi_kho`) VALUES
 	(1, 'Nhà Sách', 'Đường Phạm Ngũ Lão, TP. Trà Vinh');
