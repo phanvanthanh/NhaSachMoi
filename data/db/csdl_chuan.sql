@@ -27,8 +27,6 @@ CREATE TABLE IF NOT EXISTS `barcode` (
 
 -- Dumping data for table nha_sach.barcode: ~1 rows (approximately)
 /*!40000 ALTER TABLE `barcode` DISABLE KEYS */;
-INSERT INTO `barcode` (`id_barcode`, `ten_barcode`, `length`, `state`) VALUES
-	(1, 'Code128', NULL, 1);
 /*!40000 ALTER TABLE `barcode` ENABLE KEYS */;
 
 
@@ -116,8 +114,6 @@ CREATE TABLE IF NOT EXISTS `don_vi_tinh` (
 
 -- Dumping data for table nha_sach.don_vi_tinh: ~1 rows (approximately)
 /*!40000 ALTER TABLE `don_vi_tinh` DISABLE KEYS */;
-INSERT INTO `don_vi_tinh` (`id_don_vi_tinh`, `don_vi_tinh`) VALUES
-	(1, 'Cái');
 /*!40000 ALTER TABLE `don_vi_tinh` ENABLE KEYS */;
 
 
@@ -173,39 +169,8 @@ CREATE TABLE IF NOT EXISTS `jos_admin_resource` (
   PRIMARY KEY (`resource_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=148 DEFAULT CHARSET=utf8 COMMENT='Admin Resource Table';
 
--- Dumping data for table nha_sach.jos_admin_resource: ~29 rows (approximately)
+-- Dumping data for table nha_sach.jos_admin_resource: ~30 rows (approximately)
 /*!40000 ALTER TABLE `jos_admin_resource` DISABLE KEYS */;
-INSERT INTO `jos_admin_resource` (`resource_id`, `parent_id`, `resource`, `resource_name`, `resource_type`, `resource_object`, `is_white_list`, `is_hidden`) VALUES
-	(118, 0, 'Permission', 'Permission Module', 'Module', 'ACL', 0, 0),
-	(119, 118, 'Permission\\Controller\\Permission', 'Permission\\Controller\\Permission Controller', 'Controller', 'ACL', 0, 0),
-	(120, 119, 'index', 'index Action', 'Action', 'ACL', 0, 0),
-	(121, 119, 'permissionOfUser', 'permissionOfUser Action', 'Action', 'ACL', 0, 0),
-	(122, 119, 'edit', 'edit Action', 'Action', 'ACL', 0, 0),
-	(123, 119, 'changeWhiteList', 'changeWhiteList Action', 'Action', 'ACL', 0, 0),
-	(124, 119, 'update', 'update Action', 'Action', 'ACL', 0, 0),
-	(125, 119, 'login', 'login Action', 'Action', 'ACL', 1, 0),
-	(126, 119, 'logout', 'logout Action', 'Action', 'ACL', 1, 0),
-	(128, 0, 'Application', 'Application Module', 'Module', 'ACL', 0, 0),
-	(129, 128, 'Application\\Controller\\Index', 'Application\\Controller\\Index Controller', 'Controller', 'ACL', 0, 0),
-	(130, 129, 'index', 'index Action', 'Action', 'ACL', 0, 0),
-	(131, 128, 'Application\\Controller\\HangHoa', 'Application\\Controller\\HangHoa Controller', 'Controller', 'ACL', 0, 0),
-	(132, 131, 'index', 'index Action', 'Action', 'ACL', 0, 0),
-	(133, 128, 'Application\\Controller\\DoiTac', 'Application\\Controller\\DoiTac Controller', 'Controller', 'ACL', 0, 0),
-	(134, 133, 'index', 'index Action', 'Action', 'ACL', 0, 0),
-	(135, 128, 'Application\\Controller\\ChinhSach', 'Application\\Controller\\ChinhSach Controller', 'Controller', 'ACL', 0, 0),
-	(136, 135, 'index', 'index Action', 'Action', 'ACL', 0, 0),
-	(137, 128, 'Application\\Controller\\ThanhToan', 'Application\\Controller\\ThanhToan Controller', 'Controller', 'ACL', 0, 0),
-	(138, 137, 'index', 'index Action', 'Action', 'ACL', 0, 0),
-	(139, 128, 'Application\\Controller\\BanHang', 'Application\\Controller\\BanHang Controller', 'Controller', 'ACL', 0, 0),
-	(140, 139, 'index', 'index Action', 'Action', 'ACL', 0, 0),
-	(141, 128, 'Application\\Controller\\ChiNhanh', 'Application\\Controller\\ChiNhanh Controller', 'Controller', 'ACL', 0, 0),
-	(142, 141, 'index', 'index Action', 'Action', 'ACL', 0, 0),
-	(143, 128, 'Application\\Controller\\TaiKhoan', 'Application\\Controller\\TaiKhoan Controller', 'Controller', 'ACL', 0, 0),
-	(144, 143, 'index', 'index Action', 'Action', 'ACL', 0, 0),
-	(145, 128, 'Application\\Controller\\ThongBao', 'Application\\Controller\\ThongBao Controller', 'Controller', 'ACL', 0, 0),
-	(146, 145, 'index', 'index Action', 'Action', 'ACL', 0, 0),
-	(147, 131, 'danhSachSanPham', 'danhSachSanPham Action', 'Action', 'ACL', 0, 0),
-	(148, 131, 'themSanPham', 'themSanPham Action', 'Action', 'ACL', 0, 0);
 /*!40000 ALTER TABLE `jos_admin_resource` ENABLE KEYS */;
 
 
@@ -237,43 +202,8 @@ CREATE TABLE IF NOT EXISTS `jos_admin_rule` (
   CONSTRAINT `FK_JOS_RULE_ROLE_ID_JOS_ROLE_ROLE_ID` FOREIGN KEY (`role_id`) REFERENCES `jos_admin_role` (`role_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=245 DEFAULT CHARSET=utf8 COMMENT='Admin Rule Table';
 
--- Dumping data for table nha_sach.jos_admin_rule: ~33 rows (approximately)
+-- Dumping data for table nha_sach.jos_admin_rule: ~34 rows (approximately)
 /*!40000 ALTER TABLE `jos_admin_rule` DISABLE KEYS */;
-INSERT INTO `jos_admin_rule` (`rule_id`, `role_id`, `resource_id`) VALUES
-	(245, 1, 118),
-	(46, 2, 118),
-	(246, 1, 119),
-	(47, 2, 119),
-	(247, 1, 120),
-	(248, 1, 121),
-	(249, 1, 122),
-	(250, 1, 123),
-	(251, 1, 124),
-	(252, 1, 125),
-	(48, 2, 125),
-	(253, 1, 126),
-	(49, 2, 126),
-	(254, 1, 128),
-	(255, 1, 129),
-	(256, 1, 130),
-	(257, 1, 131),
-	(258, 1, 132),
-	(261, 1, 133),
-	(262, 1, 134),
-	(263, 1, 135),
-	(264, 1, 136),
-	(265, 1, 137),
-	(266, 1, 138),
-	(267, 1, 139),
-	(268, 1, 140),
-	(269, 1, 141),
-	(270, 1, 142),
-	(271, 1, 143),
-	(272, 1, 144),
-	(273, 1, 145),
-	(274, 1, 146),
-	(259, 1, 147),
-	(260, 1, 148);
 /*!40000 ALTER TABLE `jos_admin_rule` ENABLE KEYS */;
 
 
@@ -330,8 +260,7 @@ CREATE TABLE IF NOT EXISTS `kho` (
 -- Dumping data for table nha_sach.kho: ~2 rows (approximately)
 /*!40000 ALTER TABLE `kho` DISABLE KEYS */;
 INSERT INTO `kho` (`id_kho`, `ten_kho`, `dia_chi_kho`) VALUES
-	(1, 'Nha Sach Vinh Quang', 'Duong Pham Ngu Lao Tra Vinh'),
-	(2, 'Nha Sach Vinh Quang 2', 'Duong Kho Dau Tra Vinh');
+	(1, 'Nhà Sách', 'Đường Phạm Ngũ Lão, TP. Trà Vinh');
 /*!40000 ALTER TABLE `kho` ENABLE KEYS */;
 
 
@@ -452,7 +381,7 @@ CREATE TABLE IF NOT EXISTS `san_pham` (
   CONSTRAINT `FK_san_pham_kho` FOREIGN KEY (`id_kho`) REFERENCES `kho` (`id_kho`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=1751 DEFAULT CHARSET=utf8;
 
--- Dumping data for table nha_sach.san_pham: ~1,738 rows (approximately)
+-- Dumping data for table nha_sach.san_pham: ~0 rows (approximately)
 /*!40000 ALTER TABLE `san_pham` DISABLE KEYS */;
 /*!40000 ALTER TABLE `san_pham` ENABLE KEYS */;
 
@@ -483,7 +412,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- Dumping data for table nha_sach.user: ~1 rows (approximately)
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` (`user_id`, `role_id`, `id_kho`, `username`, `email`, `display_name`, `password`, `state`, `ho_ten`, `dia_chi`, `mo_ta`, `dien_thoai_co_dinh`, `di_dong`, `twitter`) VALUES
-	(1, 1, 1, 'admin', NULL, NULL, 'd6b0ab7f1c8ab8f514db9a6d85de160a', 0, '', NULL, NULL, NULL, NULL, NULL);
+	(1, 1, 1, 'admin', 'admin@gmail.com', NULL, 'd6b0ab7f1c8ab8f514db9a6d85de160a', 0, '', NULL, NULL, NULL, NULL, NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
