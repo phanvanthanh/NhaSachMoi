@@ -470,14 +470,14 @@ return array(
                         'icon' => '',
                         'order' => 1
                     ),  
-                    array(
-                        'label' => ' Thoát', 
-                        'title' => ' Thoát', 
-                        'route' => '/permission/permission/logout',
-                        'id'=>'#',
-                        'icon' => '',
-                        'order' => 1
-                    ),                              
+                    // array(
+                    //     'label' => ' Thoát', 
+                    //     'title' => ' Thoát', 
+                    //     'route' => '/permission/permission/logout',
+                    //     'id'=>'#',
+                    //     'icon' => '',
+                    //     'order' => 1
+                    // ),                              
                 ),
             ),
             array(
