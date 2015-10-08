@@ -65,7 +65,7 @@ class ThemSanPhamForm extends Form
             'name' => 'mo_ta',
             'type' => 'Zend\Form\Element\Textarea',
             'options' => array(
-                'label' => "Mô tả"
+                'label' => 'Mô tả'
             ),
             'attributes' => array(
                 'title' => 'Mô tả',
@@ -93,7 +93,7 @@ class ThemSanPhamForm extends Form
             ),
             'attributes' => array(
                 'title' => 'Nhản sản phẩm',
-                'class' => ''
+                'class' => 'form-control'
             )
         ));
 
@@ -101,13 +101,13 @@ class ThemSanPhamForm extends Form
             'name' => 'loai_gia',
             'type' => 'Zend\Form\Element\Checkbox',
             'options' => array(
-                'label' => "Loại giá",
+                'label' => "Sản phẩm có giá in trên bìa",
                 'use_hidden_element' => true,
                 'checked_value' => 1,
                 'unchecked_value' => 0
             ),
             'attributes' => array(
-                'title' => 'Loại giá',
+                'title' => 'Sản phẩm có giá in trên bìa',
                 'class' => ''
             )
         ));
@@ -120,7 +120,7 @@ class ThemSanPhamForm extends Form
             ),
             'attributes' => array(
                 'title' => 'Giá nhập',
-                'class' => ''
+                'class' => 'form-control'
             )
         ));
 
@@ -132,7 +132,7 @@ class ThemSanPhamForm extends Form
             ),
             'attributes' => array(
                 'title' => 'Giá bìa',
-                'class' => ''
+                'class' => 'form-control'
             )
         ));
 
@@ -144,7 +144,7 @@ class ThemSanPhamForm extends Form
             ),
             'attributes' => array(
                 'title' => 'Chiết khấu',
-                'class' => ''
+                'class' => 'form-control'
             )
         ));
     }

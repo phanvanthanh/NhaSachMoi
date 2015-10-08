@@ -63,7 +63,7 @@ class SanPhamTable
             'loai_gia'          => $san_pham->getLoaiGia(),
             'gia_nhap'          => $san_pham->getGiaNhap(),
             'gia_bia'           => $san_pham->getGiaBia(),
-            'chiec_khau'        => $san_pham->getChiecKhau()
+            'chiet_khau'        => $san_pham->getChietKhau()
 
         );        
         $id_san_pham = (int) $san_pham->getIdSanPham();

@@ -1,59 +1,87 @@
-
-<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right">
-  <a class="btn btn-default" href="/hang-hoa">back</a>
-  <div class="btn btn-primary">save</div>
-</div>
-<div class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
-  <span class="title">THÊM SẢN PHẨM</span>
-</div>
-<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">&nbsp;</div>
-<div class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
-  <div class="form-group">
-    <label>Tên sản phẩm</label>
-    <input type="text" name="name" title="Tên sản phẩm" class="form-control">
-  </div>
-  <div class="form-group">
-    <label>Mã sản phẩm</label>
-    <input type="text" name="name" title="Tên sản phẩm" class="form-control">
-  </div>
-  <div class="form-group">              
-    <span class="btn btn-default btn-file">
-      Browse <input type="file">
-    </span>
-    <img src="img/orther/girl.jpg" alt="..." class="img-circle" width="140px" height="140px">
-  </div>
-  <div class="form-group">
-    <label>Giá sản phẩm</label>
-    <input type="text" name="name" title="Tên sản phẩm" class="form-control">
-  </div>
-  <div class="form-group">
-    <label for="comment">Comment:</label>
-    <textarea class="form-control" rows="5" id="comment"></textarea>
-  </div>
-  <div class="form-group">
-    <label>Email</label>
-    <input type="email" name="email" title="Tên sản phẩm" class="form-control">
-  </div>
-  <!-- checkbox inline -->
-  <div class="form-group">
-    <label class="checkbox-inline">
-      <input type="checkbox" value="">Option 1
-    </label>
-    <label class="checkbox-inline">
-      <input type="checkbox" value="">Option 2
-    </label>
-    <label class="checkbox-inline disabled">
-      <input type="checkbox" value="" disabled>Option 3
-    </label>
-  </div>
-  <!-- radio inline -->
-  <div class="form-group">
-    <label class="radio-inline"><input type="radio" name="optradio">Option 1</label>
-    <label class="radio-inline"><input type="radio" name="optradio">Option 2</label>
-    <label class="radio-inline disabled"><input type="radio" name="optradio" disabled>Option 3</label>
-  </div>  
-</div>
-<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right">
+<?php
+$form=$this->form;
+$form->setAttribute('action', $this->url("hang_hoa", array('action'=>'them-san-pham')));
+$form->setAttribute('class','form');
+$form->setAttribute('role','form');
+$form->setAttribute('method','post');
+$form->prepare();
+echo $this->form()->openTag($form);
+?>
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right">
     <a class="btn btn-default" href="/hang-hoa">back</a>
-    <div class="btn btn-primary">save</div>
+    <button class="btn btn-primary">save</button>
   </div>
+  <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
+    <span class="title">THÊM SẢN PHẨM</span>
+  </div>
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">&nbsp;</div>
+  <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
+    <div class="form-group">
+      <label><?php echo $this->formLabel($form->get('ten_san_pham')); ?></label>
+      <?php echo $this->formInput($form->get('ten_san_pham')); ?>
+    </div>
+    <div class="form-group">
+      <label><?php echo $this->formLabel($form->get('ma_san_pham')); ?></label>
+      <?php echo $this->formInput($form->get('ma_san_pham')); ?>
+    </div>
+    <div class="form-group">
+      <label><?php echo $this->formLabel($form->get('ma_vach')); ?></label>
+      <?php echo $this->formInput($form->get('ma_vach')); ?>
+    </div>
+
+    <div class="form-group">
+      <label><?php echo $this->formLabel($form->get('mo_ta')); ?></label>
+      <?php 
+      $form->get('mo_ta')->setAttribute('rows',5); 
+      echo $this->formTextarea($form->get('mo_ta'));
+      ?>
+      <?php  ?>
+    </div>    
+    <div class="form-group">              
+      <span class="btn btn-default btn-file">
+        Browse 
+        <?php echo $this->formInput($form->get('hinh_anh')); ?>
+      </span>
+      <!-- <img src="img/orther/girl.jpg" alt="..." class="img-circle" width="140px" height="140px"> -->
+    </div>   
+    <div class="form-group">
+      <label><?php echo $this->formLabel($form->get('loai_san_pham')); ?></label>
+      <?php echo $this->formInput($form->get('loai_san_pham')); ?>
+    </div> 
+    <div class="form-group">
+      <label><?php echo $this->formLabel($form->get('id_don_vi_tinh')); ?></label>
+      <?php echo $this->formSelect($form->get('id_don_vi_tinh')); ?>
+    </div>
+    <div class="form-group">
+      <label><?php echo $this->formLabel($form->get('nhan')); ?></label>
+      <?php echo $this->formInput($form->get('nhan')); ?>
+    </div>
+
+    <div class="form-group">
+      <?php echo $this->formCheckbox($form->get('loai_gia')); ?>
+      <label><?php echo $this->formLabel($form->get('loai_gia')); ?></label>
+    </div>
+
+    <div class="form-group">
+      <label><?php echo $this->formLabel($form->get('gia_nhap')); ?></label>
+      <?php echo $this->formInput($form->get('gia_nhap')); ?>
+    </div>
+
+    <div class="form-group">
+      <label><?php echo $this->formLabel($form->get('gia_bia')); ?></label>
+      <?php echo $this->formInput($form->get('gia_bia')); ?>
+    </div>
+
+    <div class="form-group">
+      <label><?php echo $this->formLabel($form->get('chiet_khau')); ?></label>
+      <?php echo $this->formInput($form->get('chiet_khau')); ?>
+    </div>
+
+  </div>
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right">
+    <a class="btn btn-default" href="/hang-hoa">back</a>
+    <button class="btn btn-primary">save</button>
+  </div>
+<?php
+echo $this->form()->closeTag($form);
+?>

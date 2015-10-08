@@ -12,7 +12,6 @@ class ThemSanPhamFormFactory implements FactoryInterface
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         $form = new ThemSanPhamForm();        
-        
         $don_vi_tinh_value_options=array();
         $storage=$serviceLocator->get('AuthService')->getStorage();
         $read=$storage->read();
@@ -26,7 +25,10 @@ class ThemSanPhamFormFactory implements FactoryInterface
                 'label' => 'Chọn đơn vị tính',
                 'empty_option' => '-----Chọn-----',
                 'value_options' => $don_vi_tinh_value_options,
-            )
+            ),
+            'attributes'    => array(
+                'class' => 'form-control'
+            ),
         ));
         
         $form->setInputFilter(new ThemSanPhamFormFilter());
