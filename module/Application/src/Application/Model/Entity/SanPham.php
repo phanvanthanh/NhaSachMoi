@@ -19,7 +19,7 @@ class SanPham
     protected $loai_gia;
     protected $gia_nhap;
     protected $gia_bia;
-    protected $chiec_khau;
+    protected $chiet_khau;
    
     
 
@@ -38,7 +38,7 @@ class SanPham
         $this->loai_gia = (isset($data['loai_gia'])) ? $data['loai_gia'] : null;
         $this->gia_nhap = (isset($data['gia_nhap'])) ? $data['gia_nhap'] : null;
         $this->gia_bia = (isset($data['gia_bia'])) ? $data['gia_bia'] : null;
-        $this->chiec_khau = (isset($data['chiec_khau'])) ? $data['chiec_khau'] : null;
+        $this->chiet_khau = (isset($data['chiet_khau'])) ? $data['chiet_khau'] : null;
         $this->ma_vach = (isset($data['ma_vach'])) ? $data['ma_vach'] : null;
         $this->id_barcode = (isset($data['id_barcode'])) ? $data['id_barcode'] : null;
 
@@ -182,14 +182,14 @@ class SanPham
         return $this->gia_bia;
     }
 
-    public function setChiecKhau($chiec_khau)
+    public function setChietKhau($chiet_khau)
     {
-        $this->chiec_khau=$chiec_khau;
+        $this->chiet_khau=$chiet_khau;
     }
 
-    public function getChiecKhau()
+    public function getChietKhau()
     {
-        return $this->chiec_khau;
+        return $this->chiet_khau;
     }
 
     public function setMaVach($ma_vach)

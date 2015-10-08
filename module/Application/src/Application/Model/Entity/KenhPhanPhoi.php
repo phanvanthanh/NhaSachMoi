@@ -8,14 +8,14 @@ class KenhPhanPhoi
     protected $id_kenh_phan_phoi;
     protected $id_kho;
     protected $kenh_phan_phoi;
-    protected $chiec_khau;
+    protected $chiet_khau;
 
     public function exchangeArray($data)
     {
         $this->id_kenh_phan_phoi = (isset($data['id_kenh_phan_phoi'])) ? $data['id_kenh_phan_phoi'] : null;
         $this->id_kho = (isset($data['id_kho'])) ? $data['id_kho'] : null;
         $this->kenh_phan_phoi = (isset($data['kenh_phan_phoi'])) ? $data['kenh_phan_phoi'] : null;
-        $this->chiec_khau = (isset($data['chiec_khau'])) ? $data['chiec_khau'] : null;
+        $this->chiet_khau = (isset($data['chiet_khau'])) ? $data['chiet_khau'] : null;
     }    
 
     public function getArrayCopy()
@@ -53,14 +53,14 @@ class KenhPhanPhoi
         return $this->kenh_phan_phoi;
     }
 
-    public function setChiecKhau($chiec_khau)
+    public function setChietKhau($chiet_khau)
     {
-        $this->chiec_khau=$chiec_khau;
+        $this->chiet_khau=$chiet_khau;
     }
 
-    public function getChiecKhau()
+    public function getChietKhau()
     {
-        return $this->chiec_khau;
+        return $this->chiet_khau;
     }
 
     

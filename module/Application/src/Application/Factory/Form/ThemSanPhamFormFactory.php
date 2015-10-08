@@ -13,14 +13,19 @@ class ThemSanPhamFormFactory implements FactoryInterface
     {
         $form = new ThemSanPhamForm();        
         
-        $value_options=array();
+        $don_vi_tinh_value_options=array();
+        $storage=$serviceLocator->get('AuthService')->getStorage();
+        $read=$storage->read();
+        $id_kho=$read['id_kho'];
+        $don_vi_tinh_table=$serviceLocator->get('Application\Model\DonViTinhTable');
+        $don_vi_tinh_value_options=$don_vi_tinh_table->getDonViTinhByKhoId($id_kho);
         $form->add(array(
             'type' => 'Zend\Form\Element\Select',
             'name' => 'id_don_vi_tinh',
             'options' => array(
                 'label' => 'Chọn đơn vị tính',
                 'empty_option' => '-----Chọn-----',
-                'value_options' => $value_options,
+                'value_options' => $don_vi_tinh_value_options,
             )
         ));
         

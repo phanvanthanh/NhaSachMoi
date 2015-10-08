@@ -40,10 +40,29 @@ class Module
     public function getServiceConfig()
     {
         return array(
-            'factories' => array(
-                'Application\Model\SanPhamTable' => 'Application\Factory\Table\SanPhamTableFactory',
+            'factories' => array(  
+                // navigation              
                 'Navigation' => 'Application\Navigation\MyNavigationFactory',
                 'NavigationRight' => 'Application\Navigation\MyNavigationRightFactory',
+                // model
+                'Application\Model\SanPhamTable' => 'Application\Factory\Table\SanPhamTableFactory',
+                'Application\Model\BarcodeTable' => 'Application\Factory\Table\BarcodeTableFactory',
+                'Application\Model\CongNoKhachHangTable' => 'Application\Factory\Table\CongNoKhachHangTableFactory',
+                'Application\Model\CongNoNhaCungCapTable' => 'Application\Factory\Table\CongNoNhaCungCapTableFactory',
+                'Application\Model\CtHoaDonTable' => 'Application\Factory\Table\CtHoaDonTableFactory',
+                'Application\Model\CtPhieuNhapTable' => 'Application\Factory\Table\CtPhieuNhapTableFactory',
+                'Application\Model\DonViTinhTable' => 'Application\Factory\Table\DonViTinhTableFactory',
+                'Application\Model\GiaXuatTable' => 'Application\Factory\Table\GiaXuatTableFactory',
+                'Application\Model\HoaDonTable' => 'Application\Factory\Table\HoaDonTableFactory',
+                'Application\Model\KenhPhanPhoiTable' => 'Application\Factory\Table\KenhPhanPhoiTableFactory',
+                'Application\Model\KhachHangTable' => 'Application\Factory\Table\KhachHangTableFactory',
+                'Application\Model\KhoTable' => 'Application\Factory\Table\KhoTableFactory',
+                'Application\Model\NhaCungCapTable' => 'Application\Factory\Table\NhaCungCapTableFactory',
+                'Application\Model\PhieuChiTable' => 'Application\Factory\Table\PhieuChiTableFactory',
+                'Application\Model\PhieuNhapTable' => 'Application\Factory\Table\PhieuNhapTableFactory',
+                'Application\Model\PhieuThuTable' => 'Application\Factory\Table\PhieuThuTableFactory',
+                // form
+                'Application\Form\ThemSanPhamForm' => 'Application\Factory\Form\ThemSanPhamFormFactory',
             )
             
         );

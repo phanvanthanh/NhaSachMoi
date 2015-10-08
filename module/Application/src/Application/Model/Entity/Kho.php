@@ -3,8 +3,6 @@ namespace Application\Model\Entity;
 
 class Kho
 {
-    
-    
     protected $id_kho;
     protected $ten_kho;
     protected $dia_chi_kho;

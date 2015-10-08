@@ -5,15 +5,16 @@ class Barcode
 {
     
     protected $id_barcode;
+    protected $id_kho;
     protected $ten_barcode;
     protected $length;
-    protected $state;
-   
+    protected $state;   
     
 
     public function exchangeArray($data)
     {
         $this->id_barcode = (isset($data['id_barcode'])) ? $data['id_barcode'] : null;
+        $this->id_kho = (isset($data['id_kho'])) ? $data['id_kho'] : null;
         $this->ten_barcode = (isset($data['ten_barcode'])) ? $data['ten_barcode'] : null;
         $this->length = (isset($data['length'])) ? $data['length'] : null;
         $this->state = (isset($data['state'])) ? $data['state'] : null;
@@ -32,6 +33,16 @@ class Barcode
     public function getIdBarcode()
     {
         return $this->id_barcode;
+    }
+
+    public function setIdKho($id_kho)
+    {
+        $this->id_kho=$id_kho;
+    }
+
+    public function getIdKho()
+    {
+        return $this->id_kho;
     }
 
     public function setTenBarcode($ten_barcode)

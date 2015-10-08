@@ -31,32 +31,52 @@ class HangHoaController extends AbstractActionController
     }
 
     public function themSanPhamAction(){
-        
-    }
+        $return=array();
+        $form=$this->getServiceLocator()->get('Application\Form\ThemSanPhamForm');
+        $return['form']=$form;
 
-    public function createDataAction(){
-        
-        $san_pham_table=$this->getServiceLocator()->get('Application\Model\SanPhamTable');
-        for ($i=1000; $i < 2000; $i++) { 
-            $san_pham_moi=new SanPham();
-            $san_pham_moi->setIdKho(2);
-            $san_pham_moi->setIdDonViTinh(1);
-            $san_pham_moi->setIdBarcode(1);
-            $san_pham_moi->setMaSanPham('masp_'.$i);
-            $san_pham_moi->setMaVach(756371377088125+$i);
-            $san_pham_moi->setLoaiSanPham('Loại sản phẩm'.$i);
-            $san_pham_moi->setTenSanPham('Tên sản phẩm '.$i);
-            $san_pham_moi->setMoTa('Mô tả '.$i);
-            $san_pham_moi->setHinhAnh('hinh_anh_'.$i);
-            $san_pham_moi->setNhan('Nhản '.$i);
-            $san_pham_moi->setTonKho($i);
-            $san_pham_moi->setLoaiGia('Loại giá '.$i);
-            $san_pham_moi->setGiaNhap($i);
-            $san_pham_moi->setGiaBia($i);
-            $san_pham_moi->setChiecKhau($i);
-            $san_pham_table->saveSanPham($san_pham_moi);
+
+        $request=$this->getRequest();
+        if($request->isPost()){
+            $post=array_merge_recursive($request->getPost()->toArray(), $request->getFiles()->toArray());
+            $form->setData($post);
+            if($form->isValid()){
+                // save data
+
+            }
+            else{// form not valid
+                $return['form']=$form;
+                return $return;
+            }
         }
-
-        die();
+        else{ // not post value
+            return $return;
+        }
     }
+
+    // public function createDataAction(){
+        
+    //     $san_pham_table=$this->getServiceLocator()->get('Application\Model\SanPhamTable');
+    //     for ($i=1000; $i < 2000; $i++) { 
+    //         $san_pham_moi=new SanPham();
+    //         $san_pham_moi->setIdKho(2);
+    //         $san_pham_moi->setIdDonViTinh(1);
+    //         $san_pham_moi->setIdBarcode(1);
+    //         $san_pham_moi->setMaSanPham('masp_'.$i);
+    //         $san_pham_moi->setMaVach(756371377088125+$i);
+    //         $san_pham_moi->setLoaiSanPham('Loại sản phẩm'.$i);
+    //         $san_pham_moi->setTenSanPham('Tên sản phẩm '.$i);
+    //         $san_pham_moi->setMoTa('Mô tả '.$i);
+    //         $san_pham_moi->setHinhAnh('hinh_anh_'.$i);
+    //         $san_pham_moi->setNhan('Nhản '.$i);
+    //         $san_pham_moi->setTonKho($i);
+    //         $san_pham_moi->setLoaiGia('Loại giá '.$i);
+    //         $san_pham_moi->setGiaNhap($i);
+    //         $san_pham_moi->setGiaBia($i);
+    //         $san_pham_moi->setChiecKhau($i);
+    //         $san_pham_table->saveSanPham($san_pham_moi);
+    //     }
+
+    //     die();
+    // }
 }

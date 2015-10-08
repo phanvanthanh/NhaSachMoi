@@ -3,18 +3,13 @@ namespace Application\Model\Entity;
 
 class HoaDon
 {
-    
-    
     protected $id_hoa_don;
     protected $id_khach_hang;
     protected $id_user;
     protected $ma_hoa_don;
     protected $ngay_xuat;
     protected $status;
-
    
-    
-
     public function exchangeArray($data)
     {
         $this->id_hoa_don = (isset($data['id_hoa_don'])) ? $data['id_hoa_don'] : null;
