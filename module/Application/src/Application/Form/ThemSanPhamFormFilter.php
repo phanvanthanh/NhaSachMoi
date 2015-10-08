@@ -100,7 +100,7 @@ class ThemSanPhamFormFilter extends InputFilter
 
         $this->add(array(
             'name' => 'nhan',
-            'required' => false,
+            'required' => true,
             'filters' => array(
                 array(
                     'name' => 'StripTags'

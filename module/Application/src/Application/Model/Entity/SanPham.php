@@ -7,7 +7,7 @@ class SanPham
     protected $id_san_pham;
     protected $id_kho;
     protected $id_don_vi_tinh;
-    protected $id_id_loai_san_pham;
+    protected $id_loai_san_pham;
     protected $id_barcode;
     protected $ma_vach;
     protected $ma_san_pham;

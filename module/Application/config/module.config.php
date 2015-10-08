@@ -166,6 +166,14 @@ return array(
             'Application\Controller\ThongBao' => 'Application\Controller\ThongBaoController'
         ),
     ),
+    'controller_plugins' => array(
+        'invokables' => array(
+            'barcode' => 'Application\Controller\Plugin\Barcode', 
+        ),
+        'shared'=>array(
+            'barcode'=>false,
+        ),
+    ),
     'view_manager' => array(
         'display_not_found_reason' => true,
         'display_exceptions'       => true,
