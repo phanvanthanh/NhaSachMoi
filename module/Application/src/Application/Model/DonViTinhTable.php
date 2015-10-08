@@ -48,7 +48,7 @@ class DonViTinhTable
     /*
         sử dụng trong Application\Factory\Form\ThemSanPhamFormFactory
     */
-    public function getDonViTinhByKhoId($id_kho){
+    public function getDonViTinhByIdKho($id_kho){
     	$adapter = $this->tableGateway->adapter;
         $sql = new Sql($adapter);        
         // select

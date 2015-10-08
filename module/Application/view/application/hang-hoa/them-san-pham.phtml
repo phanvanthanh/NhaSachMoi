@@ -7,10 +7,10 @@ $form->setAttribute('method','post');
 $form->prepare();
 echo $this->form()->openTag($form);
 ?>
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right">
+  <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right">
     <a class="btn btn-default" href="/hang-hoa">back</a>
     <button class="btn btn-primary">save</button>
-  </div>
+  </div> -->
   <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
     <span class="title">THÊM SẢN PHẨM</span>
   </div>
@@ -19,14 +19,23 @@ echo $this->form()->openTag($form);
     <div class="form-group">
       <label><?php echo $this->formLabel($form->get('ten_san_pham')); ?></label>
       <?php echo $this->formInput($form->get('ten_san_pham')); ?>
+      <div class="text-danger">
+        <?php echo $this->formElementErrors($form->get('ten_san_pham')); ?>
+      </div>
     </div>
     <div class="form-group">
       <label><?php echo $this->formLabel($form->get('ma_san_pham')); ?></label>
       <?php echo $this->formInput($form->get('ma_san_pham')); ?>
+      <div class="text-danger">
+        <?php echo $this->formElementErrors($form->get('ma_san_pham')); ?>
+      </div>
     </div>
     <div class="form-group">
       <label><?php echo $this->formLabel($form->get('ma_vach')); ?></label>
       <?php echo $this->formInput($form->get('ma_vach')); ?>
+      <div class="text-danger">
+        <?php echo $this->formElementErrors($form->get('ma_vach')); ?>
+      </div>
     </div>
 
     <div class="form-group">
@@ -35,50 +44,79 @@ echo $this->form()->openTag($form);
       $form->get('mo_ta')->setAttribute('rows',5); 
       echo $this->formTextarea($form->get('mo_ta'));
       ?>
-      <?php  ?>
+      <div class="text-danger">
+        <?php echo $this->formElementErrors($form->get('mo_ta')); ?>
+      </div>
     </div>    
     <div class="form-group">              
       <span class="btn btn-default btn-file">
         Browse 
-        <?php echo $this->formInput($form->get('hinh_anh')); ?>
+        <?php echo $this->formFile($form->get('hinh_anh')); ?>
       </span>
       <!-- <img src="img/orther/girl.jpg" alt="..." class="img-circle" width="140px" height="140px"> -->
+      <div class="text-danger">
+        <?php echo $this->formElementErrors($form->get('hinh_anh')); ?>
+      </div>
     </div>   
     <div class="form-group">
-      <label><?php echo $this->formLabel($form->get('loai_san_pham')); ?></label>
-      <?php echo $this->formInput($form->get('loai_san_pham')); ?>
+      <label><?php echo $this->formLabel($form->get('id_loai_san_pham')); ?></label>
+      <?php echo $this->formSelect($form->get('id_loai_san_pham')); ?>
+      <div class="text-danger">
+        <?php echo $this->formElementErrors($form->get('id_loai_san_pham')); ?>
+      </div>
     </div> 
     <div class="form-group">
       <label><?php echo $this->formLabel($form->get('id_don_vi_tinh')); ?></label>
       <?php echo $this->formSelect($form->get('id_don_vi_tinh')); ?>
+      <div class="text-danger">
+        <?php echo $this->formElementErrors($form->get('id_don_vi_tinh')); ?>
+      </div>
     </div>
     <div class="form-group">
       <label><?php echo $this->formLabel($form->get('nhan')); ?></label>
       <?php echo $this->formInput($form->get('nhan')); ?>
+      <div class="text-danger">
+        <?php echo $this->formElementErrors($form->get('nhan')); ?>
+      </div>
     </div>
 
     <div class="form-group">
-      <?php echo $this->formCheckbox($form->get('loai_gia')); ?>
+      <?php 
+      $form->get('loai_gia')->setAttribute('id','loai_gia');
+      echo $this->formCheckbox($form->get('loai_gia')); 
+      ?>
       <label><?php echo $this->formLabel($form->get('loai_gia')); ?></label>
+      <div class="text-danger">
+        <?php echo $this->formElementErrors($form->get('loai_gia')); ?>
+      </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group gia-nhap">
       <label><?php echo $this->formLabel($form->get('gia_nhap')); ?></label>
       <?php echo $this->formInput($form->get('gia_nhap')); ?>
+      <div class="text-danger">
+        <?php echo $this->formElementErrors($form->get('gia_nhap')); ?>
+      </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group gia-bia hidden-xs hidden-sm hidden-md hidden-lg">
       <label><?php echo $this->formLabel($form->get('gia_bia')); ?></label>
       <?php echo $this->formInput($form->get('gia_bia')); ?>
+      <div class="text-danger">
+        <?php echo $this->formElementErrors($form->get('gia_bia')); ?>
+      </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group gia-bia hidden-xs hidden-sm hidden-md hidden-lg">
       <label><?php echo $this->formLabel($form->get('chiet_khau')); ?></label>
       <?php echo $this->formInput($form->get('chiet_khau')); ?>
+      <div class="text-danger">
+        <?php echo $this->formElementErrors($form->get('chiet_khau')); ?>
+      </div>
     </div>
 
   </div>
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right">
+  <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 text-right">
     <a class="btn btn-default" href="/hang-hoa">back</a>
     <button class="btn btn-primary">save</button>
   </div>

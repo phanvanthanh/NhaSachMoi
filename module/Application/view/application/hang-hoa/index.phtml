@@ -13,8 +13,8 @@
       <th>Tên sản phẩm</th>
       <th>Mã sản phẩm</th>
       <th>Tồn kho</th>
-      <th>Loại</th>
-      <th>Nhãn hàng</th>
+      <th class="hidden-xs">Loại</th>
+      <th class="hidden-xs hidden-sm">Nhãn hàng</th>
     </tr>
   </thead>     
   <tbody>
@@ -23,8 +23,8 @@
       <td><?php echo $san_pham['ten_san_pham']; ?></td>
       <td><?php echo $san_pham['ma_san_pham']; ?></td>
       <td><?php echo $san_pham['ton_kho']; ?></td>
-      <td><?php echo $san_pham['loai_san_pham']; ?></td>
-      <td><?php echo $san_pham['nhan']; ?></td>
+      <td class="hidden-xs"><?php echo $san_pham['loai_san_pham']; ?></td>
+      <td class="hidden-xs hidden-sm"><?php echo $san_pham['nhan']; ?></td>
     </tr>
   <?php }?>                  
   </tbody>

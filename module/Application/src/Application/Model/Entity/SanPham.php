@@ -7,7 +7,7 @@ class SanPham
     protected $id_san_pham;
     protected $id_kho;
     protected $id_don_vi_tinh;
-    protected $loai_san_pham;
+    protected $id_id_loai_san_pham;
     protected $id_barcode;
     protected $ma_vach;
     protected $ma_san_pham;
@@ -28,7 +28,7 @@ class SanPham
         $this->id_san_pham = (isset($data['id_san_pham'])) ? $data['id_san_pham'] : null;
         $this->id_kho = (isset($data['id_kho'])) ? $data['id_kho'] : null;
         $this->id_don_vi_tinh = (isset($data['id_don_vi_tinh'])) ? $data['id_don_vi_tinh'] : null;
-        $this->loai_san_pham = (isset($data['loai_san_pham'])) ? $data['loai_san_pham'] : null;
+        $this->id_loai_san_pham = (isset($data['id_loai_san_pham'])) ? $data['id_loai_san_pham'] : null;
         $this->ma_san_pham = (isset($data['ma_san_pham'])) ? $data['ma_san_pham'] : null;
         $this->ten_san_pham = (isset($data['ten_san_pham'])) ? $data['ten_san_pham'] : null;
         $this->mo_ta = (isset($data['mo_ta'])) ? $data['mo_ta'] : null;
@@ -80,14 +80,14 @@ class SanPham
         return $this->id_don_vi_tinh;
     }
 
-    public function setLoaiSanPham($loai_san_pham)
+    public function setIdLoaiSanPham($id_loai_san_pham)
     {
-        $this->loai_san_pham=$loai_san_pham;
+        $this->id_loai_san_pham=$id_loai_san_pham;
     }
 
-    public function getLoaiSanPham()
+    public function getIdLoaiSanPham()
     {
-        return $this->loai_san_pham;
+        return $this->id_loai_san_pham;
     }
 
     public function setMaSanPham($ma_san_pham)

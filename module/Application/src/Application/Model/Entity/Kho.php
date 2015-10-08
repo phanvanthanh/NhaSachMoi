@@ -17,7 +17,7 @@ class Kho
     public function getArrayCopy()
     {
         return get_object_vars($this);
-    
+    }
 
     public function setIdKho($id_kho)
     {

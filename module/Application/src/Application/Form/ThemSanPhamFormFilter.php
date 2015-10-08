@@ -23,7 +23,7 @@ class ThemSanPhamFormFilter extends InputFilter
 
         $this->add(array(
             'name' => 'ma_san_pham',
-            'required' => true,
+            'required' => false,
             'filters' => array(
                 array(
                     'name' => 'StripTags'
@@ -35,7 +35,7 @@ class ThemSanPhamFormFilter extends InputFilter
         ));
         $this->add(array(
             'name' => 'ma_vach',
-            'required' => true,
+            'required' => false,
             'filters' => array(
                 array(
                     'name' => 'StripTags'
@@ -47,7 +47,7 @@ class ThemSanPhamFormFilter extends InputFilter
         ));
 
         $this->add(array(
-            'name' => 'loai_san_pham',
+            'name' => 'id_loai_san_pham',
             'required' => true,
             'filters' => array(
                 array(
@@ -74,7 +74,7 @@ class ThemSanPhamFormFilter extends InputFilter
 
         $this->add(array(
             'name' => 'mo_ta',
-            'required' => true,
+            'required' => false,
             'filters' => array(
                 array(
                     'name' => 'StripTags'
@@ -87,7 +87,7 @@ class ThemSanPhamFormFilter extends InputFilter
 
         $this->add(array(
             'name' => 'hinh_anh',
-            'required' => true,
+            'required' => false,
             'filters' => array(
                 array(
                     'name' => 'StripTags'
@@ -100,7 +100,7 @@ class ThemSanPhamFormFilter extends InputFilter
 
         $this->add(array(
             'name' => 'nhan',
-            'required' => true,
+            'required' => false,
             'filters' => array(
                 array(
                     'name' => 'StripTags'
@@ -113,7 +113,7 @@ class ThemSanPhamFormFilter extends InputFilter
 
         $this->add(array(
             'name' => 'loai_gia',
-            'required' => true,
+            'required' => false,
             'filters' => array(
                 array(
                     'name' => 'StripTags'
@@ -126,7 +126,7 @@ class ThemSanPhamFormFilter extends InputFilter
 
         $this->add(array(
             'name' => 'gia_nhap',
-            'required' => true,
+            'required' => false,
             'filters' => array(
                 array(
                     'name' => 'StripTags'
@@ -147,7 +147,7 @@ class ThemSanPhamFormFilter extends InputFilter
 
         $this->add(array(
             'name' => 'gia_bia',
-            'required' => true,
+            'required' => false,
             'filters' => array(
                 array(
                     'name' => 'StripTags'
@@ -168,7 +168,7 @@ class ThemSanPhamFormFilter extends InputFilter
 
         $this->add(array(
             'name' => 'chiet_khau',
-            'required' => true,
+            'required' => false,
             'filters' => array(
                 array(
                     'name' => 'StripTags'

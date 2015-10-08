@@ -21,7 +21,7 @@ class HangHoaController extends AbstractActionController
         $return=array();
         $id_kho=$this->AuthService()->getIdKho();       
         $san_pham_table=$this->getServiceLocator()->get('Application\Model\SanPhamTable');
-        $danh_sach_san_pham=$san_pham_table->getSanPhamByArrayConditionAndArrayColumn(array('id_kho'=>$id_kho), array('ten_san_pham', 'ma_san_pham', 'ton_kho', 'loai_san_pham','nhan'));
+        $danh_sach_san_pham=$san_pham_table->getSanPhamAndLoaiSanPhamByArrayConditionAnd2ArrayColumn(array('t1.id_kho'=>$id_kho), array('ten_san_pham', 'ma_san_pham', 'ton_kho', 'nhan'), array('loai_san_pham'));
         $return['danh_sach_san_pham']=$danh_sach_san_pham;
         return $return;
     }
@@ -42,7 +42,6 @@ class HangHoaController extends AbstractActionController
             $form->setData($post);
             if($form->isValid()){
                 // save data
-
             }
             else{// form not valid
                 $return['form']=$form;
@@ -64,7 +63,7 @@ class HangHoaController extends AbstractActionController
             $san_pham_moi->setIdBarcode(1);
             $san_pham_moi->setMaSanPham('masp_'.$i);
             $san_pham_moi->setMaVach(756371377088125+$i);
-            $san_pham_moi->setLoaiSanPham('Loại sản phẩm'.$i);
+            $san_pham_moi->setIdLoaiSanPham(1);
             $san_pham_moi->setTenSanPham('Tên sản phẩm '.$i);
             $san_pham_moi->setMoTa('Mô tả '.$i);
             $san_pham_moi->setHinhAnh('hinh_anh_'.$i);

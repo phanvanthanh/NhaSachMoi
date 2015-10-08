@@ -31,6 +31,19 @@ $(document).ready(function(){
             checkParent(parent);
         }
     });
+
+    // sử dụng trong view them san phẩm
+    jQuery('#loai_gia').on('click', function(){
+        var checked=jQuery(this).is(':checked');
+        if(checked){
+            jQuery('.gia-bia').removeClass('hidden-xs hidden-sm hidden-md hidden-lg');
+            jQuery('.gia-nhap').addClass('hidden-xs hidden-sm hidden-md hidden-lg');
+        }
+        else{
+            jQuery('.gia-nhap').removeClass('hidden-xs hidden-sm hidden-md hidden-lg');
+            jQuery('.gia-bia').addClass('hidden-xs hidden-sm hidden-md hidden-lg');
+        }
+    })
 	
 });
 

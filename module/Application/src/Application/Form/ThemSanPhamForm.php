@@ -35,19 +35,7 @@ class ThemSanPhamForm extends Form
                 'title' => 'Mã vạch',
                 'class' => 'form-control'
             )
-        ));
-
-        $this->add(array(
-            'name' => 'loai_san_pham',
-            'type' => 'Zend\Form\Element\Text',
-            'options' => array(
-                'label' => "Loại sản phẩm"
-            ),
-            'attributes' => array(
-                'title' => 'Loại sản phẩm',
-                'class' => 'form-control'
-            )
-        ));
+        ));        
 
         $this->add(array(
             'name' => 'ten_san_pham',

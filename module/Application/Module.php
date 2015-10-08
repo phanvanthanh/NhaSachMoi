@@ -57,6 +57,7 @@ class Module
                 'Application\Model\KenhPhanPhoiTable' => 'Application\Factory\Table\KenhPhanPhoiTableFactory',
                 'Application\Model\KhachHangTable' => 'Application\Factory\Table\KhachHangTableFactory',
                 'Application\Model\KhoTable' => 'Application\Factory\Table\KhoTableFactory',
+                'Application\Model\LoaiSanPhamTable' => 'Application\Factory\Table\LoaiSanPhamTableFactory',
                 'Application\Model\NhaCungCapTable' => 'Application\Factory\Table\NhaCungCapTableFactory',
                 'Application\Model\PhieuChiTable' => 'Application\Factory\Table\PhieuChiTableFactory',
                 'Application\Model\PhieuNhapTable' => 'Application\Factory\Table\PhieuNhapTableFactory',
