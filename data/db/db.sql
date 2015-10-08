@@ -1,12 +1,12 @@
 -- --------------------------------------------------------
 -- Host:                         127.0.0.1
--- Server version:               5.6.17 - MySQL Community Server (GPL)
--- Server OS:                    Win32
--- HeidiSQL Version:             9.1.0.4913
+-- Server version:               5.6.12-log - MySQL Community Server (GPL)
+-- Server OS:                    Win64
+-- HeidiSQL Version:             8.3.0.4694
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
@@ -28,8 +28,8 @@ CREATE TABLE IF NOT EXISTS `barcode` (
 -- Dumping data for table nha_sach.barcode: ~6 rows (approximately)
 /*!40000 ALTER TABLE `barcode` DISABLE KEYS */;
 INSERT INTO `barcode` (`id_barcode`, `ten_barcode`, `length`, `state`) VALUES
-	(1, 'Code128f', 0, 1),
-	(2, 'Codabar  ', 1, 0),
+	(1, 'Code128', 0, 1),
+	(2, 'Codabar', 1, 0),
 	(3, 'Code25', NULL, 0),
 	(4, 'Ean13', 12, 0),
 	(5, 'Code39', NULL, 0),
@@ -122,7 +122,7 @@ CREATE TABLE IF NOT EXISTS `don_vi_tinh` (
   CONSTRAINT `FK_don_vi_tinh_kho` FOREIGN KEY (`id_kho`) REFERENCES `kho` (`id_kho`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
--- Dumping data for table nha_sach.don_vi_tinh: ~1 rows (approximately)
+-- Dumping data for table nha_sach.don_vi_tinh: ~0 rows (approximately)
 /*!40000 ALTER TABLE `don_vi_tinh` DISABLE KEYS */;
 INSERT INTO `don_vi_tinh` (`id_don_vi_tinh`, `id_kho`, `don_vi_tinh`) VALUES
 	(1, 1, 'Cái');
@@ -244,46 +244,73 @@ CREATE TABLE IF NOT EXISTS `jos_admin_rule` (
   KEY `IDX_JOS_RULE_ROLE_ID_RESOURCE_ID` (`role_id`,`resource_id`),
   CONSTRAINT `FK_jos_admin_rule_jos_admin_resource` FOREIGN KEY (`resource_id`) REFERENCES `jos_admin_resource` (`resource_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_JOS_RULE_ROLE_ID_JOS_ROLE_ROLE_ID` FOREIGN KEY (`role_id`) REFERENCES `jos_admin_role` (`role_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=342 DEFAULT CHARSET=utf8 COMMENT='Admin Rule Table';
+) ENGINE=InnoDB AUTO_INCREMENT=373 DEFAULT CHARSET=utf8 COMMENT='Admin Rule Table';
 
 -- Dumping data for table nha_sach.jos_admin_rule: ~35 rows (approximately)
 /*!40000 ALTER TABLE `jos_admin_rule` DISABLE KEYS */;
 INSERT INTO `jos_admin_rule` (`rule_id`, `role_id`, `resource_id`) VALUES
 	(311, 1, 149),
-	(307, 2, 149),
+	(342, 2, 149),
 	(312, 1, 150),
-	(308, 2, 150),
+	(343, 2, 150),
 	(313, 1, 151),
+	(344, 2, 151),
 	(314, 1, 152),
+	(345, 2, 152),
 	(315, 1, 153),
+	(346, 2, 153),
 	(316, 1, 154),
+	(347, 2, 154),
 	(317, 1, 155),
+	(348, 2, 155),
 	(318, 1, 156),
-	(309, 2, 156),
+	(349, 2, 156),
 	(319, 1, 157),
-	(310, 2, 157),
+	(350, 2, 157),
 	(320, 1, 158),
+	(351, 2, 158),
 	(321, 1, 159),
+	(352, 2, 159),
 	(322, 1, 160),
+	(353, 2, 160),
 	(323, 1, 161),
+	(354, 2, 161),
 	(324, 1, 162),
+	(355, 2, 162),
 	(325, 1, 164),
+	(356, 2, 164),
 	(328, 1, 165),
+	(359, 2, 165),
 	(329, 1, 166),
+	(360, 2, 166),
 	(330, 1, 167),
+	(361, 2, 167),
 	(331, 1, 168),
+	(362, 2, 168),
 	(332, 1, 169),
+	(363, 2, 169),
 	(333, 1, 170),
+	(364, 2, 170),
 	(334, 1, 171),
+	(365, 2, 171),
 	(335, 1, 172),
+	(366, 2, 172),
 	(336, 1, 173),
+	(367, 2, 173),
 	(337, 1, 174),
+	(368, 2, 174),
 	(338, 1, 175),
+	(369, 2, 175),
 	(339, 1, 176),
+	(370, 2, 176),
 	(340, 1, 177),
+	(371, 2, 177),
 	(341, 1, 178),
+	(372, 2, 178),
 	(326, 1, 179),
-	(327, 1, 180);
+	(357, 2, 179),
+	(327, 1, 180),
+	(358, 2, 180);
 /*!40000 ALTER TABLE `jos_admin_rule` ENABLE KEYS */;
 
 
@@ -355,7 +382,7 @@ CREATE TABLE IF NOT EXISTS `loai_san_pham` (
   CONSTRAINT `FK_loai_san_pham_kho` FOREIGN KEY (`id_kho`) REFERENCES `kho` (`id_kho`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
--- Dumping data for table nha_sach.loai_san_pham: ~1 rows (approximately)
+-- Dumping data for table nha_sach.loai_san_pham: ~0 rows (approximately)
 /*!40000 ALTER TABLE `loai_san_pham` DISABLE KEYS */;
 INSERT INTO `loai_san_pham` (`id_loai_san_pham`, `id_kho`, `loai_san_pham`) VALUES
 	(1, 1, 'Dụng cụ học sinh');
@@ -463,10 +490,10 @@ CREATE TABLE IF NOT EXISTS `san_pham` (
   `hinh_anh` varchar(255) DEFAULT NULL,
   `nhan` varchar(255) DEFAULT NULL,
   `ton_kho` float NOT NULL,
-  `loai_gia` int(11) DEFAULT NULL,
-  `gia_nhap` float DEFAULT NULL,
-  `gia_bia` float DEFAULT NULL,
-  `chiet_khau` decimal(10,2) DEFAULT NULL,
+  `loai_gia` int(11) DEFAULT '0',
+  `gia_nhap` float DEFAULT '0',
+  `gia_bia` float DEFAULT '0',
+  `chiet_khau` decimal(10,2) DEFAULT '0.00',
   PRIMARY KEY (`id_san_pham`),
   KEY `fk_sanpham_termtaxonomy` (`id_don_vi_tinh`),
   KEY `fk_sanpham_zftermtaxonomy` (`id_loai_san_pham`),
@@ -478,9 +505,9 @@ CREATE TABLE IF NOT EXISTS `san_pham` (
   CONSTRAINT `FK_san_pham_barcode` FOREIGN KEY (`id_barcode`) REFERENCES `barcode` (`id_barcode`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_san_pham_don_vi_tinh` FOREIGN KEY (`id_don_vi_tinh`) REFERENCES `don_vi_tinh` (`id_don_vi_tinh`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_san_pham_kho` FOREIGN KEY (`id_kho`) REFERENCES `kho` (`id_kho`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6754 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6757 DEFAULT CHARSET=utf8;
 
--- Dumping data for table nha_sach.san_pham: ~0 rows (approximately)
+-- Dumping data for table nha_sach.san_pham: ~973 rows (approximately)
 /*!40000 ALTER TABLE `san_pham` DISABLE KEYS */;
 INSERT INTO `san_pham` (`id_san_pham`, `id_kho`, `id_don_vi_tinh`, `id_barcode`, `id_loai_san_pham`, `ma_san_pham`, `ma_vach`, `ten_san_pham`, `mo_ta`, `hinh_anh`, `nhan`, `ton_kho`, `loai_gia`, `gia_nhap`, `gia_bia`, `chiet_khau`) VALUES
 	(5754, 1, 1, 1, 1, 'masp_1000', '7.5637137708912E+14', 'Tên sản phẩm 1000', 'Mô tả 1000', 'hinh_anh_1000', 'Nhản 1000', 1000, 0, 1000, 1000, 1000.00),
@@ -1482,7 +1509,10 @@ INSERT INTO `san_pham` (`id_san_pham`, `id_kho`, `id_don_vi_tinh`, `id_barcode`,
 	(6750, 1, 1, 1, 1, 'masp_1996', '7.5637137709012E+14', 'Tên sản phẩm 1996', 'Mô tả 1996', 'hinh_anh_1996', 'Nhản 1996', 1996, 0, 1996, 1996, 1996.00),
 	(6751, 1, 1, 1, 1, 'masp_1997', '7.5637137709012E+14', 'Tên sản phẩm 1997', 'Mô tả 1997', 'hinh_anh_1997', 'Nhản 1997', 1997, 0, 1997, 1997, 1997.00),
 	(6752, 1, 1, 1, 1, 'masp_1998', '7.5637137709012E+14', 'Tên sản phẩm 1998', 'Mô tả 1998', 'hinh_anh_1998', 'Nhản 1998', 1998, 0, 1998, 1998, 1998.00),
-	(6753, 1, 1, 1, 1, 'masp_1999', '7.5637137709012E+14', 'Tên sản phẩm 1999', 'Mô tả 1999', 'hinh_anh_1999', 'Nhản 1999', 1999, 0, 1999, 1999, 1999.00);
+	(6753, 1, 1, 1, 1, 'masp_1999', '7.5637137709012E+14', 'Tên sản phẩm 1999', 'Mô tả 1999', 'hinh_anh_1999', 'Nhản 1999', 1999, 0, 1999, 1999, 1999.00),
+	(6754, 1, 1, 1, 1, 'spspm', '235603835306872', 'san pham mới', '', '/img/orther/product/default.png', '', 0, 1, 0, 0, 0.00),
+	(6755, 1, 1, 1, 1, 'spspg', '046124033437564', 'sản phẩm gì đây', '', '/img/orther/product/default.png', '', 0, 1, 0, 0, 0.00),
+	(6756, 1, 1, 1, 1, 'spspm', '260537339711438', 'sản phẩm mới đây', '', '/img/orther/product/1/be5b47e1bd45a3d9c8d71df1c7053421_girl.jpg', '', 0, 0, 0, 0, 0.00);
 /*!40000 ALTER TABLE `san_pham` ENABLE KEYS */;
 
 
@@ -1509,7 +1539,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   CONSTRAINT `FK_user_kho` FOREIGN KEY (`id_kho`) REFERENCES `kho` (`id_kho`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
--- Dumping data for table nha_sach.user: ~1 rows (approximately)
+-- Dumping data for table nha_sach.user: ~0 rows (approximately)
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` (`user_id`, `role_id`, `id_kho`, `username`, `email`, `display_name`, `password`, `state`, `ho_ten`, `dia_chi`, `mo_ta`, `dien_thoai_co_dinh`, `di_dong`, `twitter`) VALUES
 	(1, 1, 1, 'admin', 'admin@gmail.com', NULL, 'd6b0ab7f1c8ab8f514db9a6d85de160a', 0, '', NULL, NULL, NULL, NULL, NULL);
