@@ -241,29 +241,31 @@ class HangHoaController extends AbstractActionController
 
     }
 
-    // public function createDataAction(){
+    public function createDataAction(){
         
-    //     $san_pham_table=$this->getServiceLocator()->get('Application\Model\SanPhamTable');
-    //     for ($i=1000; $i < 2000; $i++) { 
-    //         $san_pham_moi=new SanPham();
-    //         $san_pham_moi->setIdKho(1);
-    //         $san_pham_moi->setIdDonViTinh(1);
-    //         $san_pham_moi->setIdBarcode(1);
-    //         $san_pham_moi->setMaSanPham('masp_'.$i);
-    //         $san_pham_moi->setMaVach(756371377088125+$i);
-    //         $san_pham_moi->setIdLoaiSanPham(1);
-    //         $san_pham_moi->setTenSanPham('Tên sản phẩm '.$i);
-    //         $san_pham_moi->setMoTa('Mô tả '.$i);
-    //         $san_pham_moi->setHinhAnh('hinh_anh_'.$i);
-    //         $san_pham_moi->setNhan('Nhản '.$i);
-    //         $san_pham_moi->setTonKho($i);
-    //         $san_pham_moi->setLoaiGia('Loại giá '.$i);
-    //         $san_pham_moi->setGiaNhap($i);
-    //         $san_pham_moi->setGiaBia($i);
-    //         $san_pham_moi->setChietKhau($i);
-    //         $san_pham_table->saveSanPham($san_pham_moi);
-    //     }
-    // }
+        $san_pham_table=$this->getServiceLocator()->get('Application\Model\SanPhamTable');
+        for ($i=1000; $i < 2000; $i++) { 
+            $san_pham_moi=new SanPham();
+            $san_pham_moi->setIdKho(1);
+            $san_pham_moi->setIdDonViTinh(1);
+            $san_pham_moi->setIdBarcode(1);
+            $san_pham_moi->setMaSanPham('masp_'.$i);
+            $san_pham_moi->setMaVach(756371377088125+$i);
+            $san_pham_moi->setIdLoaiSanPham(1);
+            $san_pham_moi->setTenSanPham('Tên sản phẩm '.$i);
+            $san_pham_moi->setMoTa('Mô tả '.$i);
+            $san_pham_moi->setHinhAnh('hinh_anh_'.$i);
+            $san_pham_moi->setNhan('Nhản '.$i);
+            $san_pham_moi->setTonKho($i);
+            $san_pham_moi->setLoaiGia('Loại giá '.$i);
+            $san_pham_moi->setGiaNhap($i);
+            $san_pham_moi->setGiaBia($i);
+            $san_pham_moi->setChietKhau($i);
+            $san_pham_moi->setState(1);
+            $san_pham_moi->setUserId(1);
+            $san_pham_table->saveSanPham($san_pham_moi);
+        }
+    }
 
     
 }

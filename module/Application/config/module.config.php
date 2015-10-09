@@ -379,7 +379,7 @@ return array(
                     array(
                         'label' => ' Khách hàng', 
                         'title' => ' Khách hàng', 
-                        'route' => '/doi-tac/khach-hang',
+                        'route' => '/doi-tac',
                         'id'=>'#',
                         'icon' => '',
                         'order' => 1
