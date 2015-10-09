@@ -1,6 +1,6 @@
 <?php
 $form=$this->form;
-$form->setAttribute('action', $this->url("hang_hoa", array('action'=>'them-san-pham')));
+$form->setAttribute('action', $this->url("hang_hoa", array('action'=>'sua-san-pham', 'id'=>$this->id)));
 $form->setAttribute('class','form');
 $form->setAttribute('role','form');
 $form->setAttribute('method','post');
@@ -12,7 +12,8 @@ echo $this->form()->openTag($form);
     <button class="btn btn-primary">save</button>
   </div> -->
   <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
-    <span class="title">THÊM SẢN PHẨM</span>
+    <span class="title">SỬA SẢN PHẨM</span>
+    <?php echo $this->formHidden($form->get('id_san_pham')); ?>
   </div>
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">&nbsp;</div>
   <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10">

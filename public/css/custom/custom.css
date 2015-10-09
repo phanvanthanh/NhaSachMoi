@@ -6,6 +6,68 @@
   background-color: rgba(86, 61, 124, 0.15);
   border: 1px solid rgba(86, 61, 124, 0.2);
 }
+/*===========navbar===========*/
+
+  .navbar-default a.navbar-brand{
+    color: white;
+  }
+  .navbar-default a.navbar-brand:focus, 
+  .navbar-default a.navbar-brand:hover{
+    background-color: #e74c3c;
+    color: white;
+  }
+
+  .navbar-default{
+    background-color: #d9534f;
+    background-image:-webkit-linear-gradient(top,#d9534f 0,#c12e2a 100%);
+  }
+
+  .navbar-default ul.navbar-nav>li>a{
+    color: white;
+  }
+
+  .navbar-default ul.navbar-nav>li>a{
+    color: white;
+  }
+
+  .navbar-default .nav.navbar-nav.navbar-right>li>a:hover, 
+  .navbar-default .nav.navbar-nav.navbar-right>li>a:focus, 
+  .navbar-default .nav.navbar-nav.navbar-right>li>a:active, 
+  .navbar-default .nav.navbar-nav.navbar-right>li>a.active{
+    background-color: #e74c3c;
+    color: white;
+  }
+
+  .navbar-default .nav.navbar-nav>.active>a, 
+  .navbar-default .nav.navbar-nav>.active>a:focus, 
+  .navbar-default .nav.navbar-nav>.active>a:hover{
+    background-image:none;
+    background-color: white;
+    color: #d9534f;
+  }
+   
+  .navbar-default .navbar-nav>li.dropdown.open>a{
+    background: none !important;
+    background-color: #e74c3c;
+    color: white;
+  }
+  @media only screen and (max-width: 767px) {  
+    .navbar-default .navbar-nav .dropdown.open ul.dropdown-menu>li>a{
+      color: white;
+    }
+    .navbar-default .navbar-nav .dropdown.open ul.dropdown-menu>li>a:hover{
+      background: none;
+      background-color: #e74c3c;
+    }
+    .navbar-default button.navbar-toggle .icon-bar{
+      background-color: white;
+    }
+    .navbar-default button.navbar-toggle:focus, 
+    .navbar-default button.navbar-toggle:hover{
+      background-color: #e74c3c;
+    }
+  }
+/*===============================*/
 
 #alert{
   display: block;

@@ -64,6 +64,7 @@ class Module
                 'Application\Model\PhieuThuTable' => 'Application\Factory\Table\PhieuThuTableFactory',
                 // form
                 'Application\Form\ThemSanPhamForm' => 'Application\Factory\Form\ThemSanPhamFormFactory',
+                'Application\Form\SuaSanPhamForm' => 'Application\Factory\Form\SuaSanPhamFormFactory',
             )
             
         );

@@ -19,6 +19,8 @@ class SanPhamTable
 
     /*
         sử dụng trong phương thức saveSanPham
+        sử dụng trong Application/Controller/HangHoaController themSanPhamAction
+        sử dụng trong Application/Controller/HangHoaController suaSanPhamAction
     */
     public function getSanPhamByArrayConditionAndArrayColumn($array_conditions=array(), $array_columns=array()){
         /*
@@ -73,6 +75,9 @@ class SanPhamTable
         return $allRow;
     }
 
+    /*
+        sử dụng trong Application/Controller/HangHoaController themSanPhamAction
+    */
     public function saveSanPham(SanPham $san_pham)
     {
         $data = array(

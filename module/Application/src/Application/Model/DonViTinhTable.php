@@ -47,6 +47,7 @@ class DonViTinhTable
 
     /*
         sử dụng trong Application\Factory\Form\ThemSanPhamFormFactory
+        sử dụng trong Application\Factory\Form\SuaSanPhamFormFactory
     */
     public function getDonViTinhByIdKho($id_kho){
     	$adapter = $this->tableGateway->adapter;

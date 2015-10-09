@@ -169,9 +169,11 @@ return array(
     'controller_plugins' => array(
         'invokables' => array(
             'barcode' => 'Application\Controller\Plugin\Barcode', 
+            'check_path_exist' => 'Application\Controller\Plugin\CheckPathExist', 
         ),
         'shared'=>array(
             'barcode'=>false,
+            'check_path_exist'=>false,
         ),
     ),
     'view_manager' => array(

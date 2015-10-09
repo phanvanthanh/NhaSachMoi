@@ -21,7 +21,7 @@ class HangHoaController extends AbstractActionController
         $return=array();
         $id_kho=$this->AuthService()->getIdKho();      
         $san_pham_table=$this->getServiceLocator()->get('Application\Model\SanPhamTable');
-        $danh_sach_san_pham=$san_pham_table->getSanPhamAndLoaiSanPhamByArrayConditionAnd2ArrayColumn(array('t1.id_kho'=>$id_kho), array('ten_san_pham', 'ma_san_pham', 'ton_kho', 'nhan'), array('loai_san_pham'));
+        $danh_sach_san_pham=$san_pham_table->getSanPhamAndLoaiSanPhamByArrayConditionAnd2ArrayColumn(array('t1.id_kho'=>$id_kho), array('id_san_pham', 'ten_san_pham', 'ma_san_pham', 'ton_kho', 'nhan'), array('loai_san_pham'));
         $return['danh_sach_san_pham']=$danh_sach_san_pham;
         return $return;
     }
@@ -43,17 +43,16 @@ class HangHoaController extends AbstractActionController
                 $san_pham_table=$this->getServiceLocator()->get('Application\Model\SanPhamTable');
                 $id_kho=$this->AuthService()->getIdKho();
                 $san_pham_moi->exchangeArray($post);
-                // nếu không nhập mã sản phẩm thì tự động tạo
-                if(!$post['ma_san_pham']){
-                    $arrays=explode(' ', $post['ten_san_pham']);
-                    $ma_san_pham='sp';
-                    foreach ($arrays as $value) {
-                        $ma_san_pham.=strtolower($value[0]);
-                    }
-                    $san_pham_moi->setMaSanPham($ma_san_pham);
-                }
+                
                 // nếu nhập mã vạch
                 if($post['ma_vach']){
+                    // nếu nhập mã vạch thì phải kiểm tra có tồn tại chưa
+                    $san_pham_ton_tai=$san_pham_table->getSanPhamByArrayConditionAndArrayColumn(array('id_kho'=>$id_kho, 'ma_vach'=>$post['ma_vach']), array('id_san_pham'));
+                    if($san_pham_ton_tai){
+                        $form->get('ma_vach')->setMessages(array('Mã vạch này đã được sử dụng'));
+                        $return['form']=$form;
+                        return $return;
+                    }
                     $san_pham_moi->setIdBarcode(6);
                 }
                 // ngược lại không nhập mã vạch
@@ -62,6 +61,21 @@ class HangHoaController extends AbstractActionController
                     $san_pham_moi->setIdBarcode($barcode['id_barcode']);
                     $san_pham_moi->setMaVach($barcode['ma_vach']);
                 }
+                // nếu nhập mã sản phẩm
+                if($post['ma_san_pham']){
+                    // nếu nhập mã sản phẩm thì phải kiểm tra có tồn tại chưa
+                    $san_pham_ton_tai=$san_pham_table->getSanPhamByArrayConditionAndArrayColumn(array('id_kho'=>$id_kho, 'ma_san_pham'=>$post['ma_san_pham']), array('id_san_pham'));
+                    if($san_pham_ton_tai){
+                        $form->get('ma_san_pham')->setMessages(array('Mã sản phẩm này đã được sử dụng'));
+                        $return['form']=$form;
+                        return $return;
+                    }
+                }
+                else{
+                    $ma_san_pham=$san_pham_moi->getMaVach();
+                    $san_pham_moi->setMaSanPham($ma_san_pham);
+                }
+
                 // nếu loại giá
                 if($post['loai_gia']){
                     $san_pham_moi->setGiaNhap(0);
@@ -79,7 +93,7 @@ class HangHoaController extends AbstractActionController
                         mkdir($path, 0700, true);
                     }
                     $uniqueToken = md5(uniqid(mt_rand(), true));
-                    $newName = $this->checkPatchExist($path, $uniqueToken, $image['name']);
+                    $newName = $this->CheckPatchExist()->checkPatchExist($path, $uniqueToken, $image['name']);
                     $filter = new \Zend\Filter\File\Rename($path . $newName);
                     $filter->filter($image);
                     $pathSave.=$newName;
@@ -103,6 +117,37 @@ class HangHoaController extends AbstractActionController
         else{ // not post value
             return $return;
         }
+    }
+
+    public function suaSanPhamAction(){
+        $id=$this->params('id');
+        $id_kho=$this->AuthService()->getIdKho();
+        $return=array('id'=>$id);
+        $san_pham_table=$this->getServiceLocator()->get('Application\Model\SanPhamTable');
+        // kiểm tra sản phẩm tồn tại
+        $san_pham=$san_pham_table->getSanPhamByArrayConditionAndArrayColumn(array('id_san_pham'=>$id, 'id_kho'=>$id_kho), array());
+        if(!$san_pham){
+            $this->flashMessenger()->addErrorMessage('Sản phẩm không tồn tại');
+            return $this->redirect()->toRoute('hang_hoa');
+        }
+        //tạo form
+        $form=$this->getServiceLocator()->get('Application\Form\SuaSanPhamForm');
+        $form->setData($san_pham[0]);
+        $return['form']=$form;
+
+        $request=$this->getRequest();
+        if($request->isPost()){
+            $post=$request->getPost();
+            $form->setData($post);
+            if($form->isValid()){
+                die(var_dump('is valid'));
+            }else{
+                $return['form']=$form;
+                return $return;
+            }
+        }else{
+            return $return;
+        } 
     }
 
     public function createDataAction(){
@@ -131,13 +176,5 @@ class HangHoaController extends AbstractActionController
         die();
     }
 
-    public function checkPatchExist($path, $newName, $typeName)
-    {
-        if (file_exists($path . $newName . '_' . $typeName)) {
-            $newName = md5(uniqid(mt_rand(), true));
-            $this->checkPatchExist($path, $newName, $typeName);
-        } else {
-            return $newName . '_' . $typeName;
-        }
-    }
+    
 }

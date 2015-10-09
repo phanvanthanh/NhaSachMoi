@@ -19,6 +19,7 @@ class LoaiSanPhamTable
 
     /*
         sử dụng trong Application\Factory\Form\ThemSanPhamFormFactory
+        sử dụng trong Application\Factory\Form\SuaSanPhamFormFactory
     */
     public function getLoaiSanPhamByIdKho($id_kho){
     	$adapter = $this->tableGateway->adapter;
