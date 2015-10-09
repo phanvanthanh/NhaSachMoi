@@ -21,6 +21,7 @@ class SanPhamTable
         sử dụng trong phương thức saveSanPham
         sử dụng trong Application/Controller/HangHoaController themSanPhamAction
         sử dụng trong Application/Controller/HangHoaController suaSanPhamAction
+        sử dụng trong Application/Controller/HangHoaController xoaSanPhamAction
     */
     public function getSanPhamByArrayConditionAndArrayColumn($array_conditions=array(), $array_columns=array()){
         /*
@@ -77,6 +78,8 @@ class SanPhamTable
 
     /*
         sử dụng trong Application/Controller/HangHoaController themSanPhamAction
+        sử dụng trong Application/Controller/HangHoaController suaSanPhamAction
+        sử dụng trong Application/Controller/HangHoaController xoaSanPhamAction
     */
     public function saveSanPham(SanPham $san_pham)
     {
@@ -95,7 +98,9 @@ class SanPhamTable
             'loai_gia'          => $san_pham->getLoaiGia(),
             'gia_nhap'          => $san_pham->getGiaNhap(),
             'gia_bia'           => $san_pham->getGiaBia(),
-            'chiet_khau'        => $san_pham->getChietKhau()
+            'chiet_khau'        => $san_pham->getChietKhau(),
+            'state'             => $san_pham->getState(),
+            'user_id'           => $san_pham->getUserId(),
 
         );        
         $id_san_pham = (int) $san_pham->getIdSanPham();

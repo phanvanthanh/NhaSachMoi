@@ -5,7 +5,7 @@ use Zend\Mvc\Controller\Plugin\AbstractPlugin;
  
 class CheckPathExist extends AbstractPlugin{
     
-    public function checkPatchExist($path, $newName, $typeName)
+    public function checkPathExist($path, $newName, $typeName)
     {
         if (file_exists($path . $newName . '_' . $typeName)) {
             $newName = md5(uniqid(mt_rand(), true));

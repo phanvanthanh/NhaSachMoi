@@ -21,7 +21,7 @@ class HangHoaController extends AbstractActionController
         $return=array();
         $id_kho=$this->AuthService()->getIdKho();      
         $san_pham_table=$this->getServiceLocator()->get('Application\Model\SanPhamTable');
-        $danh_sach_san_pham=$san_pham_table->getSanPhamAndLoaiSanPhamByArrayConditionAnd2ArrayColumn(array('t1.id_kho'=>$id_kho), array('id_san_pham', 'ten_san_pham', 'ma_san_pham', 'ton_kho', 'nhan'), array('loai_san_pham'));
+        $danh_sach_san_pham=$san_pham_table->getSanPhamAndLoaiSanPhamByArrayConditionAnd2ArrayColumn(array('t1.id_kho'=>$id_kho, 't1.state'=>1), array('id_san_pham', 'ten_san_pham', 'ma_san_pham', 'ton_kho', 'nhan'), array('loai_san_pham'));
         $return['danh_sach_san_pham']=$danh_sach_san_pham;
         return $return;
     }
@@ -42,6 +42,7 @@ class HangHoaController extends AbstractActionController
                 $san_pham_moi=new SanPham();
                 $san_pham_table=$this->getServiceLocator()->get('Application\Model\SanPhamTable');
                 $id_kho=$this->AuthService()->getIdKho();
+                $user_id=$this->AuthService()->getUserId();
                 $san_pham_moi->exchangeArray($post);
                 
                 // nếu nhập mã vạch
@@ -93,17 +94,19 @@ class HangHoaController extends AbstractActionController
                         mkdir($path, 0700, true);
                     }
                     $uniqueToken = md5(uniqid(mt_rand(), true));
-                    $newName = $this->CheckPatchExist()->checkPatchExist($path, $uniqueToken, $image['name']);
+                    $newName = $this->CheckPathExist()->checkPathExist($path, $uniqueToken, $image['name']);
                     $filter = new \Zend\Filter\File\Rename($path . $newName);
                     $filter->filter($image);
                     $pathSave.=$newName;
                 }
                 else{
-                    $pathSave = "/img/orther/product/default.png";
+                    $pathSave = "/img/default/product/default.png";
                 }
                 $san_pham_moi->setHinhAnh($pathSave);
                 $san_pham_moi->setIdKho($id_kho);
                 $san_pham_moi->setTonKho(0);
+                $san_pham_moi->setState(1);
+                $san_pham_moi->setUserId($user_id);
                 $san_pham_table->saveSanPham($san_pham_moi);
 
                 $this->flashMessenger()->addSuccessMessage('Chúc mừng, thêm sản phẩm thành công!');
@@ -137,10 +140,69 @@ class HangHoaController extends AbstractActionController
 
         $request=$this->getRequest();
         if($request->isPost()){
-            $post=$request->getPost();
+            $post=array_merge_recursive($request->getPost()->toArray(), $request->getFiles()->toArray());
             $form->setData($post);
             if($form->isValid()){
-                die(var_dump('is valid'));
+                $san_pham_moi=new SanPham();
+                $user_id=$this->AuthService()->getUserId();
+                $data=array_merge($san_pham[0], $post);
+                $san_pham_moi->exchangeArray($data);
+                // nếu sửa mã vạch
+                if($san_pham[0]['ma_vach']!=$post['ma_vach'] and $post['ma_vach']){
+                    // nếu nhập mã vạch thì phải kiểm tra có tồn tại chưa
+                    $san_pham_ton_tai=$san_pham_table->getSanPhamByArrayConditionAndArrayColumn(array('id_kho'=>$id_kho, 'ma_vach'=>$post['ma_vach']), array('id_san_pham'));
+                    if($san_pham_ton_tai){
+                        $form->get('ma_vach')->setMessages(array('Mã vạch này đã được sử dụng'));
+                        $return['form']=$form;
+                        return $return;
+                    }
+                    $san_pham_moi->setIdBarcode(6);
+                }
+                else{
+                    $san_pham_moi->setMaVach($san_pham[0]['ma_vach']);
+                }
+                // nếu sửa mã sản phẩm
+                if($san_pham[0]['ma_san_pham']!=$post['ma_san_pham'] and $post['ma_san_pham']){
+                    // nếu nhập mã sản phẩm thì phải kiểm tra có tồn tại chưa
+                    $san_pham_ton_tai=$san_pham_table->getSanPhamByArrayConditionAndArrayColumn(array('id_kho'=>$id_kho, 'ma_san_pham'=>$post['ma_san_pham']), array('id_san_pham'));
+                    if($san_pham_ton_tai){
+                        $form->get('ma_san_pham')->setMessages(array('Mã sản phẩm này đã được sử dụng'));
+                        $return['form']=$form;
+                        return $return;
+                    }
+                }
+                else{
+                    $san_pham_moi->setMaSanPham($san_pham[0]['ma_san_pham']);
+                }
+                // nếu sửa hình ảnh                
+                if($post['hinh_anh'] and $post['hinh_anh']['error']==0){
+                    $image=$post['hinh_anh'];
+                    // lưu hình mới
+                    $path = "./public/img/orther/product/".$id_kho."/";
+                    $pathSave = "/img/orther/product/".$id_kho."/";
+                    if (! file_exists($path)) {
+                        mkdir($path, 0700, true);
+                    }
+                    $uniqueToken = md5(uniqid(mt_rand(), true));
+                    $newName = $this->CheckPathExist()->checkPathExist($path, $uniqueToken, $image['name']);
+                    $filter = new \Zend\Filter\File\Rename($path . $newName);
+                    $filter->filter($image);
+                    $pathSave.=$newName;
+                    $san_pham_moi->setHinhAnh($pathSave);
+                    // nếu hình khác default thì xóa
+                    if(trim($san_pham[0]['hinh_anh'])!='/img/default/product/default.png'){
+                        $path = './public'.$san_pham[0]['hinh_anh'];
+                        array_map("unlink", glob($path));
+                    }
+                    
+                }
+                else{
+                    $san_pham_moi->setHinhAnh($san_pham[0]['hinh_anh']);
+                }
+                $san_pham_moi->setUserId($user_id);
+                $san_pham_table->saveSanPham($san_pham_moi);
+                $this->flashMessenger()->addSuccessMessage('Chúc mừng, cập nhật sản phẩm thành công!');
+                return $this->redirect()->toRoute('hang_hoa');
             }else{
                 $return['form']=$form;
                 return $return;
@@ -150,31 +212,58 @@ class HangHoaController extends AbstractActionController
         } 
     }
 
-    public function createDataAction(){
-        
+    public function xoaSanPhamAction(){
+        $id=$this->params('id');
+        $id_kho=$this->AuthService()->getIdKho();
+        $user_id=$this->AuthService()->getUserId();
         $san_pham_table=$this->getServiceLocator()->get('Application\Model\SanPhamTable');
-        for ($i=1000; $i < 2000; $i++) { 
+        // kiểm tra sản phẩm tồn tại
+        $san_pham=$san_pham_table->getSanPhamByArrayConditionAndArrayColumn(array('id_san_pham'=>$id, 'id_kho'=>$id_kho), array());
+        if(!$san_pham){
+            $this->flashMessenger()->addErrorMessage('Sản phẩm với id='.$id.' không tồn tại');
+            return $this->redirect()->toRoute('hang_hoa');
+        }
+        else{
             $san_pham_moi=new SanPham();
-            $san_pham_moi->setIdKho(1);
-            $san_pham_moi->setIdDonViTinh(1);
-            $san_pham_moi->setIdBarcode(1);
-            $san_pham_moi->setMaSanPham('masp_'.$i);
-            $san_pham_moi->setMaVach(756371377088125+$i);
-            $san_pham_moi->setIdLoaiSanPham(1);
-            $san_pham_moi->setTenSanPham('Tên sản phẩm '.$i);
-            $san_pham_moi->setMoTa('Mô tả '.$i);
-            $san_pham_moi->setHinhAnh('hinh_anh_'.$i);
-            $san_pham_moi->setNhan('Nhản '.$i);
-            $san_pham_moi->setTonKho($i);
-            $san_pham_moi->setLoaiGia('Loại giá '.$i);
-            $san_pham_moi->setGiaNhap($i);
-            $san_pham_moi->setGiaBia($i);
-            $san_pham_moi->setChietKhau($i);
+            $san_pham_moi->exchangeArray($san_pham[0]);
+            // nếu hình khác default thì xóa
+            if(trim($san_pham[0]['hinh_anh'])!='/img/default/product/default.png'){
+                $path = './public'.$san_pham[0]['hinh_anh'];
+                array_map("unlink", glob($path));
+            }            
+            $san_pham_moi->setHinhAnh('/img/default/product/default.png');
+            $san_pham_moi->setState(0);
+            $san_pham_moi->setUserId($user_id);
             $san_pham_table->saveSanPham($san_pham_moi);
+            $this->flashMessenger()->addSuccessMessage('Xóa sản phẩm thành công!');
+            return $this->redirect()->toRoute('hang_hoa');
         }
 
-        die();
     }
+
+    // public function createDataAction(){
+        
+    //     $san_pham_table=$this->getServiceLocator()->get('Application\Model\SanPhamTable');
+    //     for ($i=1000; $i < 2000; $i++) { 
+    //         $san_pham_moi=new SanPham();
+    //         $san_pham_moi->setIdKho(1);
+    //         $san_pham_moi->setIdDonViTinh(1);
+    //         $san_pham_moi->setIdBarcode(1);
+    //         $san_pham_moi->setMaSanPham('masp_'.$i);
+    //         $san_pham_moi->setMaVach(756371377088125+$i);
+    //         $san_pham_moi->setIdLoaiSanPham(1);
+    //         $san_pham_moi->setTenSanPham('Tên sản phẩm '.$i);
+    //         $san_pham_moi->setMoTa('Mô tả '.$i);
+    //         $san_pham_moi->setHinhAnh('hinh_anh_'.$i);
+    //         $san_pham_moi->setNhan('Nhản '.$i);
+    //         $san_pham_moi->setTonKho($i);
+    //         $san_pham_moi->setLoaiGia('Loại giá '.$i);
+    //         $san_pham_moi->setGiaNhap($i);
+    //         $san_pham_moi->setGiaBia($i);
+    //         $san_pham_moi->setChietKhau($i);
+    //         $san_pham_table->saveSanPham($san_pham_moi);
+    //     }
+    // }
 
     
 }

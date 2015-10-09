@@ -20,6 +20,8 @@ class SanPham
     protected $gia_nhap;
     protected $gia_bia;
     protected $chiet_khau;
+    protected $state;
+    protected $user_id;
    
     
 
@@ -41,7 +43,8 @@ class SanPham
         $this->chiet_khau = (isset($data['chiet_khau'])) ? $data['chiet_khau'] : null;
         $this->ma_vach = (isset($data['ma_vach'])) ? $data['ma_vach'] : null;
         $this->id_barcode = (isset($data['id_barcode'])) ? $data['id_barcode'] : null;
-
+        $this->state = (isset($data['state'])) ? $data['state'] : 1;
+        $this->user_id = (isset($data['user_id'])) ? $data['user_id'] : 1;
         
     }    
 
@@ -210,6 +213,26 @@ class SanPham
     public function getIdBarcode()
     {
         return $this->id_barcode;
+    }
+
+    public function setState($state)
+    {
+        $this->state=$state;
+    }
+
+    public function getState()
+    {
+        return $this->state;
+    }
+
+    public function setUserId($user_id)
+    {
+        $this->user_id=$user_id;
+    }
+
+    public function getUserId()
+    {
+        return $this->user_id;
     }
 
     

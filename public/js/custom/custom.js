@@ -43,7 +43,21 @@ $(document).ready(function(){
             jQuery('.gia-nhap').removeClass('hidden-xs hidden-sm hidden-md hidden-lg');
             jQuery('.gia-bia').addClass('hidden-xs hidden-sm hidden-md hidden-lg');
         }
-    })
+    });
+
+    //Hien thi hinh anh sau khi chon    
+    jQuery('#upload_img').change( function(event) {
+        var val = jQuery("#upload_img").val().toLowerCase();
+        if (!val.match(/(?:gif|jpg|png|bmp)$/)) {
+            jQuery("#img").attr('src','');
+            jQuery('#img').attr('class','hidden');
+            jQuery('#divImg').html('<span>Vui lòng chọn tập tin hình ảnh</span>');
+        }else{
+            jQuery('#img').attr('class','img-circle');   
+            var tmppath = URL.createObjectURL(event.target.files[0]);
+            jQuery("#img").fadeIn("fast").attr('src',tmppath);
+        }
+    });
 	
 });
 

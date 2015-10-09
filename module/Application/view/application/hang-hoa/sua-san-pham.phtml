@@ -52,9 +52,12 @@ echo $this->form()->openTag($form);
     <div class="form-group">              
       <span class="btn btn-default btn-file">
         Browse 
-        <?php echo $this->formFile($form->get('hinh_anh')); ?>
+        <?php 
+        $form->get('hinh_anh')->setAttribute('id', 'upload_img');
+        echo $this->formFile($form->get('hinh_anh')); 
+        ?>
       </span>
-      <!-- <img src="img/orther/girl.jpg" alt="..." class="img-circle" width="140px" height="140px"> -->
+      <img id="img" src="<?php echo $form->get('hinh_anh')->getValue(); ?>" alt="..." class="img-circle" width="140px" height="140px">
       <div class="text-danger">
         <?php echo $this->formElementErrors($form->get('hinh_anh')); ?>
       </div>
@@ -119,6 +122,7 @@ echo $this->form()->openTag($form);
   </div>
   <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 text-right">
     <a class="btn btn-default" href="/hang-hoa">Quay lại</a>
+    <a class="btn btn-default" onclick="confirmSetLocation('Bạn thật sự muốn xóa bỏ sản phẩm này khỏi hệt thống?', '<?php echo $this->url('hang_hoa', array('action'=>'xoa-san-pham', 'id'=>$this->id)); ?>')">Xóa</a>
     <button class="btn btn-danger">Lưu</button>
   </div>
 <?php
