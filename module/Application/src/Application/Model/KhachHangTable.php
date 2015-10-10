@@ -75,6 +75,7 @@ class KhachHangTable
 
     /*
         sử dụng trong Application/Controller/DoiTacController createDataKhachHangAction
+        sử dụng trong Application/Controller/DoiTacController themKhachHangAction
     */
     public function saveKhachHang(KhachHang $khach_hang)
     {

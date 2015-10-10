@@ -65,6 +65,7 @@ class Module
                 // form
                 'Application\Form\ThemSanPhamForm' => 'Application\Factory\Form\ThemSanPhamFormFactory',
                 'Application\Form\SuaSanPhamForm' => 'Application\Factory\Form\SuaSanPhamFormFactory',
+                'Application\Form\ThemKhachHangForm' => 'Application\Factory\Form\ThemKhachHangFormFactory',
             )
             
         );

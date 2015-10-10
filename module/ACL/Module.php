@@ -26,6 +26,7 @@ class Module
 
     function boforeDispatch(MvcEvent $event)
     {
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
         $sm = $event->getApplication()->getServiceManager();
         $auth = $sm->get('AuthService');
         $read=$sm->get("AuthService")->getStorage()->read();

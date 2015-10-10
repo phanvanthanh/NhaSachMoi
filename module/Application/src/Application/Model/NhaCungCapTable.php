@@ -19,6 +19,7 @@ class NhaCungCapTable
 
     /*
         sử dụng trong saveNhaCungCap
+        sử dụng trong Application/Controller/DoiTacController nhaCungCapAction
     */
     public function getNhaCungCapByArrayConditionAndArrayColumn($array_conditions=array(), $array_columns=array()){
         /*
@@ -46,7 +47,7 @@ class NhaCungCapTable
     }
 
     /*
-        sử dụng trong 
+        sử dụng trong Application/Controller/DoiTacController createDataNhaCungCapAction
     */
     public function saveNhaCungCap(NhaCungCap $nha_cung_cap)
     {
