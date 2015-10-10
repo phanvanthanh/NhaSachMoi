@@ -86,7 +86,7 @@ class DoiTacController extends AbstractActionController
 	        $khach_hang_moi->setMoTa('Mô tả');
 	        $khach_hang_moi->setDienThoaiCoDinh('01699580585');
 	        $khach_hang_moi->setDiDong('01699580585');
-	        $khach_hang_moi->setHinhAnh('/img/default/product/default.png'); 
+	        $khach_hang_moi->setHinhAnh('/img/default/customer/default.png'); 
 	        $khach_hang_moi->setState(1);
 	        $khach_hang_moi->setNgayDangKy('');
 	        $khach_hang_table->saveKhachHang($khach_hang_moi);
