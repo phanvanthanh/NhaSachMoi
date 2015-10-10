@@ -242,7 +242,6 @@ class HangHoaController extends AbstractActionController
     }
 
     public function createDataAction(){
-        
         $san_pham_table=$this->getServiceLocator()->get('Application\Model\SanPhamTable');
         for ($i=1000; $i < 2000; $i++) { 
             $san_pham_moi=new SanPham();
@@ -265,6 +264,7 @@ class HangHoaController extends AbstractActionController
             $san_pham_moi->setUserId(1);
             $san_pham_table->saveSanPham($san_pham_moi);
         }
+        die();
     }
 
     

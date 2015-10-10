@@ -80,6 +80,7 @@ class SanPhamTable
         sử dụng trong Application/Controller/HangHoaController themSanPhamAction
         sử dụng trong Application/Controller/HangHoaController suaSanPhamAction
         sử dụng trong Application/Controller/HangHoaController xoaSanPhamAction
+        sử dụng trong Application/Controller/HangHoaController createDataAction
     */
     public function saveSanPham(SanPham $san_pham)
     {

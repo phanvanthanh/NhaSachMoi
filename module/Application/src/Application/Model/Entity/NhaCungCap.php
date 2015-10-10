@@ -39,13 +39,13 @@ class NhaCungCap
         return get_object_vars($this);
     }
 
-    public function setIdKhachHang($id_khach_hang)
+    public function setIdNhaCungCap($id_nha_cung_cap)
     {
-        $this->id_khach_hang=$id_khach_hang;
+        $this->id_nha_cung_cap=$id_nha_cung_cap;
     }
-    public function getIdKhachHang()
+    public function getIdNhaCungCap()
     {
-        return $this->id_khach_hang;
+        return $this->id_nha_cung_cap;
     }  
 
     public function setIdKho($id_kho)
@@ -137,13 +137,5 @@ class NhaCungCap
     {
         return $this->ngay_dang_ky;
     }
-
-    public function setState($state)
-    {
-        $this->state=$state;
-    }
-    public function getState()
-    {
-        return $this->state;
-    }
+    
 }
