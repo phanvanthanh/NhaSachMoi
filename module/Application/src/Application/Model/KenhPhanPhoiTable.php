@@ -19,6 +19,7 @@ class KenhPhanPhoiTable
 
     /*
         sử dụng trong Application\Factory\Form\ThemKhachHangFormFactory
+        sử dụng trong Application\Factory\Form\SuaThongTinKhachHangFormFactory
     */
     public function getKenhPhanPhoiByIdKho($id_kho){
     	$adapter = $this->tableGateway->adapter;

@@ -75,6 +75,36 @@ class DoiTacController extends AbstractActionController
     	}
     }
 
+    public function suaThongTinKhachHangAction(){
+        $id=$this->params('id');
+        $id_kho=$this->AuthService()->getIdKho();
+        $khach_hang_table=$this->getServiceLocator()->get('Application\Model\KhachHangTable');
+        $khach_hang=$khach_hang_table->getKhachHangAndKenhPhanPhoiByArrayConditionAnd2ArrayColumn(array('t1.id_khach_hang'=>$id, 't2.id_kho'=>$id_kho, 't1.state'=>1), array(), array('id_kenh_phan_phoi'));
+        if(!$khach_hang){
+            $this->flashMessenger()->addErrorMessage('Khách hàng không tồn tại');
+            return $this->redirect()->toRoute('doi_tac');
+        }
+        $form=$this->getServiceLocator()->get('Application\Form\SuaThongTinKhachHangForm');
+        $form->setData($khach_hang[0]);
+        $return =array('form'=>$form, 'id'=>$id);
+        $request=$this->getRequest();
+        if($request->isPost()){
+            $post=array_merge_recursive($request->getPost()->toArray(), $request->getFiles()->toArray());
+            $form->setData($post);
+            if($form->isValid()){
+                die(var_dump('is valid'));
+            }
+            else{
+                $return['form']=$form;
+                return $return;
+            }
+        }
+        else{
+            return $return;    
+        }
+        
+    }
+
     public function createDataKhachHangAction(){
     	$khach_hang_table=$this->getServiceLocator()->get('Application\Model\KhachHangTable');
 	    for ($i=0; $i < 1000; $i++) { 
@@ -105,7 +135,58 @@ class DoiTacController extends AbstractActionController
     }
 
     public function themNhaCungCapAction(){
-    	
+    	$form=$this->getServiceLocator()->get('Application\Form\ThemNhaCungCapForm');
+    	$return['form']=$form;
+    	$request=$this->getRequest();
+    	if($request->isPost()){
+    		$post=array_merge_recursive($request->getPost()->toArray(), $request->getFiles()->toArray());
+    		$form->setData($post);
+    		if($form->isValid()){
+    			$id_kho=$this->AuthService()->getIdKho();   
+    			$nha_cung_cap_table=$this->getServiceLocator()->get('Application\Model\NhaCungCapTable');
+    			$nha_cung_cap_moi=new NhaCungCap();
+    			$nha_cung_cap_moi->exchangeArray($post);
+    			$nha_cung_cap_moi->setState(1);    			
+				$date = date('Y-m-d h:i:s a', time());
+    			$nha_cung_cap_moi->setNgayDangKy($date);
+    			// xử lý hình ảnh
+                $image=$post['hinh_anh'];
+                if($image and $image['error']==0){                  	               
+                    $path = "./public/img/orther/nhacungcap/".$id_kho."/";
+                    $pathSave = "/img/orther/nhacungcap/".$id_kho."/";
+                    if (! file_exists($path)) {
+                        mkdir($path, 0700, true);
+                    }
+                    $uniqueToken = md5(uniqid(mt_rand(), true));
+                    $newName = $this->CheckPathExist()->checkPathExist($path, $uniqueToken, $image['name']);
+                    $filter = new \Zend\Filter\File\Rename($path . $newName);
+                    $filter->filter($image);
+                    $pathSave.=$newName;
+                }
+                else{
+                    $pathSave = "/img/default/nhacungcap/default.png";
+                }
+                $nha_cung_cap_moi->setIdKho($id_kho);
+                $nha_cung_cap_moi->setHinhAnh($pathSave);
+    			$nha_cung_cap_table->saveNhaCungCap($nha_cung_cap_moi);
+    			$this->flashMessenger()->addSuccessMessage('Chúc mừng, thêm nhà cung cấp thành công!');
+    			return $this->redirect()->toRoute('doi_tac', array('action'=>'nha-cung-cap'));
+    		}
+    		// ngược lại, form not valid
+    		else{
+    			$return['form']=$form;
+    			return $return;
+    		}
+
+    	}
+    	// ngược lại không post dữ liệu
+    	else{
+    			return $return;
+    	}
+    }
+
+    public function suaThongTinNhaCungCapAction(){
+        
     }
 
 

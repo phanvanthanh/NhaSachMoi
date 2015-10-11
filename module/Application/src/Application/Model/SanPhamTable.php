@@ -63,7 +63,9 @@ class SanPhamTable
         $sqlSelect = $sql->select();
         $sqlSelect->from(array('t1'=>'san_pham'));
         $sqlSelect->join(array('t2'=>'loai_san_pham'), 't1.id_loai_san_pham=t2.id_loai_san_pham', $array_columns_2, 'LEFT');
-        $sqlSelect->columns($array_columns_1);
+        if($array_columns_1){
+            $sqlSelect->columns($array_columns_1);
+        }
         if($array_conditions){
             $sqlSelect->where($array_conditions);
         }

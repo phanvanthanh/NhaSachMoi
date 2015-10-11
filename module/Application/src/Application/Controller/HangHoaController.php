@@ -128,7 +128,7 @@ class HangHoaController extends AbstractActionController
         $return=array('id'=>$id);
         $san_pham_table=$this->getServiceLocator()->get('Application\Model\SanPhamTable');
         // kiểm tra sản phẩm tồn tại
-        $san_pham=$san_pham_table->getSanPhamByArrayConditionAndArrayColumn(array('id_san_pham'=>$id, 'id_kho'=>$id_kho), array());
+        $san_pham=$san_pham_table->getSanPhamByArrayConditionAndArrayColumn(array('id_san_pham'=>$id, 'id_kho'=>$id_kho, 'state'=>1), array());
         if(!$san_pham){
             $this->flashMessenger()->addErrorMessage('Sản phẩm không tồn tại');
             return $this->redirect()->toRoute('hang_hoa');

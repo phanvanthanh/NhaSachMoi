@@ -60,7 +60,9 @@ class KhachHangTable
         $sqlSelect = $sql->select();
         $sqlSelect->from(array('t1'=>'khach_hang'));
         $sqlSelect->join(array('t2'=>'kenh_phan_phoi'), 't1.id_kenh_phan_phoi=t2.id_kenh_phan_phoi', $array_columns_2, 'LEFT');
-        $sqlSelect->columns($array_columns_1);
+        if($array_columns_1){
+            $sqlSelect->columns($array_columns_1);
+        }
         if($array_conditions){
             $sqlSelect->where($array_conditions);
         }
