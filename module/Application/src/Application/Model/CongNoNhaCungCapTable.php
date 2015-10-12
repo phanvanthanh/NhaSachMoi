@@ -16,5 +16,7 @@ class CongNoNhaCungCapTable
     {
         $this->tableGateway = $tableGateway;
     }
+
+    
     
 }

@@ -13,6 +13,8 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Application\Model\Entity\KhachHang;
 use Application\Model\Entity\NhaCungCap;
+use Zend\View\Model\JsonModel;
+use Zend\Db\Sql\Expression;
 
 class DoiTacController extends AbstractActionController
 {
@@ -149,6 +151,52 @@ class DoiTacController extends AbstractActionController
         $khach_hang_table->saveKhachHang($khach_hang_moi);
         $this->flashMessenger()->addSuccessMessage('Chúc mừng, xóa thông tin khách hàng thành công!');
         return $this->redirect()->toRoute('doi_tac');
+    }
+
+    public function congNoKhachHangAction(){
+        $request=$this->getRequest();
+        if($request->isXmlHttpRequest())
+        {
+            $post=$request->getPost();
+            $id_kho=$this->AuthService()->getIdKho();
+            $id_khach_hang=$post['id_khach_hang'];
+            $khach_hang_table=$this->getServiceLocator()->get('Application\Model\KhachHangTable');
+            $khach_hang=$khach_hang_table->getKhachHangAndKenhPhanPhoiByArrayConditionAnd2ArrayColumn(array('t1.id_khach_hang'=>$id_khach_hang, 't2.id_kho'=>$id_kho), array('ho_ten'), array('chiet_khau'));
+            if(!$khach_hang){
+                $response=array('error'=>'Khách hàng không tồn tại');
+                $json = new JsonModel($response);
+                return $json;
+            }
+            // lấy dữ liệu bảng công nợ
+            $cong_no_khach_hang_table=$this->getServiceLocator()->get('Application\Model\CongNoKhachHangTable');
+            $cong_no=$cong_no_khach_hang_table->getSanPhamByArrayConditionAndArrayColumn(array('id_khach_hang'=>$id_khach_hang), array(new Expression('max(id_cong_no) as id_cong_no')));
+            $cong_no=$cong_no_khach_hang_table->getSanPhamByArrayConditionAndArrayColumn(array('id_cong_no'=>$cong_no[0]['id_cong_no']), array('du_no'));
+            $du_no=0;
+            if($cong_no){
+                $du_no=$cong_no[0]['du_no'];
+            }
+            // lấy dữ liệu bảng hóa đơn và chi tiết hóa đơn
+            $hoa_don_table=$this->getServiceLocator()->get('Application\Model\HoaDonTable');
+            $danh_sach_hoa_don=$hoa_don_table->getHoaDonAndCtHoaDonByArrayConditionAnd2ArrayColumn(array('t1.id_khach_hang'=>$id_khach_hang), array('ma_hoa_don'), array('gia', 'so_luong'));
+            $so_hoa_don=count($danh_sach_hoa_don);
+            $no_phat_sinh=0;
+            if($danh_sach_hoa_don){
+                foreach ($danh_sach_hoa_don as $hoa_don) {
+                    $thanh_tien=$hoa_don['gia']*$hoa_don['so_luong'];
+                    $no_phat_sinh+=$thanh_tien;
+                }
+            }
+            $tong_no=$du_no+$no_phat_sinh;
+            $response=array('error'=>'', 'so_hoa_don'=>$so_hoa_don, 'tong_no'=>$tong_no);
+            $json = new JsonModel($response);
+            return $json;
+        }
+        else{
+            $response=array('error'=>'Phương thức truyền dữ liệu không đúng');
+            $json = new JsonModel($response);
+            return $json;
+            
+        }
     }
 
     public function createDataKhachHangAction(){

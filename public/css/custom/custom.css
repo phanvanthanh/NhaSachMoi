@@ -18,7 +18,7 @@
   }
 
   .navbar-default{
-    background-color: #d9534f;
+    background: #d9534f;
     background-image:-webkit-linear-gradient(top,#d9534f 0,#c12e2a 100%);
   }
 
