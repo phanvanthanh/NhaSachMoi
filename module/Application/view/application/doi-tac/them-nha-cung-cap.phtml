@@ -70,7 +70,7 @@ echo $this->form()->openTag($form);
         echo $this->formFile($form->get('hinh_anh')); 
         ?>
       </span>
-      <img id="img" src="<?php echo $this->basePath().'/img/default/product/default.png'; ?>" alt="..." class="img-circle" width="140px" height="140px">
+      <img id="img" src="<?php echo $this->basePath().'/img/default/nhacungcap/default.png'; ?>" alt="..." class="img-circle" width="140px" height="140px">
       <div class="text-danger">
         <?php echo $this->formElementErrors($form->get('hinh_anh')); ?>
       </div>
@@ -78,7 +78,7 @@ echo $this->form()->openTag($form);
 
   </div>
   <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 text-right">
-    <a class="btn btn-default" href="<?php echo $this->url('doi_tac'); ?>">Quay lại</a>
+    <a class="btn btn-default" href="<?php echo $this->url('doi_tac', array('action'=>'nha-cung-cap')); ?>">Quay lại</a>
     <button class="btn btn-danger">Lưu</button>
   </div>
 <?php

@@ -87,6 +87,7 @@ echo $this->form()->openTag($form);
   </div>
   <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 text-right">
     <a class="btn btn-default" href="<?php echo $this->url('doi_tac'); ?>">Quay lại</a>
+    <a class="btn btn-default" onclick="confirmSetLocation('Bạn thật sự muốn xóa bỏ thông tin khách hàng này khỏi hệt thống?', '<?php echo $this->url('doi_tac', array('action'=>'xoa-thong-tin-khach-hang', 'id'=>$this->id)); ?>')">Xóa</a>
     <button class="btn btn-danger">Lưu</button>
   </div>
 <?php

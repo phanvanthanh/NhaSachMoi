@@ -1,0 +1,84 @@
+<?php
+$form=$this->form;
+$form->setAttribute('action', $this->url("doi_tac", array('action'=>'sua-thong-tin-nha-cung-cap', 'id'=>$this->id)));
+$form->setAttribute('class','form');
+$form->setAttribute('role','form');
+$form->setAttribute('method','post');
+$form->prepare();
+echo $this->form()->openTag($form);
+?>
+  <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
+    <span class="title">SỬA THÔNG TIN NHÀ CUNG CẤP</span>
+    <?php echo $this->formHidden($form->get('id_nha_cung_cap')); ?>
+  </div>
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">&nbsp;</div>
+  <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
+    <div class="form-group">
+      <label><?php echo $this->formLabel($form->get('ho_ten')); ?></label>
+      <?php echo $this->formInput($form->get('ho_ten')); ?>
+      <div class="text-danger">
+        <?php echo $this->formElementErrors($form->get('ho_ten')); ?>
+      </div>
+    </div>
+    <div class="form-group">
+      <label><?php echo $this->formLabel($form->get('dia_chi')); ?></label>
+      <?php echo $this->formInput($form->get('dia_chi')); ?>
+      <div class="text-danger">
+        <?php echo $this->formElementErrors($form->get('dia_chi')); ?>
+      </div>
+    </div>
+    <div class="form-group">
+      <label><?php echo $this->formLabel($form->get('di_dong')); ?></label>
+      <?php echo $this->formInput($form->get('di_dong')); ?>
+      <div class="text-danger">
+        <?php echo $this->formElementErrors($form->get('di_dong')); ?>
+      </div>
+    </div>
+    <div class="form-group">
+      <label><?php echo $this->formLabel($form->get('dien_thoai_co_dinh')); ?></label>
+      <?php echo $this->formInput($form->get('dien_thoai_co_dinh')); ?>
+      <div class="text-danger">
+        <?php echo $this->formElementErrors($form->get('dien_thoai_co_dinh')); ?>
+      </div>
+    </div>
+    <div class="form-group">
+      <label><?php echo $this->formLabel($form->get('email')); ?></label>
+      <?php echo $this->formInput($form->get('email')); ?>
+      <div class="text-danger">
+        <?php echo $this->formElementErrors($form->get('email')); ?>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label><?php echo $this->formLabel($form->get('mo_ta')); ?></label>
+      <?php 
+      $form->get('mo_ta')->setAttribute('rows',5); 
+      echo $this->formTextarea($form->get('mo_ta'));
+      ?>
+      <div class="text-danger">
+        <?php echo $this->formElementErrors($form->get('mo_ta')); ?>
+      </div>
+    </div>    
+    <div class="form-group">              
+      <span class="btn btn-default btn-file">
+        Browse 
+        <?php 
+        $form->get('hinh_anh')->setAttribute('id','upload_img');
+        echo $this->formFile($form->get('hinh_anh')); 
+        ?>
+      </span>
+      <img id="img" src="<?php echo $this->basePath().$form->get('hinh_anh')->getValue(); ?>" alt="..." class="img-circle" width="140px" height="140px">
+      <div class="text-danger">
+        <?php echo $this->formElementErrors($form->get('hinh_anh')); ?>
+      </div>
+    </div>    
+
+  </div>
+  <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 text-right">
+    <a class="btn btn-default" href="<?php echo $this->url('doi_tac', array('action'=>'nha-cung-cap')); ?>">Quay lại</a>
+    <a class="btn btn-default" onclick="confirmSetLocation('Bạn thật sự muốn xóa bỏ thông tin của nhà cung cấp này khỏi hệt thống?', '<?php echo $this->url('doi_tac', array('action'=>'xoa-thong-tin-nha-cung-cap', 'id'=>$this->id)); ?>')">Xóa</a>
+    <button class="btn btn-danger">Lưu</button>
+  </div>
+<?php
+echo $this->form()->closeTag($form);
+?>

@@ -20,6 +20,7 @@ class NhaCungCap
     public function exchangeArray($data)
     {
         $this->id_nha_cung_cap = (isset($data['id_nha_cung_cap'])) ? $data['id_nha_cung_cap'] : null;
+        $this->id_kho = (isset($data['id_kho'])) ? $data['id_kho'] : null;
         $this->ho_ten = (isset($data['ho_ten'])) ? $data['ho_ten'] : null;
         $this->dia_chi = (isset($data['dia_chi'])) ? $data['dia_chi'] : null;
         $this->email = (isset($data['email'])) ? $data['email'] : null;
