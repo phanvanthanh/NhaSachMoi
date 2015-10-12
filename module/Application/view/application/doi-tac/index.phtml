@@ -36,7 +36,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <b>Tổng số hóa đơn: </b><span id="so-hoa-don" class="label label-success" style="margin-top: -20px; margin-left: 73px;">10</span>
+        <b>Tổng số hóa đơn: </b><span id="so-hoa-don" class="label label-success" style="margin-top: -20px; margin-left: 72px;">10</span>
         <br>
         <b>Tổng nợ: </b><span id="tong-no" class="label label-danger" style="margin-top: -20px; margin-left: 130px;">10</span>
       </div>
@@ -69,11 +69,19 @@
               'id_khach_hang':  jQuery(this).attr('data'),
           },
           success:function(data){
-            console.log('success');
-            jQuery('#myModal').modal();
+            if(data.error==''){
+              jQuery('#so-hoa-don').text(data.so_hoa_don);
+              jQuery('#tong-no').text(data.tong_no);
+              jQuery('#myModal').modal();
+            }
+            else{
+              jQuery('#alert').attr('class','alert alert-danger').children('span').text(data.error);
+              jQuery('#alert').show('slow').delay(3000).hide('slow');
+            }            
           },
           error:function(){
-            console.log('error');
+            jQuery('#alert').attr('class','alert alert-danger').children('span').text('Lỗi');
+            jQuery('#alert').show('slow').delay(3000).hide('slow');
           }
       });   
     });

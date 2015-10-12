@@ -21,7 +21,7 @@ class CongNoKhachHangTable
         sử dụng trong phương thức saveSanPham
         sử dụng trong Application/Controller/DoiTacController congNoKhachHangAction
     */
-    public function getSanPhamByArrayConditionAndArrayColumn($array_conditions=array(), $array_columns=array()){
+    public function getCongNoKhachHangByArrayConditionAndArrayColumn($array_conditions=array(), $array_columns=array()){
         /*
             chuyền vào 2 tham số:   1 tham số là mảng điều kiện, 
                                     1 tham số là mảng cột cần lấy ra

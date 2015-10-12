@@ -169,8 +169,8 @@ class DoiTacController extends AbstractActionController
             }
             // lấy dữ liệu bảng công nợ
             $cong_no_khach_hang_table=$this->getServiceLocator()->get('Application\Model\CongNoKhachHangTable');
-            $cong_no=$cong_no_khach_hang_table->getSanPhamByArrayConditionAndArrayColumn(array('id_khach_hang'=>$id_khach_hang), array(new Expression('max(id_cong_no) as id_cong_no')));
-            $cong_no=$cong_no_khach_hang_table->getSanPhamByArrayConditionAndArrayColumn(array('id_cong_no'=>$cong_no[0]['id_cong_no']), array('du_no'));
+            $cong_no=$cong_no_khach_hang_table->getCongNoKhachHangByArrayConditionAndArrayColumn(array('id_khach_hang'=>$id_khach_hang), array(new Expression('max(id_cong_no) as id_cong_no')));
+            $cong_no=$cong_no_khach_hang_table->getCongNoKhachHangByArrayConditionAndArrayColumn(array('id_cong_no'=>$cong_no[0]['id_cong_no']), array('du_no'));
             $du_no=0;
             if($cong_no){
                 $du_no=$cong_no[0]['du_no'];
@@ -356,6 +356,51 @@ class DoiTacController extends AbstractActionController
         return $this->redirect()->toRoute('doi_tac');
     }
 
+    public function congNoNhaCungCapAction(){
+        $request=$this->getRequest();
+        if($request->isXmlHttpRequest())
+        {
+            $post=$request->getPost();
+            $id_nha_cung_cap=$post['id_nha_cung_cap'];
+            $id_kho=$this->AuthService()->getIdKho();  
+            $nha_cung_cap_table=$this->getServiceLocator()->get('Application\Model\NhaCungCapTable');
+            $nha_cung_cap=$nha_cung_cap_table->getNhaCungCapByArrayConditionAndArrayColumn(array('id_nha_cung_cap'=>$id_nha_cung_cap, 'id_kho'=>$id_kho), array('ho_ten'));
+            if(!$nha_cung_cap){
+                $response=array('error'=>'Nhà cung cấp không tồn tại');
+                $json = new JsonModel($response);
+                return $json;
+            }
+
+            $cong_no_nha_cung_cap_table=$this->getServiceLocator()->get('Application\Model\CongNoNhaCungCapTable');
+            $cong_no=$cong_no_nha_cung_cap_table->getCongNoNhaCungCapByArrayConditionAndArrayColumn(array('id_nha_cung_cap'=>$id_nha_cung_cap), array(new Expression('max(id_cong_no) as id_cong_no')));
+            $cong_no=$cong_no_nha_cung_cap_table->getCongNoNhaCungCapByArrayConditionAndArrayColumn(array('id_cong_no'=>$cong_no[0]['id_cong_no']), array('du_no'));
+            $du_no=0;
+            if($cong_no){
+                $du_no=$cong_no[0]['du_no'];
+            }
+            // lấy dữ liệu bảng phiếu nhập và chi tiết phiếu nhập
+            $phieu_nhap_table=$this->getServiceLocator()->get('Application\Model\PhieuNhapTable');
+            $danh_sach_phieu_nhap=$phieu_nhap_table->getPhieuNhapAndCtPhieuNhapByArrayConditionAnd2ArrayColumn(array('t1.id_nha_cung_cap'=>$id_nha_cung_cap), array('ma_phieu_nhap'), array('gia_nhap', 'so_luong'));
+            $so_phieu_nhap=count($danh_sach_phieu_nhap);
+            $no_phat_sinh=0;
+            if($danh_sach_phieu_nhap){
+                foreach ($danh_sach_phieu_nhap as $phieu_nhap) {
+                    $thanh_tien=$phieu_nhap['gia_nhap']*$phieu_nhap['so_luong'];
+                    $no_phat_sinh+=$thanh_tien;
+                }
+            }
+            $tong_no=$du_no+$no_phat_sinh;
+            $response=array('error'=>'', 'so_phieu_nhap'=>$so_phieu_nhap, 'tong_no'=>$tong_no);
+            $json = new JsonModel($response);
+            return $json;
+        }
+        else{
+            $response=array('error'=>'Phương thức truyền dữ liệu không đúng');
+            $json = new JsonModel($response);
+            return $json;
+        }
+            
+    }
 
     public function createDataNhaCungCapAction(){
     	$nha_cung_cap_table=$this->getServiceLocator()->get('Application\Model\NhaCungCapTable');
