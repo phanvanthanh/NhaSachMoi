@@ -48,6 +48,8 @@ class KhachHangTable
     /*
         sử dụng trong Application/Controller/DoiTacController indexAction
         sử dụng trong Application/Controller/DoiTacController suaThongTinKhachHangAction
+        sử dụng trong Application/Controller/DoiTacController xoaThongTinKhachHangAction
+        sử dụng trong Application/Controller/DoiTacController congNoKhachHangAction
     */
     public function getKhachHangAndKenhPhanPhoiByArrayConditionAnd2ArrayColumn($array_conditions=array(), $array_columns_1=array(), $array_columns_2=array()){
         /*
@@ -80,6 +82,7 @@ class KhachHangTable
         sử dụng trong Application/Controller/DoiTacController createDataKhachHangAction
         sử dụng trong Application/Controller/DoiTacController themKhachHangAction
         sử dụng trong Application/Controller/DoiTacController suaThongTinKhachHangAction
+        sử dụng trong Application/Controller/DoiTacController xoaThongTinKhachHangAction
     */
     public function saveKhachHang(KhachHang $khach_hang)
     {

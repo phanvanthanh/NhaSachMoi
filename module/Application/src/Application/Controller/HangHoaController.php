@@ -241,6 +241,18 @@ class HangHoaController extends AbstractActionController
 
     }
 
+    public function nhapHangHoaAction(){
+
+    }
+
+    public function xuatHangHoaAction(){
+
+    }
+
+    public function doiTraHangHoaAction(){
+        
+    }
+
     public function createDataAction(){
         $san_pham_table=$this->getServiceLocator()->get('Application\Model\SanPhamTable');
         for ($i=1000; $i < 2000; $i++) { 

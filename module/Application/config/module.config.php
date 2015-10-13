@@ -350,25 +350,25 @@ return array(
                     ),                    
                     
                     array(
-                        'label' => ' Nhập hàng', 
-                        'title' => ' Nhập hàng', 
-                        'route' => '/hang-hoa/nhap-hang',
+                        'label' => ' Nhập hàng hóa', 
+                        'title' => ' Nhập hàng hóa', 
+                        'route' => '/hang-hoa/nhap-hang-hoa',
                         'id'=>'#',
                         'icon' => '',
                         'order' => 1
                     ),
                     array(
-                        'label' => ' Xuất hàng', 
-                        'title' => ' Xuất hàng', 
-                        'route' => '/hang-hoa/xuat-hang',
+                        'label' => ' Xuất hàng hóa', 
+                        'title' => ' Xuất hàng hóa', 
+                        'route' => '/hang-hoa/xuat-hang-hoa',
                         'id'=>'#',
                         'icon' => '',
                         'order' => 1
                     ),
                     array(
-                        'label' => ' Đổi trả hàng', 
-                        'title' => ' Đổi trả hàng', 
-                        'route' => '/hang-hoa/doi-tra-hang',
+                        'label' => ' Đổi trả hàng hoa', 
+                        'title' => ' Đổi trả hàng hoa', 
+                        'route' => '/hang-hoa/doi-tra-hang-hoa',
                         'id'=>'#',
                         'icon' => '',
                         'order' => 1

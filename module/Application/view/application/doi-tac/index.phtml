@@ -36,9 +36,25 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <b>Tổng số hóa đơn: </b><span id="so-hoa-don" class="label label-success" style="margin-top: -20px; margin-left: 72px;">10</span>
-        <br>
-        <b>Tổng nợ: </b><span id="tong-no" class="label label-danger" style="margin-top: -20px; margin-left: 130px;">10</span>
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th colspan="2">Thống kê</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Tổng số hóa đơn: </td>
+                <td><span id="so-hoa-don" class="label label-success">0</span></td>
+              </tr>
+              <tr>
+                <td>Tổng nợ: </td>
+                <td><span id="tong-no" class="label label-danger">0</span></td>
+              </tr>
+            </tbody>              
+          </table>
+        </div>        
       </div>
     </div>
   </div>
