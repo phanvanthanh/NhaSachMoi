@@ -18,9 +18,15 @@
               echo $this->formInput($login_form->get('url'));
               echo $this->formInput($login_form->get('username'));
             ?>
+            <div class="text-danger">
+              <?php echo $this->FormElementErrors($login_form->get('username')); ?>
+            </div>
           </div>
           <div class="form-group has-success">
             <?php echo $this->formInput($login_form->get('password')); ?>
+            <div class="text-danger text-left">
+              <?php echo $this->FormElementErrors($login_form->get('password')); ?>
+            </div>
           </div>
           <div class="form-group has-success">
             <a href="#" class="btn btn-default">Quay lại</a>&nbsp;

@@ -315,25 +315,37 @@ class PermissionController extends AbstractActionController
 
             if($login_form->isValid()){
                 $username=$post['username'];
-                $password=$post['password'];                                  
-                // Xác định lớp chứng thực authentication
-                $this->getAuthService()->getAdapter()->setIdentity($username)->setCredential($password);
-                $result = $this->getAuthService()->authenticate();
-                if ($result->isValid()) {
-                    $storage = new MyAuthStorage();
-                    $storage->forgetMe();
-                    $jos_admin_resource_table=$this->getServiceLocator()->get('Permission\Model\JosAdminResourceTable');
-                    $user_table=$this->getServiceLocator()->get('Permission\Model\UserTable');
-                    $user=$user_table->getUserByArrayConditionAndArrayColumn(array('username'=>$username), array('user_id', 'id_kho'));
-                    $user_id=$user[0]['user_id'];
-                    $id_kho=$user[0]['id_kho'];
-                    $white_list=$jos_admin_resource_table->getResourceByUsername($username);
-                    $this->getAuthService()->getStorage()->write(array('user_id'=>$user_id, 'id_kho'=>$id_kho, 'white_list' => $white_list));         
-                    
-                    // thông báo đăng nhập thành công
-                    $this->flashMessenger()->addSuccessMessage('Đăng nhập thành công!');
-                    return $this->redirect()->toRoute('hang_hoa');
-                    //return $this->redirect()->toUrl($url_login);
+                $password=$post['password']; 
+                $user_table=$this->getServiceLocator()->get('Permission\Model\UserTable');
+                $user_exist=$user_table->getUserByArrayConditionAndArrayColumn(array('username'=>$username, 'state'=>1), array('user_id'));
+                if($user_exist){    
+                    // Xác định lớp chứng thực authentication
+                    $this->getAuthService()->getAdapter()->setIdentity($username)->setCredential($password);
+                    $result = $this->getAuthService()->authenticate();
+                    if ($result->isValid()) {
+                        $storage = new MyAuthStorage();
+                        $storage->forgetMe();
+                        $jos_admin_resource_table=$this->getServiceLocator()->get('Permission\Model\JosAdminResourceTable');
+                        $user=$user_table->getUserByArrayConditionAndArrayColumn(array('username'=>$username), array('user_id', 'id_kho'));
+                        $user_id=$user[0]['user_id'];
+                        $id_kho=$user[0]['id_kho'];
+                        $white_list=$jos_admin_resource_table->getResourceByUsername($username);
+                        $this->getAuthService()->getStorage()->write(array('user_id'=>$user_id, 'id_kho'=>$id_kho, 'white_list' => $white_list));         
+                        
+                        // thông báo đăng nhập thành công
+                        $this->flashMessenger()->addSuccessMessage('Đăng nhập thành công!');
+                        return $this->redirect()->toRoute('hang_hoa');
+                        //return $this->redirect()->toUrl($url_login);
+                    }
+                    else{
+                        $return_array['login_form']=$login_form;
+                        return $return_array;
+                    }
+                }
+                else{
+                    $login_form->get('username')->setMessages(array('Tên đăng nhập không tồn tại'));
+                    $return_array['login_form']=$login_form;
+                    return $return_array;
                 }
             }                
         }
