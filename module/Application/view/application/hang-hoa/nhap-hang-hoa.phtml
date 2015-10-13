@@ -4,8 +4,43 @@
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">&nbsp;</div>
 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
   <div class="form-group">
-    <label>Nhà cung cấp</label>&nbsp;&nbsp;&nbsp;&nbsp;    
-    <input type="text" name="name" title="Tên nhà cung cấp" class="form-control">
+    <label>Nhà cung cấp</label> 
+    <div class="filter">
+      <input type="text" class="form-control" id="dev-table-filter" data-action="filter" data-filters="#dev-table" placeholder="Filter Developers" />
+      <table class="table table-hover cursor dev-table" id="dev-table">        
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   </div>
   <div class="form-group">
     <label>Địa chỉ</label>
@@ -19,7 +54,18 @@
 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
   <div class="form-group">
     <label>Tên sản phẩm</label>
-    <input type="text" name="name" title="Tên sản phẩm" class="form-control">
+    <div class="filter">
+      <input type="text" class="form-control" id="dev-table-filter-2" data-action="filter-2" data-filters="#dev-table-2" placeholder="Filter Developers" />
+      <table class="table table-hover cursor dev-table" id="dev-table-2">        
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+
+
+
+
+
   </div>
   <div class="form-group">
     <label>Mã sản phẩm</label>
@@ -76,4 +122,35 @@
 </div>
 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-right">
   <div class="btn btn-danger">In đơn hàng</div>
-</div>         
+</div>
+<script type="text/javascript">
+  jQuery(document).ready(function(){
+    var tr='<tr>'
+          +   '<td data-title="Tên nhà cung cấp">Nguyễn Hoàng Duy Thiện</td>'
+          +   '<td class="numeric" data-title="Mobile (RM/30sec)">'
+          +   '01699580585</td>'
+          +   '<td data-title="Địa chỉ">Cầu ngang</td>'
+          + '</tr>'
+          + '<tr>'
+          +   '<td data-title="Tên nhà cung cấp">Phan Văn Thanh</td>'
+          +   '<td class="numeric" data-title="Mobile (RM/30sec)">01699580585</td>'
+          +   '<td data-title="Địa chỉ">Châu hưng, châu điền, cầu kè, trà vinh</td>'
+          + '</tr>'
+          + '<tr>'
+          +   '<td data-title="Tên nhà cung cấp">Phan Văn Thanh</td>'
+          +   '<td class="numeric" data-title="Mobile (RM/30sec)">01699580585</td>'
+          +   '<td data-title="Địa chỉ">Cầu kè</td>'
+          + '</tr>';
+    jQuery('#dev-table tbody').append(tr);
+    jQuery('#dev-table tbody tr').on('click', function(){
+      var text=jQuery(this).find('td:first-child').text();
+      jQuery('#dev-table-filter').val(text);
+    });
+
+    jQuery('#dev-table-2 tbody').append(tr);
+    jQuery('#dev-table-2 tbody tr').on('click', function(){
+      var text=jQuery(this).find('td:first-child').text();
+      jQuery('#dev-table-filter-2').val(text);
+    });
+  })
+</script>

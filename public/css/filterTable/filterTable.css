@@ -1,0 +1,16 @@
+.clickable{
+    cursor: pointer;   
+}
+.filter{
+  width: 100%;
+}
+.filter:hover>.dev-table{
+  display: block;
+  z-index: 10;
+  width: 100%;
+}
+.dev-table{
+  display: none;
+  z-index: 10;
+  width: 100%;
+}
