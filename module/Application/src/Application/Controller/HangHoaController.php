@@ -12,6 +12,7 @@ namespace Application\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Application\Model\Entity\SanPham;
+use Zend\View\Model\JsonModel;
 
 
 class HangHoaController extends AbstractActionController
@@ -242,7 +243,11 @@ class HangHoaController extends AbstractActionController
     }
 
     public function nhapHangHoaAction(){
-
+        $request=$this->getRequest();
+        if($request->isPost()){
+            var_dump($request->getPost());
+            die();
+        }
     }
 
     public function xuatHangHoaAction(){
@@ -251,6 +256,42 @@ class HangHoaController extends AbstractActionController
 
     public function doiTraHangHoaAction(){
         
+    }
+
+    public function danhSachNhaCungCapAction(){
+        $request=$this->getRequest();
+        if($request->isXmlHttpRequest())
+        {
+            $id_kho=$this->AuthService()->getIdKho();
+            $nha_cung_cap_table=$this->getServiceLocator()->get('Application\Model\NhaCungCapTable');
+            $danh_sach_nha_cung_cap=$nha_cung_cap_table->getNhaCungCapByArrayConditionAndArrayColumn(array('id_kho'=>$id_kho, 't1.state'=>1), array('id_nha_cung_cap', 'ho_ten', 'di_dong', 'dia_chi'));
+            $response=array('error'=>'', 'danh_sach_nha_cung_cap'=>$danh_sach_nha_cung_cap);
+            $json = new JsonModel($response);
+            return $json;
+        }
+        else {
+            $response=array('error'=>'Phương thức nhập không đúng');
+            $json = new JsonModel($response);
+            return $json;
+        }
+    }
+
+    public function danhSachSanPhamAction(){
+        $request=$this->getRequest();
+        if($request->isXmlHttpRequest())
+        {
+            $id_kho=$this->AuthService()->getIdKho();      
+            $san_pham_table=$this->getServiceLocator()->get('Application\Model\SanPhamTable');
+            $danh_sach_san_pham=$san_pham_table->getSanPhamAndDonViTinhByArrayConditionAnd2ArrayColumn(array('t1.id_kho'=>$id_kho, 't1.state'=>1), array('id_san_pham', 'ten_san_pham', 'ma_san_pham', 'ma_vach'), array('don_vi_tinh'));
+            $response=array('error'=>'', 'danh_sach_san_pham'=>$danh_sach_san_pham);
+            $json = new JsonModel($response);
+            return $json;
+        }
+        else {
+            $response=array('error'=>'Phương thức nhập không đúng');
+            $json = new JsonModel($response);
+            return $json;
+        }
     }
 
     public function createDataAction(){

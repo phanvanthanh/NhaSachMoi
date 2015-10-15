@@ -225,7 +225,8 @@ class DoiTacController extends AbstractActionController
     	$id_kho=$this->AuthService()->getIdKho();
         $nha_cung_cap_table=$this->getServiceLocator()->get('Application\Model\NhaCungCapTable');
         $danh_sach_nha_cung_cap=$nha_cung_cap_table->getNhaCungCapByArrayConditionAndArrayColumn(array('id_kho'=>$id_kho, 't1.state'=>1), array('id_nha_cung_cap', 'ho_ten', 'di_dong', 'dia_chi'));
-    	return array('danh_sach_nha_cung_cap'=>$danh_sach_nha_cung_cap);
+    	die(var_dump($danh_sach_nha_cung_cap));
+        return array('danh_sach_nha_cung_cap'=>$danh_sach_nha_cung_cap);
     }
 
     public function themNhaCungCapAction(){

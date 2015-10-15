@@ -7,53 +7,28 @@
     <label>Nhà cung cấp</label> 
     <div class="filter">
       <input type="text" class="form-control" id="dev-table-filter" data-action="filter" data-filters="#dev-table" placeholder="Nhập tên nhà cung cấp, số điện thoại, địa chỉ" />
-      <table class="table table-hover cursor dev-table" id="dev-table">        
+      <table class="table table-hover cursor dev-table" id="dev-table">
         <tbody>
         </tbody>
       </table>
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   </div>
   <div class="form-group">
     <label>Địa chỉ</label>
-    <input type="text" name="name" title="Địa chỉ" class="form-control">
+    <input type="text" id="dia_chi" title="Địa chỉ" class="form-control">
   </div>
   <div class="form-group">
     <label>Số điện thoại</label>
-    <input type="text" name="name" title="Số điện thoại" class="form-control">
+    <input type="text" id="di_dong" title="Số điện thoại" class="form-control">
   </div>
 </div>
 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
   <div class="form-group">
     <label>Tên sản phẩm</label>
+    <!-- dùng để lưu tạm khi chọn sản phẩm, đến khi click vào nút thểm sẽ lấy dữ liệu này ra và đưa xuống bảng danh sách sản phẩm -->
+    <input type="hidden" id="id_san_pham" value="">
+    <input type="hidden" id="don_vi_tinh" value="">
+    <!--  -->
     <div class="filter">
       <input type="text" class="form-control" id="dev-table-filter-2" data-action="filter-2" data-filters="#dev-table-2" placeholder="Nhập tên sản phẩm, mã sản phẩm, mã vạch" />
       <table class="table table-hover cursor dev-table" id="dev-table-2">        
@@ -61,41 +36,36 @@
         </tbody>
       </table>
     </div>
-
-
-
-
-
   </div>
   <div class="form-group">
     <label>Mã sản phẩm</label>
-    <input type="text" name="name" title="Mã sản phẩm" class="form-control">
+    <input type="text" id="ma_san_pham" title="Mã sản phẩm" class="form-control">
   </div> 
   <div class="form-group">
     <label>Mã vạch</label>
-    <input type="text" name="name" title="Mã sản phẩm" class="form-control">
+    <input type="text" id="ma_vach" title="Mã sản phẩm" class="form-control">
   </div>
   <div class="form-group">
     <label>Số lượng</label>
-    <input type="number" name="name" title="Số lượng" class="form-control">
+    <input type="number" id="so_luong" title="Số lượng" class="form-control">
   </div>           
   <div class="form-group">
     <label>Giá sản phẩm</label>
-    <input type="number" name="name" title="Tên sản phẩm" class="form-control">
+    <input type="number" id="gia_nhap" title="Tên sản phẩm" class="form-control">
   </div>
   <div class="form-group">
-    <div class="btn btn-danger btn-block">Thêm</div>
+    <div class="btn btn-danger btn-block" id="btn_them">Thêm</div>
   </div>
 </div>
 
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
   <hr>
-  <span class="title">DANH SÁCH HÀNG XUẤT</span>
+  <span class="title">DANH SÁCH HÀNG NHẬP</span>
 </div>
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">&nbsp;</div>
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
   <div class="table-responsive">
-    <table class="table table-border">
+    <table class="table table-border" id="danh_sach_san_pham_nhap">
       <thead>
         <tr class="active">
           <th>Sản phẩm</th>
@@ -117,40 +87,150 @@
     </table>
   </div>            
 </div> 
+<form action="<?php echo $this->url('hang_hoa', array('action'=>'nhap-hang-hoa')); ?>" method="post" name="xuat_hang_hoa" id="xuat_hang_hoa" class="hidden-xs hidden-sm hidden-md hidden-lg">
+  <input type="text" name="id_nha_cung_cap" id="id_nha_cung_cap" value="0">
+  <div id="danh_sach_san_pham">
+    
+  </div>
+</form>
 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
   <div class="btn btn-default">Hủy đơn hàng</div>
 </div>
 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-right">
-  <div class="btn btn-danger">In đơn hàng</div>
+  <div class="btn btn-danger" id="btn_in_don_hang">In đơn hàng</div>
 </div>
 <script type="text/javascript">
+  // nhập hàng
   jQuery(document).ready(function(){
-    var tr='<tr>'
-          +   '<td data-title="Tên nhà cung cấp">Nguyễn Hoàng Duy Thiện</td>'
-          +   '<td class="numeric" data-title="Mobile (RM/30sec)">'
-          +   '01699580585</td>'
-          +   '<td data-title="Địa chỉ">Cầu ngang</td>'
-          + '</tr>'
-          + '<tr>'
-          +   '<td data-title="Tên nhà cung cấp">Phan Văn Thanh</td>'
-          +   '<td class="numeric" data-title="Mobile (RM/30sec)">01699580585</td>'
-          +   '<td data-title="Địa chỉ">Châu hưng, châu điền, cầu kè, trà vinh</td>'
-          + '</tr>'
-          + '<tr>'
-          +   '<td data-title="Tên nhà cung cấp">Phan Văn Thanh</td>'
-          +   '<td class="numeric" data-title="Mobile (RM/30sec)">01699580585</td>'
-          +   '<td data-title="Địa chỉ">Cầu kè</td>'
-          + '</tr>';
-    jQuery('#dev-table tbody').append(tr);
-    jQuery('#dev-table tbody tr').on('click', function(){
-      var text=jQuery(this).find('td:first-child').text();
-      jQuery('#dev-table-filter').val(text);
+    // lấy dữ liệu nhà cung cấp
+      var xhr1;           
+      if(xhr1 && xhr1.readyState != 4){
+        xhr1.abort(); //huy lenh ajax truoc do
+      }
+      xhr1 = $.ajax({
+        url:"<?php echo $this->url('hang_hoa', array('action'=>'danh-sach-nha-cung-cap')); ?>",
+        type:'POST',
+        dataType:'json',
+        data:{
+            
+        },
+        success:function(data){
+          if(data.error==''){
+            jQuery.each( data.danh_sach_nha_cung_cap, function( key, value){
+              var tr='<tr>'
+                    +   '<td data-title="Tên nhà cung cấp" style="width:40%;"><div class="hidden-xs hidden-sm hidden-md hidden-lg">'+value.id_nha_cung_cap+'</div><div>'+value.ho_ten+'<div></td>'
+                    +   '<td data-title="Mobile (RM/30sec)" class="numeric" style="width:20%;">'+value.di_dong+'</td>'
+                    +   '<td data-title="Địa chỉ" style="width:40%;">'+value.dia_chi+'</td>';
+              jQuery('#dev-table tbody').append(tr);
+            });
+            // chọn nhà cung cấp
+              jQuery('#dev-table tbody tr').on('click', function(){
+                // lấy id_nha_cung_cap mới nhất        
+                var id_nha_cung_cap=jQuery(this).find('td:first-child div:first-child').text().trim();
+                var ho_ten=jQuery(this).find('td:first-child div:nth-child(2)').text().trim();
+                var di_dong=jQuery(this).find('td:nth-child(2)').text().trim();
+                var dia_chi=jQuery(this).find('td:nth-child(3)').text().trim();
+                if(jQuery.isNumeric(id_nha_cung_cap)){
+                  // lưu vào form
+                  jQuery('#id_nha_cung_cap').val(id_nha_cung_cap); 
+                  // sửa trên giao diện
+                  jQuery('#dev-table-filter').val(ho_ten);
+                  jQuery('#di_dong').val(di_dong);
+                  jQuery('#dia_chi').val(dia_chi);
+                }
+              });
+          }         
+        },
+      });
+
+    // lấy dữ liệu sản phẩm
+      var xhr2;           
+      if(xhr2 && xhr2.readyState != 4){
+          xhr2.abort(); //huy lenh ajax truoc do
+      }
+      xhr2 = $.ajax({
+        url:"<?php echo $this->url('hang_hoa', array('action'=>'danh-sach-san-pham')); ?>",
+        type:'POST',
+        dataType:'json',
+        data:{
+            
+        },
+        success:function(data){
+          if(data.error==''){
+            jQuery.each( data.danh_sach_san_pham, function( key, value){
+              var tr='<tr>'
+                    +   '<td data-title="Tên sản phẩm" style="width:60%;"><div class="hidden-xs hidden-sm hidden-md hidden-lg">'+value.id_san_pham+'</div><div>'+value.ten_san_pham+'</div><div>'+value.don_vi_tinh+'</div></td>'
+                    +   '<td data-title="Mã sản phẩm" style="width:20%;">'+value.ma_san_pham+'</td>'
+                    +   '<td data-title="Mã vạch" style="width:20%;">'+value.ma_vach+'</td>';
+              jQuery('#dev-table-2 tbody').append(tr);
+            });
+            // chọn sản phẩm
+            jQuery('#dev-table-2 tbody tr').on('click', function(){
+              var id_san_pham=jQuery(this).find('td:first-child div:first-child').text().trim();
+              var ten_san_pham=jQuery(this).find('td:first-child div:nth-child(2)').text().trim();
+              var don_vi_tinh=jQuery(this).find('td:first-child div:nth-child(3)').text().trim();
+              var ma_san_pham=jQuery(this).find('td:nth-child(2)').text().trim();
+              var ma_vach=jQuery(this).find('td:nth-child(3)').text().trim();
+              if(jQuery.isNumeric(id_san_pham)){
+                // lưu tạm id_san_pham lại
+                jQuery('#id_san_pham').val(id_san_pham);
+                jQuery('#don_vi_tinh').val(don_vi_tinh);
+                // đỗ dữ liệu ra form thêm
+                jQuery('#dev-table-filter-2').val(ten_san_pham);
+                jQuery('#ma_san_pham').val(ma_san_pham);
+                jQuery('#ma_vach').val(ma_vach);
+              }
+
+            });
+          }                   
+        },
+      }); 
+
+    // click nút thêm btn_them
+    jQuery('#btn_them').on('click', function(){
+      var id_san_pham=jQuery('#id_san_pham').val();
+      var so_luong=jQuery('#so_luong').val();
+      var gia_nhap=jQuery('#gia_nhap').val();
+      // kiểm tra nếu đã tồn tại sản phẩm thì không cho add
+      var co=0;
+      jQuery('.id_san_pham').each(function(){
+        var id_san_pham_check=jQuery(this).val();
+        if(id_san_pham_check==id_san_pham){
+          co=1;
+          alert('Sản phẩm đã tồn tại');
+          return false;
+        }
+      });
+      // kiểm tra điều kiên để được add
+      if(co==0){
+        if(jQuery.isNumeric(id_san_pham) && jQuery.isNumeric(so_luong) && jQuery.isNumeric(gia_nhap) && id_san_pham>0 && so_luong>0 && gia_nhap){
+          var input='<input type="hidden" name="id_san_pham[]" class="id_san_pham" value="'+id_san_pham+'">'
+                   +'<input type="hidden" name="so_luong[]" class="so_luong" value="'+so_luong+'">'
+                   +'<input type="hidden" name="gia_nhap[]" class="gia_nhap" value="'+gia_nhap+'">';
+          jQuery('#danh_sach_san_pham').append(input);
+
+
+          var ten_san_pham=jQuery('#dev-table-filter-2').val();
+          var don_vi_tinh=jQuery('#don_vi_tinh').val();
+          var tr='<tr>'
+                +'<td>'+ten_san_pham+'</td>'
+                +'<td>'+don_vi_tinh+'</td>'
+                +'<td>'+so_luong+'</td>'
+                +'<td>'+gia_nhap+'</td>'
+                +'<td><a href="#">xóa</a></td>'
+                +'</tr>';
+          jQuery('#danh_sach_san_pham_nhap tbody').append(tr);
+        }
+        else{
+          alert('Lỗi, vui lòng chọn sản phẩm lại');
+        }
+      }
+        
     });
 
-    jQuery('#dev-table-2 tbody').append(tr);
-    jQuery('#dev-table-2 tbody tr').on('click', function(){
-      var text=jQuery(this).find('td:first-child').text();
-      jQuery('#dev-table-filter-2').val(text);
+    // click nút btn_in_don_hang
+    jQuery('#btn_in_don_hang').on('click', function(){
+      jQuery('#xuat_hang_hoa').submit();
     });
   })
 </script>

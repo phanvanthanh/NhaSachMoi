@@ -79,6 +79,36 @@ class SanPhamTable
     }
 
     /*
+        sử dụng trong Application/Controller/HangHoaController indexAction
+    */
+    public function getSanPhamAndDonViTinhByArrayConditionAnd2ArrayColumn($array_conditions=array(), $array_columns_1=array(), $array_columns_2=array()){
+        /*
+            chuyền vào 2 tham số:   1 tham số là mảng điều kiện, 
+                                    1 tham số là mảng cột ở bảng 1 cần lấy ra,
+                                    1 tham số là mảng cột ở bảng 2 cần lấy ra,
+        */
+        $adapter = $this->tableGateway->adapter;
+        $sql = new Sql($adapter);        
+        // select
+        $sqlSelect = $sql->select();
+        $sqlSelect->from(array('t1'=>'san_pham'));
+        $sqlSelect->join(array('t2'=>'don_vi_tinh'), 't1.id_don_vi_tinh=t2.id_don_vi_tinh', $array_columns_2, 'LEFT');
+        if($array_columns_1){
+            $sqlSelect->columns($array_columns_1);
+        }
+        if($array_conditions){
+            $sqlSelect->where($array_conditions);
+        }
+        $statement = $this->tableGateway->getSql()->prepareStatementForSqlObject($sqlSelect);
+        $resultSets = $statement->execute();
+        $allRow = array();
+        foreach ($resultSets as $key => $resultSet) {
+            $allRow[] = $resultSet;
+        }
+        return $allRow;
+    }
+
+    /*
         sử dụng trong Application/Controller/HangHoaController themSanPhamAction
         sử dụng trong Application/Controller/HangHoaController suaSanPhamAction
         sử dụng trong Application/Controller/HangHoaController xoaSanPhamAction
