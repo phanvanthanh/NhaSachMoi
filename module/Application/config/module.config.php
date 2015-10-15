@@ -168,6 +168,7 @@ return array(
     ),
     'controller_plugins' => array(
         'invokables' => array(
+            'tao_ma_tu_dong' => 'Application\Controller\Plugin\TaoMaTuDong', 
             'barcode' => 'Application\Controller\Plugin\Barcode', 
             'check_path_exist' => 'Application\Controller\Plugin\CheckPathExist', 
         ),

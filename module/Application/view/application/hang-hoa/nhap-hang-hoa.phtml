@@ -94,7 +94,7 @@
   </div>
 </form>
 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-  <div class="btn btn-default">Hủy đơn hàng</div>
+  <div class="btn btn-default" id="btn_huy_don_hang">Hủy đơn hàng</div>
 </div>
 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-right">
   <div class="btn btn-danger" id="btn_in_don_hang">In đơn hàng</div>
@@ -125,6 +125,11 @@
             });
             // chọn nhà cung cấp
               jQuery('#dev-table tbody tr').on('click', function(){
+                // xóa tất cả các danh sách hàng đã chọn
+                jQuery('#danh_sach_san_pham_nhap tbody').html('');
+                // xóa tất cả danh sách hàng trong form
+                jQuery('#danh_sach_san_pham').html('');
+                jQuery('#id_nha_cung_cap').val('');
                 // lấy id_nha_cung_cap mới nhất        
                 var id_nha_cung_cap=jQuery(this).find('td:first-child div:first-child').text().trim();
                 var ho_ten=jQuery(this).find('td:first-child div:nth-child(2)').text().trim();
@@ -230,8 +235,21 @@
 
     // click nút btn_in_don_hang
     jQuery('#btn_in_don_hang').on('click', function(){
-      window.print();
-      jQuery('#xuat_hang_hoa').submit();
+      var length=jQuery('#danh_sach_san_pham_nhap tbody tr').length;
+      console.log(length);
+      if(length>0){
+        window.print();
+        jQuery('#xuat_hang_hoa').submit();
+      }
+      else{
+        alert('Chưa có sản phẩm trong danh sách nhập');
+      }
+    });
+
+    // click nut btn_huy_don_hang
+    jQuery('#btn_huy_don_hang').on('click', function(){
+      jQuery('#danh_sach_san_pham_nhap tbody tr').html('');
+      jQuery('#danh_sach_san_pham').html('');
     });
   })
 </script>

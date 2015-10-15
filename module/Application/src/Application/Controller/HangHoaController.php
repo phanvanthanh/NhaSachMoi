@@ -12,6 +12,7 @@ namespace Application\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Application\Model\Entity\SanPham;
+use Application\Model\Entity\PhieuNhap;
 use Zend\View\Model\JsonModel;
 
 
@@ -245,8 +246,54 @@ class HangHoaController extends AbstractActionController
     public function nhapHangHoaAction(){
         $request=$this->getRequest();
         if($request->isPost()){
-            var_dump($request->getPost());
-            die();
+            $post=$request->getPost();
+            if(isset($post['id_nha_cung_cap']) and $post['id_nha_cung_cap'] and isset($post['id_san_pham']) and $post['id_san_pham'] and isset($post['so_luong']) and $post['so_luong'] and isset($post['gia_nhap']) and $post['gia_nhap']){
+                $id_phieu_nhap='';
+                $user_id=$this->AuthService()->getUserId();
+                $phieu_nhap_table=$this->getServiceLocator()->get('Application\Model\PhieuNhapTable');
+                foreach ($post['id_san_pham'] as $key => $id_san_pham) {
+                    $form=$this->getServiceLocator()->get('Application\Form\NhapHangHoaForm');
+                    $data=array();
+                    $data['id_nha_cung_cap']=$post['id_nha_cung_cap'];
+                    $data['id_san_pham']=$id_san_pham;
+                    $data['so_luong']=(int)$post['so_luong'];
+                    $data['gia_nhap']=(int)$post['gia_nhap'];
+                    $form->setData($data);
+                    if($form->isValid()){
+                        if(!$id_phieu_nhap){
+                            $phieu_nhap_moi=new PhieuNhap();
+                            $ma_phieu_nhap=$this->TaoMaTuDong()->taoMaPhieuNhap();
+                            $phieu_nhap_moi->setMaPhieuNhap($ma_phieu_nhap);
+                            $phieu_nhap_moi->setIdUser($user_id);
+                            $phieu_nhap_moi->setIdNhaCungCap($post['id_nha_cung_cap']);
+                            $date = date('Y-m-d h:i:s a', time());
+                            $phieu_nhap_moi->setNgayNhap($date);
+                            $phieu_nhap_moi->setState(0);
+                            //$phieu_nhap_table->savePhieuNhap($phieu_nhap_moi);
+                            //$phieu_nhap_moi=$phieu_nhap_table->
+                        }  
+                        die(var_dump('expression'));                      
+                    }
+                    else{                    
+                        // xóa 
+                        die(var_dump($form->getMessages()));
+                        // thông báo lỗi
+                        $this->flashMessenger()->addErrorMessage('Lỗi, nhập hàng hóa không thành công');
+                        return $this->redirect()->toRoute('hang_hoa', array('action'=>'nhap-hang-hoa'));
+           
+                    }
+                }
+                die();
+                // lưu thành công
+                $this->flashMessenger()->addSuccessMessage('Chúc mừng, nhập hàng thành công!');
+                return $this->redirect()->toRoute('hang_hoa', array('action'=>'nhap-hang-hoa'));
+            
+            }
+            else{
+                $this->flashMessenger()->addErrorMessage('Lỗi, không tìm thấy sản phẩm cần nhập');
+                return $this->redirect()->toRoute('hang_hoa', array('action'=>'nhap-hang-hoa'));
+            }
+            
         }
     }
 

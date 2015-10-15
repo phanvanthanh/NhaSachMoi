@@ -46,5 +46,26 @@ class PhieuNhapTable
         }
         return $allRow;
     }
+
+    public function countPhieuNhapByMaPhieuNhap($array=array()){
+        $ma_phieu_nhap=$array['ma_phieu_nhap'];
+        $adapter = $this->tableGateway->adapter;
+        $sql = new Sql($adapter);        
+        // select
+        $sqlSelect = $sql->select();
+        $sqlSelect->from(array('t1'=>'phieu_nhap'));
+        $sqlSelect->columns(array(new Expression('COUNT(*) as num')));
+        $where = new \Zend\Db\Sql\Where();
+        $where->like('ma_phieu_nhap', '%'.$ma_phieu_nhap.'%');
+        $sqlSelect->where($where);
+        $statement = $this->tableGateway->getSql()->prepareStatementForSqlObject($sqlSelect);
+        $resultSets = $statement->execute();
+
+        if($resultSets->current()){
+            return $resultSets->current();
+        }
+        return false;
+
+    }
     
 }
