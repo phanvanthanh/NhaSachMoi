@@ -14,6 +14,7 @@ use Zend\View\Model\ViewModel;
 use Application\Model\Entity\SanPham;
 use Application\Model\Entity\PhieuNhap;
 use Application\Model\Entity\CtPhieuNhap;
+use Application\Model\Entity\GiaXuat;
 use Zend\View\Model\JsonModel;
 
 
@@ -251,9 +252,13 @@ class HangHoaController extends AbstractActionController
             if(isset($post['id_nha_cung_cap']) and $post['id_nha_cung_cap'] and isset($post['id_san_pham']) and $post['id_san_pham'] and isset($post['so_luong']) and $post['so_luong'] and isset($post['gia_nhap']) and $post['gia_nhap']){
                 $id_phieu_nhap='';
                 $user_id=$this->AuthService()->getUserId();
+                $id_kho=$this->AuthService()->getIdKho();
                 $phieu_nhap_table=$this->getServiceLocator()->get('Application\Model\PhieuNhapTable');
                 $ct_phieu_nhap_table=$this->getServiceLocator()->get('Application\Model\CtPhieuNhapTable');
                 $san_pham_table=$this->getServiceLocator()->get('Application\Model\SanPhamTable');
+                $kenh_phan_phoi_table=$this->getServiceLocator()->get('Application\Model\KenhPhanPhoiTable');
+                $gia_xuat_table=$this->getServiceLocator()->get('Application\Model\GiaXuatTable');
+                
                 // tạo phiếu nhập và chi tiết phiếu nhập
                 foreach ($post['id_san_pham'] as $key => $id_san_pham) {
                     $form=$this->getServiceLocator()->get('Application\Form\NhapHangHoaForm');
@@ -262,7 +267,8 @@ class HangHoaController extends AbstractActionController
                     $data['id_san_pham']=$id_san_pham;
                     $data['so_luong']=$post['so_luong'][$key];
                     if($post['loai_gia'][$key]==1){
-                        $data['gia_nhap']=$post['gia_bia'][$key];
+                        $loi_nhuan=(float)(((float)$post['gia_bia'][$key]*(float)$post['chiet_khau'][$key])/100);
+                        $data['gia_nhap']=(float)$post['gia_bia'][$key]-$loi_nhuan;
                     }
                     else{
                         $data['gia_nhap']=$post['gia_nhap'][$key];
@@ -299,6 +305,8 @@ class HangHoaController extends AbstractActionController
            
                     }
                 }
+                // get danh sách kênh phân phối
+                $danh_sach_kenh_phan_phoi=$kenh_phan_phoi_table->getKenhPhanPhoiByArrayConditionAndArrayColumn(array('id_kho'=>$id_kho), array('id_kenh_phan_phoi', 'chiet_khau'));
                 // cập nhật lại số lượng và loại giá, giá nhập, giá bìa, chiết khấu trong csdl
                 foreach ($post['id_san_pham'] as $key => $id_san_pham) {
                     $san_pham=$san_pham_table->getSanPhamByArrayConditionAndArrayColumn(array('id_san_pham'=>$id_san_pham), array());
@@ -308,18 +316,41 @@ class HangHoaController extends AbstractActionController
                     if($post['loai_gia'][$key]==1){
                         $san_pham_moi->setGiaBia($post['gia_bia'][$key]);
                         $san_pham_moi->setChietKhau($post['chiet_khau'][$key]);
+
+                        $loi_nhuan=(float)(((float)$post['gia_bia'][$key]*(float)$post['chiet_khau'][$key])/100);
+                        $gia_nhap=(float)$post['gia_bia'][$key]-$loi_nhuan;                        
+                        $san_pham_moi->setGiaNhap($gia_nhap);
                     }
                     else{
                         $san_pham_moi->setGiaNhap($post['gia_nhap'][$key]);
+                        $san_pham_moi->setGiaBia(0);
+                        $san_pham_moi->setChietKhau(0);
                     }
                     $ton_kho=$san_pham[0]['ton_kho'];
                     $so_luong=$post['so_luong'][$key];
                     $ton_kho+=$so_luong;
                     $san_pham_moi->setTonKho($ton_kho);
-                    $san_pham_table->saveSanPham($san_pham_moi);                    
+                    $san_pham_table->saveSanPham($san_pham_moi);
+                    // xóa hết giá xuất
+                    $gia_xuat_table->deleteGiaXuat(array('id_san_pham'=>$id_san_pham));
+                    // lưu giá xuất mới
+                    foreach ($danh_sach_kenh_phan_phoi as $kenh_phan_phoi) {
+                        $gia_xuat=0;
+                        if($post['loai_gia'][$key]==1){
+                            $loi_nhuan=(float)(((float)$post['gia_bia'][$key]*(float)$kenh_phan_phoi['chiet_khau'])/100);
+                            $gia_xuat=(float)$post['gia_bia'][$key]-$loi_nhuan;
+                        }
+                        else{
+                            $loi_nhuan=(float)(((float)$post['gia_nhap'][$key]*(float)$kenh_phan_phoi['chiet_khau'])/100);
+                            $gia_xuat=(float)$post['gia_nhap'][$key]+$loi_nhuan;
+                        }
+                        $gia_xuat_moi=new GiaXuat();
+                        $gia_xuat_moi->setIdSanPham($id_san_pham);
+                        $gia_xuat_moi->setIdKenhPhanPhoi($kenh_phan_phoi['id_kenh_phan_phoi']);
+                        $gia_xuat_moi->setGiaXuat($gia_xuat);
+                        $gia_xuat_table->saveGiaXuat($gia_xuat_moi);                        
+                    }                    
                 }
-                die();
-                // cập nhật lại giá xuất
                 // lưu thành công
                 $this->flashMessenger()->addSuccessMessage('Chúc mừng, nhập hàng thành công!');
                 return $this->redirect()->toRoute('hang_hoa', array('action'=>'nhap-hang-hoa'));

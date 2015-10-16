@@ -106,7 +106,7 @@
     </table>
   </div>            
 </div> 
-<form action="<?php echo $this->url('hang_hoa', array('action'=>'nhap-hang-hoa')); ?>" method="post" name="xuat_hang_hoa" id="xuat_hang_hoa" class="hidden-xs hidden-sm hidden-md hidden-lg">
+<form action="<?php echo $this->url('hang_hoa', array('action'=>'nhap-hang-hoa')); ?>" method="post" name="xuat_hang_hoa" id="xuat_hang_hoa" class="hidden-xs hidden-sm hidden-md hidden-lg" target='_blank'>
   <input type="text" name="id_nha_cung_cap" id="id_nha_cung_cap" value="0">
   <div id="danh_sach_san_pham">
     
@@ -181,6 +181,11 @@
         },
         success:function(data){
           if(data.error==''){
+            if(data.danh_sach_san_pham.length<=0){
+              var tr='<tr style="width:100%;"><td colspan="3" style="width:100%;">Không có sản phẩm</td></tr>';
+              jQuery('#dev-table-2 tbody').append(tr);
+              return false;
+            }
             jQuery.each( data.danh_sach_san_pham, function( key, value){
               var tr='<tr>'
                     +   '<td data-title="Tên sản phẩm" style="width:60%;"><div class="hidden-xs hidden-sm hidden-md hidden-lg">'+value.id_san_pham+'</div><div>'+value.ten_san_pham+'</div><div class="hidden-xs hidden-sm hidden-md hidden-lg">'+value.don_vi_tinh+'</div></td>'
@@ -290,7 +295,6 @@
     // click nút btn_in_don_hang
     jQuery('#btn_in_don_hang').on('click', function(){
       var length=jQuery('#danh_sach_san_pham_nhap tbody tr').length;
-      console.log(length);
       if(length>0){
         window.print();
         jQuery('#xuat_hang_hoa').submit();

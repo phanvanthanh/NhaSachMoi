@@ -178,13 +178,18 @@ class DoiTacController extends AbstractActionController
             // lấy dữ liệu bảng hóa đơn và chi tiết hóa đơn
             $hoa_don_table=$this->getServiceLocator()->get('Application\Model\HoaDonTable');
             $danh_sach_hoa_don=$hoa_don_table->getHoaDonAndCtHoaDonByArrayConditionAnd2ArrayColumn(array('t1.id_khach_hang'=>$id_khach_hang), array('ma_hoa_don'), array('gia', 'so_luong'));
-            $so_hoa_don=count($danh_sach_hoa_don);
+            $so_hoa_don=0;
             $no_phat_sinh=0;
             if($danh_sach_hoa_don){
+                $mang_ds_hoa_don=array();
                 foreach ($danh_sach_hoa_don as $hoa_don) {
+                    if(!in_array($hoa_don['ma_hoa_don'], $mang_ds_hoa_don)){
+                        array_push($mang_ds_hoa_don, $hoa_don['ma_hoa_don']);
+                    }
                     $thanh_tien=$hoa_don['gia']*$hoa_don['so_luong'];
                     $no_phat_sinh+=$thanh_tien;
                 }
+                $so_hoa_don=count($mang_ds_hoa_don);
             }
             $tong_no=$du_no+$no_phat_sinh;
             $response=array('error'=>'', 'so_hoa_don'=>$so_hoa_don, 'tong_no'=>$tong_no);
@@ -225,7 +230,6 @@ class DoiTacController extends AbstractActionController
     	$id_kho=$this->AuthService()->getIdKho();
         $nha_cung_cap_table=$this->getServiceLocator()->get('Application\Model\NhaCungCapTable');
         $danh_sach_nha_cung_cap=$nha_cung_cap_table->getNhaCungCapByArrayConditionAndArrayColumn(array('id_kho'=>$id_kho, 't1.state'=>1), array('id_nha_cung_cap', 'ho_ten', 'di_dong', 'dia_chi'));
-    	die(var_dump($danh_sach_nha_cung_cap));
         return array('danh_sach_nha_cung_cap'=>$danh_sach_nha_cung_cap);
     }
 
@@ -382,13 +386,18 @@ class DoiTacController extends AbstractActionController
             // lấy dữ liệu bảng phiếu nhập và chi tiết phiếu nhập
             $phieu_nhap_table=$this->getServiceLocator()->get('Application\Model\PhieuNhapTable');
             $danh_sach_phieu_nhap=$phieu_nhap_table->getPhieuNhapAndCtPhieuNhapByArrayConditionAnd2ArrayColumn(array('t1.id_nha_cung_cap'=>$id_nha_cung_cap), array('ma_phieu_nhap'), array('gia_nhap', 'so_luong'));
-            $so_phieu_nhap=count($danh_sach_phieu_nhap);
+            $so_phieu_nhap=0;
             $no_phat_sinh=0;
             if($danh_sach_phieu_nhap){
+                $mang_ds_phieu_nhap=array();
                 foreach ($danh_sach_phieu_nhap as $phieu_nhap) {
+                    if(!in_array($phieu_nhap['ma_phieu_nhap'], $mang_ds_phieu_nhap)){
+                        array_push($mang_ds_phieu_nhap, $phieu_nhap['ma_phieu_nhap']);
+                    }
                     $thanh_tien=$phieu_nhap['gia_nhap']*$phieu_nhap['so_luong'];
                     $no_phat_sinh+=$thanh_tien;
                 }
+                $so_phieu_nhap=count($mang_ds_phieu_nhap);
             }
             $tong_no=$du_no+$no_phat_sinh;
             $response=array('error'=>'', 'so_phieu_nhap'=>$so_phieu_nhap, 'tong_no'=>$tong_no);

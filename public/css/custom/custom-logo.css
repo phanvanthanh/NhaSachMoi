@@ -199,8 +199,20 @@ table.cursor>tbody>tr{
 }
 @media only screen and (min-width: 768px) {  
   .nav-side-menu{
-    margin-top: 52px;
-  }    
+    /*margin-top: 52px;*/ /* close brand */
+    margin-top: 0px; /* open brand */
+  }
+  #brand{ /* open brand */
+    margin-top:-50px;
+  }  
+}
+@media only screen and (max-width: 767px) {  /* open brand */
+  html>body{
+    padding-top: 0px;
+  }
+  .nav.navbar-nav{
+    margin: 0px -15px;
+  }
 }
 .nav-side-menu {
   overflow: auto;
@@ -208,7 +220,7 @@ table.cursor>tbody>tr{
   font-size: 12px;
   font-weight: 200;   
   background-color: #f8f8f8;
-  position: fixed;
+  /*position: fixed;*/ /* close brand */ 
   top: 0px;
   width: 300px;
   height: 100%;
