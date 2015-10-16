@@ -1,3 +1,10 @@
+<style type="text/css">
+  @media print {
+    div{
+      display: none;
+    }
+  }
+</style>
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
   <span class="title">NHẬP HÀNG HÓA</span>
 </div>
@@ -48,10 +55,22 @@
   <div class="form-group">
     <label>Số lượng</label>
     <input type="number" id="so_luong" title="Số lượng" class="form-control">
-  </div>           
+  </div>  
   <div class="form-group">
-    <label>Giá sản phẩm</label>
-    <input type="number" id="gia_nhap" title="Tên sản phẩm" class="form-control">
+    <input type="checkbox" id="loai_gia" title="Loại giá">
+    <label for="loai_gia">Sản phẩm thuộc loại giá bìa, chiết khấu (%)</label>    
+  </div>         
+  <div class="form-group gia_nhap">
+    <label>Giá nhập sản phẩm</label>
+    <input type="number" id="gia_nhap" title="Giá nhập sản phẩm" class="form-control">
+  </div>
+  <div class="form-group hidden-xs hidden-sm hidden-md hidden-lg gia_bia">
+    <label>Giá bìa</label>
+    <input type="number" id="gia_bia" title="Giá bìa" class="form-control">
+  </div>
+  <div class="form-group hidden-xs hidden-sm hidden-md hidden-lg gia_bia">
+    <label>Chiết khấu</label>
+    <input type="number" id="chiet_khau" title="Chiết khấu" class="form-control">
   </div>
   <div class="form-group">
     <div class="btn btn-danger btn-block" id="btn_them">Thêm</div>
@@ -164,7 +183,7 @@
           if(data.error==''){
             jQuery.each( data.danh_sach_san_pham, function( key, value){
               var tr='<tr>'
-                    +   '<td data-title="Tên sản phẩm" style="width:60%;"><div class="hidden-xs hidden-sm hidden-md hidden-lg">'+value.id_san_pham+'</div><div>'+value.ten_san_pham+'</div><div>'+value.don_vi_tinh+'</div></td>'
+                    +   '<td data-title="Tên sản phẩm" style="width:60%;"><div class="hidden-xs hidden-sm hidden-md hidden-lg">'+value.id_san_pham+'</div><div>'+value.ten_san_pham+'</div><div class="hidden-xs hidden-sm hidden-md hidden-lg">'+value.don_vi_tinh+'</div></td>'
                     +   '<td data-title="Mã sản phẩm" style="width:20%;">'+value.ma_san_pham+'</td>'
                     +   '<td data-title="Mã vạch" style="width:20%;">'+value.ma_vach+'</td>';
               jQuery('#dev-table-2 tbody').append(tr);
@@ -191,11 +210,43 @@
         },
       }); 
 
+    // checkbox chọn loại giá
+    jQuery('#loai_gia').on('click', function(){
+      if(jQuery(this).is(':checked')){
+        jQuery('.gia_nhap').addClass('hidden-xs hidden-sm hidden-md hidden-lg');
+        jQuery('.gia_bia').removeClass('hidden-xs hidden-sm hidden-md hidden-lg');
+      }
+      else{
+        jQuery('.gia_bia').addClass('hidden-xs hidden-sm hidden-md hidden-lg');
+        jQuery('.gia_nhap').removeClass('hidden-xs hidden-sm hidden-md hidden-lg');
+      }
+    });
+
     // click nút thêm btn_them
     jQuery('#btn_them').on('click', function(){
       var id_san_pham=jQuery('#id_san_pham').val();
-      var so_luong=jQuery('#so_luong').val();
-      var gia_nhap=jQuery('#gia_nhap').val();
+      var so_luong  =jQuery('#so_luong').val();
+      var gia_nhap  =jQuery('#gia_nhap').val();
+      var gia_bia   =jQuery('#gia_bia').val();
+      var chiet_khau=jQuery('#chiet_khau').val();
+      var loai_gia  =jQuery('#loai_gia').is(':checked');
+      if(loai_gia){
+        loai_gia=1;
+        gia_nhap=0;
+        if(gia_bia<=0 || chiet_khau<=0){
+          alert('Giá bìa hoặc chiết khẩu không được nhỏ hơn hoặc bằng 0');
+          return false;
+        }
+      }
+      else{
+        loai_gia=0;
+        chiet_khau=0;
+        gia_bia=0;
+        if(gia_nhap<=0){
+          alert('Giá nhập không được nhỏ hơn hoặc bằng 0');
+          return false;
+        }
+      }
       // kiểm tra nếu đã tồn tại sản phẩm thì không cho add
       var co=0;
       jQuery('.id_san_pham').each(function(){
@@ -208,10 +259,13 @@
       });
       // kiểm tra điều kiên để được add
       if(co==0){
-        if(jQuery.isNumeric(id_san_pham) && jQuery.isNumeric(so_luong) && jQuery.isNumeric(gia_nhap) && id_san_pham>0 && so_luong>0 && gia_nhap){
+        if(jQuery.isNumeric(id_san_pham) && jQuery.isNumeric(so_luong) && jQuery.isNumeric(loai_gia) && jQuery.isNumeric(gia_nhap) && jQuery.isNumeric(gia_bia) && jQuery.isNumeric(chiet_khau) && id_san_pham>0 && so_luong>0 && loai_gia>=0 && gia_nhap>=0 && gia_bia>=0 && chiet_khau>=0){
           var input='<input type="hidden" name="id_san_pham[]" class="id_san_pham" value="'+id_san_pham+'">'
                    +'<input type="hidden" name="so_luong[]" class="so_luong" value="'+so_luong+'">'
-                   +'<input type="hidden" name="gia_nhap[]" class="gia_nhap" value="'+gia_nhap+'">';
+                   +'<input type="hidden" name="loai_gia[]" class="loai_gia" value="'+loai_gia+'">'
+                   +'<input type="hidden" name="gia_nhap[]" class="gia_nhap" value="'+gia_nhap+'">'
+                   +'<input type="hidden" name="gia_bia[]" class="gia_bia" value="'+gia_bia+'">'
+                   +'<input type="hidden" name="chiet_khau[]" class="chiet_khau" value="'+chiet_khau+'">';
           jQuery('#danh_sach_san_pham').append(input);
 
 

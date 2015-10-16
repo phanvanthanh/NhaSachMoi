@@ -47,6 +47,9 @@ class PhieuNhapTable
         return $allRow;
     }
 
+    /*
+        sử dụng trong: Application/Controller/Plugin/TaoMaTuDong taoMaPhieuNhap
+    */
     public function countPhieuNhapByMaPhieuNhap($array=array()){
         $ma_phieu_nhap=$array['ma_phieu_nhap'];
         $adapter = $this->tableGateway->adapter;
@@ -68,4 +71,66 @@ class PhieuNhapTable
 
     }
     
+
+    /*
+        sử dụng trong ham savePhieuNhap
+    */
+    public function getPhieuNhapByArrayConditionAndArrayColumn($array_conditions=array(), $array_columns=array()){
+        /*
+            chuyền vào 2 tham số:   1 tham số là mảng điều kiện, 
+                                    1 tham số là mảng cột cần lấy ra
+        */
+        $adapter = $this->tableGateway->adapter;
+        $sql = new Sql($adapter);        
+        // select
+        $sqlSelect = $sql->select();
+        $sqlSelect->from(array('t1'=>'phieu_nhap'));
+        if($array_columns){
+            $sqlSelect->columns($array_columns);
+        }
+        if($array_conditions){
+            $sqlSelect->where($array_conditions);
+        }
+        $statement = $this->tableGateway->getSql()->prepareStatementForSqlObject($sqlSelect);
+        $resultSets = $statement->execute();
+        $allRow = array();
+        foreach ($resultSets as $key => $resultSet) {
+            $allRow[] = $resultSet;
+        }
+        return $allRow;
+    }
+
+    public function savePhieuNhap(PhieuNhap $phieu_nhap)
+    {
+        $data = array(
+            'id_user'           => $phieu_nhap->getIdUser(),
+            'id_nha_cung_cap'   => $phieu_nhap->getIdNhaCungCap(),
+            'ma_phieu_nhap'     => $phieu_nhap->getMaPhieuNhap(),        
+            'ngay_nhap'         => $phieu_nhap->getNgayNhap(),
+            'state'             => $phieu_nhap->getState(),
+            
+
+        );        
+        $id_phieu_nhap = (int) $phieu_nhap->getIdPhieuNhap();
+        if ($id_phieu_nhap == 0) {
+            $this->tableGateway->insert($data);
+        } else {
+            if ($this->getPhieuNhapByArrayConditionAndArrayColumn(array('id_phieu_nhap'=>$id_phieu_nhap), array('ma_phieu_nhap'))) {
+                $this->tableGateway->update($data, array(
+                    'id_phieu_nhap' => $id_phieu_nhap
+                ));
+            } else {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public function deletePhieuNhap($array=array())
+    {
+        if ($this->tableGateway->delete($array)) {
+            return true;
+        }
+        return false;
+    }
 }

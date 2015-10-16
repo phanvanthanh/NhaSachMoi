@@ -13,6 +13,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Application\Model\Entity\SanPham;
 use Application\Model\Entity\PhieuNhap;
+use Application\Model\Entity\CtPhieuNhap;
 use Zend\View\Model\JsonModel;
 
 
@@ -251,13 +252,22 @@ class HangHoaController extends AbstractActionController
                 $id_phieu_nhap='';
                 $user_id=$this->AuthService()->getUserId();
                 $phieu_nhap_table=$this->getServiceLocator()->get('Application\Model\PhieuNhapTable');
+                $ct_phieu_nhap_table=$this->getServiceLocator()->get('Application\Model\CtPhieuNhapTable');
+                $san_pham_table=$this->getServiceLocator()->get('Application\Model\SanPhamTable');
+                // tạo phiếu nhập và chi tiết phiếu nhập
                 foreach ($post['id_san_pham'] as $key => $id_san_pham) {
                     $form=$this->getServiceLocator()->get('Application\Form\NhapHangHoaForm');
                     $data=array();
                     $data['id_nha_cung_cap']=$post['id_nha_cung_cap'];
                     $data['id_san_pham']=$id_san_pham;
-                    $data['so_luong']=(int)$post['so_luong'];
-                    $data['gia_nhap']=(int)$post['gia_nhap'];
+                    $data['so_luong']=$post['so_luong'][$key];
+                    if($post['loai_gia'][$key]==1){
+                        $data['gia_nhap']=$post['gia_bia'][$key];
+                    }
+                    else{
+                        $data['gia_nhap']=$post['gia_nhap'][$key];
+                    }
+                    
                     $form->setData($data);
                     if($form->isValid()){
                         if(!$id_phieu_nhap){
@@ -269,21 +279,47 @@ class HangHoaController extends AbstractActionController
                             $date = date('Y-m-d h:i:s a', time());
                             $phieu_nhap_moi->setNgayNhap($date);
                             $phieu_nhap_moi->setState(0);
-                            //$phieu_nhap_table->savePhieuNhap($phieu_nhap_moi);
-                            //$phieu_nhap_moi=$phieu_nhap_table->
+                            $phieu_nhap_table->savePhieuNhap($phieu_nhap_moi);
+                            $phieu_nhap=$phieu_nhap_table->getPhieuNhapByArrayConditionAndArrayColumn(array('ma_phieu_nhap'=>$ma_phieu_nhap), array('id_phieu_nhap'));
+                            $id_phieu_nhap=$phieu_nhap[0]['id_phieu_nhap'];
                         }  
-                        die(var_dump('expression'));                      
+                        $ct_phieu_nhap_moi=new CtPhieuNhap();
+                        $ct_phieu_nhap_moi->exchangeArray($data);
+                        $ct_phieu_nhap_moi->setIdPhieuNhap($id_phieu_nhap);
+                        $ct_phieu_nhap_table->saveCtPhieuNhap($ct_phieu_nhap_moi);                   
                     }
                     else{                    
-                        // xóa 
-                        die(var_dump($form->getMessages()));
+                        // xóa phiếu nhập
+                        if($id_phieu_nhap){
+                            $phieu_nhap_table->deletePhieuNhap(array('id_phieu_nhap'=>$id_phieu_nhap));
+                        }
                         // thông báo lỗi
                         $this->flashMessenger()->addErrorMessage('Lỗi, nhập hàng hóa không thành công');
                         return $this->redirect()->toRoute('hang_hoa', array('action'=>'nhap-hang-hoa'));
            
                     }
                 }
+                // cập nhật lại số lượng và loại giá, giá nhập, giá bìa, chiết khấu trong csdl
+                foreach ($post['id_san_pham'] as $key => $id_san_pham) {
+                    $san_pham=$san_pham_table->getSanPhamByArrayConditionAndArrayColumn(array('id_san_pham'=>$id_san_pham), array());
+                    $san_pham_moi=new SanPham();
+                    $san_pham_moi->exchangeArray($san_pham[0]);
+                    $san_pham_moi->setLoaiGia($post['loai_gia'][$key]);
+                    if($post['loai_gia'][$key]==1){
+                        $san_pham_moi->setGiaBia($post['gia_bia'][$key]);
+                        $san_pham_moi->setChietKhau($post['chiet_khau'][$key]);
+                    }
+                    else{
+                        $san_pham_moi->setGiaNhap($post['gia_nhap'][$key]);
+                    }
+                    $ton_kho=$san_pham[0]['ton_kho'];
+                    $so_luong=$post['so_luong'][$key];
+                    $ton_kho+=$so_luong;
+                    $san_pham_moi->setTonKho($ton_kho);
+                    $san_pham_table->saveSanPham($san_pham_moi);                    
+                }
                 die();
+                // cập nhật lại giá xuất
                 // lưu thành công
                 $this->flashMessenger()->addSuccessMessage('Chúc mừng, nhập hàng thành công!');
                 return $this->redirect()->toRoute('hang_hoa', array('action'=>'nhap-hang-hoa'));
