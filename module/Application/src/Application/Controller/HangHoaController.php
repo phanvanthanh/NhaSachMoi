@@ -249,6 +249,7 @@ class HangHoaController extends AbstractActionController
         $request=$this->getRequest();
         if($request->isPost()){
             $post=$request->getPost();
+            die(var_dump($post));
             if(isset($post['id_nha_cung_cap']) and $post['id_nha_cung_cap'] and isset($post['id_san_pham']) and $post['id_san_pham'] and isset($post['so_luong']) and $post['so_luong'] and isset($post['gia_nhap']) and $post['gia_nhap']){
                 $id_phieu_nhap='';
                 $user_id=$this->AuthService()->getUserId();
@@ -362,15 +363,7 @@ class HangHoaController extends AbstractActionController
             }
             
         }
-    }
-
-    public function xuatHangHoaAction(){
-
-    }
-
-    public function doiTraHangHoaAction(){
-        
-    }
+    }   
 
     public function danhSachNhaCungCapAction(){
         $request=$this->getRequest();
@@ -396,7 +389,7 @@ class HangHoaController extends AbstractActionController
         {
             $id_kho=$this->AuthService()->getIdKho();      
             $san_pham_table=$this->getServiceLocator()->get('Application\Model\SanPhamTable');
-            $danh_sach_san_pham=$san_pham_table->getSanPhamAndDonViTinhByArrayConditionAnd2ArrayColumn(array('t1.id_kho'=>$id_kho, 't1.state'=>1), array('id_san_pham', 'ten_san_pham', 'ma_san_pham', 'ma_vach'), array('don_vi_tinh'));
+            $danh_sach_san_pham=$san_pham_table->getSanPhamAndDonViTinhByArrayConditionAnd2ArrayColumn(array('t1.id_kho'=>$id_kho, 't1.state'=>1), array('id_san_pham', 'ten_san_pham', 'ma_san_pham', 'ma_vach', 'loai_gia', 'gia_nhap', 'gia_bia', 'chiet_khau', 'ton_kho'), array('don_vi_tinh'));
             $response=array('error'=>'', 'danh_sach_san_pham'=>$danh_sach_san_pham);
             $json = new JsonModel($response);
             return $json;
@@ -406,6 +399,61 @@ class HangHoaController extends AbstractActionController
             $json = new JsonModel($response);
             return $json;
         }
+    }
+
+    public function xuatHangHoaAction(){
+        $request=$this->getRequest();
+        if($request->isPost()){
+            $post=$request->getPost();
+            die(var_dump($post));
+        }
+        else{
+
+        }
+    }
+
+    public function danhSachKhachHangAction(){
+        $request=$this->getRequest();
+        if($request->isXmlHttpRequest())
+        {
+            $id_kho=$this->AuthService()->getIdKho();
+            $khach_hang_table=$this->getServiceLocator()->get('Application\Model\KhachHangTable');
+            $danh_sach_khach_hang=$khach_hang_table->getKhachHangAndKenhPhanPhoiByArrayConditionAnd2ArrayColumn(array('t2.id_kho'=>$id_kho, 't1.state'=>1), array('id_khach_hang', 'ho_ten', 'di_dong', 'dia_chi'), array('id_kenh_phan_phoi', 'kenh_phan_phoi'));
+            $response=array('error'=>'', 'danh_sach_khach_hang'=>$danh_sach_khach_hang);
+            $json = new JsonModel($response);
+            return $json;
+        }
+        else {
+            $response=array('error'=>'Phương thức nhập không đúng');
+            $json = new JsonModel($response);
+            return $json;
+        }
+            
+   
+    }
+
+    public function danhSachSanPhamXuatAction(){
+        $request=$this->getRequest();
+        if($request->isXmlHttpRequest())
+        {
+            $post=$request->getPost();
+            $id_kenh_phan_phoi=$post['id_kenh_phan_phoi'];
+            $id_kho=$this->AuthService()->getIdKho();      
+            $san_pham_table=$this->getServiceLocator()->get('Application\Model\SanPhamTable');
+            $danh_sach_san_pham=$san_pham_table->getSanPhamAndDonViTinhAndGiaXuatByArrayCondition(array('id_kho'=>$id_kho, 'state'=>1, 'id_kenh_phan_phoi'=>$id_kenh_phan_phoi));
+            $response=array('error'=>'', 'danh_sach_san_pham'=>$danh_sach_san_pham);
+            $json = new JsonModel($response);
+            return $json;
+        }
+        else {
+            $response=array('error'=>'Phương thức nhập không đúng');
+            $json = new JsonModel($response);
+            return $json;
+        }
+    }
+
+    public function doiTraHangHoaAction(){
+        
     }
 
     public function createDataAction(){

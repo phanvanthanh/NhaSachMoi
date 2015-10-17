@@ -151,5 +151,28 @@ class SanPhamTable
         return true;
     }
 
+    public function getSanPhamAndDonViTinhAndGiaXuatByArrayCondition($array){
+        $id_kho=$array['id_kho'];
+        $id_kenh_phan_phoi=$array['id_kenh_phan_phoi'];
+        $state=$array['state'];
+
+        $adapter = $this->tableGateway->adapter;
+        $sql = new Sql($adapter);        
+        // select
+        $sqlSelect = $sql->select();
+        $sqlSelect->from(array('t1'=>'san_pham'));
+        $sqlSelect->columns(array('id_san_pham', 'ten_san_pham', 'ma_san_pham', 'ma_vach'));
+        $sqlSelect->join(array('t2'=>'don_vi_tinh'), 't1.id_don_vi_tinh=t2.id_don_vi_tinh', array('don_vi_tinh'), 'LEFT');
+        $sqlSelect->join(array('t3'=>'gia_xuat'), 't1.id_san_pham=t3.id_san_pham', array('gia_xuat'), 'LEFT');
+        $sqlSelect->where(array('t1.id_kho'=>$id_kho, 't1.state'=>$state, 't3.id_kenh_phan_phoi'=>$id_kenh_phan_phoi));
+        $statement = $this->tableGateway->getSql()->prepareStatementForSqlObject($sqlSelect);
+        $resultSets = $statement->execute();
+        $allRow = array();
+        foreach ($resultSets as $key => $resultSet) {
+            $allRow[] = $resultSet;
+        }
+        return $allRow;
+    }
+
     
 }

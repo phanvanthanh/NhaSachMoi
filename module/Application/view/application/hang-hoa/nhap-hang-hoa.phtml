@@ -53,8 +53,8 @@
     <input type="text" id="ma_vach" title="Mã sản phẩm" class="form-control">
   </div>
   <div class="form-group">
-    <label>Số lượng</label>
-    <input type="number" id="so_luong" title="Số lượng" class="form-control">
+    <label id="so_luong_ton">Số lượng</label>
+    <input type="number" id="so_luong" title="Số lượng" class="form-control" min="0">
   </div>  
   <div class="form-group">
     <input type="checkbox" id="loai_gia" title="Loại giá">
@@ -62,15 +62,15 @@
   </div>         
   <div class="form-group gia_nhap">
     <label>Giá nhập sản phẩm</label>
-    <input type="number" id="gia_nhap" title="Giá nhập sản phẩm" class="form-control">
+    <input type="number" id="gia_nhap" title="Giá nhập sản phẩm" class="form-control" min="0">
   </div>
   <div class="form-group hidden-xs hidden-sm hidden-md hidden-lg gia_bia">
     <label>Giá bìa</label>
-    <input type="number" id="gia_bia" title="Giá bìa" class="form-control">
+    <input type="number" id="gia_bia" title="Giá bìa" class="form-control" min="0">
   </div>
   <div class="form-group hidden-xs hidden-sm hidden-md hidden-lg gia_bia">
     <label>Chiết khấu</label>
-    <input type="number" id="chiet_khau" title="Chiết khấu" class="form-control">
+    <input type="number" id="chiet_khau" title="Chiết khấu" class="form-control" min="0">
   </div>
   <div class="form-group">
     <div class="btn btn-danger btn-block" id="btn_them">Thêm</div>
@@ -188,7 +188,7 @@
             }
             jQuery.each( data.danh_sach_san_pham, function( key, value){
               var tr='<tr>'
-                    +   '<td data-title="Tên sản phẩm" style="width:60%;"><div class="hidden-xs hidden-sm hidden-md hidden-lg">'+value.id_san_pham+'</div><div>'+value.ten_san_pham+'</div><div class="hidden-xs hidden-sm hidden-md hidden-lg">'+value.don_vi_tinh+'</div></td>'
+                    +   '<td data-title="Tên sản phẩm" style="width:60%;"><div class="hidden-xs hidden-sm hidden-md hidden-lg">'+value.id_san_pham+'</div><div>'+value.ten_san_pham+'</div><div class="hidden-xs hidden-sm hidden-md hidden-lg">'+value.don_vi_tinh+'</div><div class="hidden-xs hidden-sm hidden-md hidden-lg">'+value.loai_gia+'</div><div class="hidden-xs hidden-sm hidden-md hidden-lg">'+value.gia_nhap+'</div><div class="hidden-xs hidden-sm hidden-md hidden-lg">'+value.gia_bia+'</div><div class="hidden-xs hidden-sm hidden-md hidden-lg">'+value.chiet_khau+'</div><div class="hidden-xs hidden-sm hidden-md hidden-lg">'+value.ton_kho+'</div></td>'
                     +   '<td data-title="Mã sản phẩm" style="width:20%;">'+value.ma_san_pham+'</td>'
                     +   '<td data-title="Mã vạch" style="width:20%;">'+value.ma_vach+'</td>';
               jQuery('#dev-table-2 tbody').append(tr);
@@ -198,6 +198,11 @@
               var id_san_pham=jQuery(this).find('td:first-child div:first-child').text().trim();
               var ten_san_pham=jQuery(this).find('td:first-child div:nth-child(2)').text().trim();
               var don_vi_tinh=jQuery(this).find('td:first-child div:nth-child(3)').text().trim();
+              var loai_gia=jQuery(this).find('td:first-child div:nth-child(4)').text().trim();
+              var gia_nhap=jQuery(this).find('td:first-child div:nth-child(5)').text().trim();
+              var gia_bia=jQuery(this).find('td:first-child div:nth-child(6)').text().trim();
+              var chiet_khau=jQuery(this).find('td:first-child div:nth-child(7)').text().trim();
+              var ton_kho=jQuery(this).find('td:first-child div:nth-child(8)').text().trim();
               var ma_san_pham=jQuery(this).find('td:nth-child(2)').text().trim();
               var ma_vach=jQuery(this).find('td:nth-child(3)').text().trim();
               if(jQuery.isNumeric(id_san_pham)){
@@ -208,6 +213,21 @@
                 jQuery('#dev-table-filter-2').val(ten_san_pham);
                 jQuery('#ma_san_pham').val(ma_san_pham);
                 jQuery('#ma_vach').val(ma_vach);
+                jQuery('#gia_nhap').val(gia_nhap);
+                jQuery('#gia_bia').val(gia_bia);
+                jQuery('#chiet_khau').val(chiet_khau);
+                jQuery('#so_luong_ton').text('Số lượng tồn: '+ton_kho);
+
+                if(loai_gia==1){
+                  jQuery('#loai_gia').prop('checked', true);
+                  jQuery('.gia_nhap').addClass('hidden-xs hidden-sm hidden-md hidden-lg');
+                  jQuery('.gia_bia').removeClass('hidden-xs hidden-sm hidden-md hidden-lg');
+                }
+                else{
+                  jQuery('#loai_gia').prop('checked', false);
+                  jQuery('.gia_bia').addClass('hidden-xs hidden-sm hidden-md hidden-lg');
+                  jQuery('.gia_nhap').removeClass('hidden-xs hidden-sm hidden-md hidden-lg');
+                }
               }
 
             });
@@ -228,6 +248,7 @@
     });
 
     // click nút thêm btn_them
+    var so_dong=0;
     jQuery('#btn_them').on('click', function(){
       var id_san_pham=jQuery('#id_san_pham').val();
       var so_luong  =jQuery('#so_luong').val();
@@ -235,6 +256,7 @@
       var gia_bia   =jQuery('#gia_bia').val();
       var chiet_khau=jQuery('#chiet_khau').val();
       var loai_gia  =jQuery('#loai_gia').is(':checked');
+      var gia=gia_nhap; // giá này để hiển thị trong bảng danh sách nhập, khi click vào nút thêm
       if(loai_gia){
         loai_gia=1;
         gia_nhap=0;
@@ -242,6 +264,7 @@
           alert('Giá bìa hoặc chiết khẩu không được nhỏ hơn hoặc bằng 0');
           return false;
         }
+        gia=gia_bia;
       }
       else{
         loai_gia=0;
@@ -265,23 +288,24 @@
       // kiểm tra điều kiên để được add
       if(co==0){
         if(jQuery.isNumeric(id_san_pham) && jQuery.isNumeric(so_luong) && jQuery.isNumeric(loai_gia) && jQuery.isNumeric(gia_nhap) && jQuery.isNumeric(gia_bia) && jQuery.isNumeric(chiet_khau) && id_san_pham>0 && so_luong>0 && loai_gia>=0 && gia_nhap>=0 && gia_bia>=0 && chiet_khau>=0){
-          var input='<input type="hidden" name="id_san_pham[]" class="id_san_pham" value="'+id_san_pham+'">'
+          so_dong++;
+          var input='<div class="san_pham_thu_'+so_dong+'"><input type="hidden" name="id_san_pham[]" class="id_san_pham" value="'+id_san_pham+'">'
                    +'<input type="hidden" name="so_luong[]" class="so_luong" value="'+so_luong+'">'
                    +'<input type="hidden" name="loai_gia[]" class="loai_gia" value="'+loai_gia+'">'
                    +'<input type="hidden" name="gia_nhap[]" class="gia_nhap" value="'+gia_nhap+'">'
                    +'<input type="hidden" name="gia_bia[]" class="gia_bia" value="'+gia_bia+'">'
-                   +'<input type="hidden" name="chiet_khau[]" class="chiet_khau" value="'+chiet_khau+'">';
+                   +'<input type="hidden" name="chiet_khau[]" class="chiet_khau" value="'+chiet_khau+'"></div>';
           jQuery('#danh_sach_san_pham').append(input);
 
 
           var ten_san_pham=jQuery('#dev-table-filter-2').val();
           var don_vi_tinh=jQuery('#don_vi_tinh').val();
-          var tr='<tr>'
+          var tr='<tr class="san_pham_thu_'+so_dong+'">'
                 +'<td>'+ten_san_pham+'</td>'
                 +'<td>'+don_vi_tinh+'</td>'
                 +'<td>'+so_luong+'</td>'
-                +'<td>'+gia_nhap+'</td>'
-                +'<td><a href="#">xóa</a></td>'
+                +'<td>'+gia+'</td>'
+                +'<td><a href="#" onclick="xoaSanPhamNhap('+so_dong+')">xóa</a></td>'
                 +'</tr>';
           jQuery('#danh_sach_san_pham_nhap tbody').append(tr);
         }
@@ -296,8 +320,11 @@
     jQuery('#btn_in_don_hang').on('click', function(){
       var length=jQuery('#danh_sach_san_pham_nhap tbody tr').length;
       if(length>0){
-        window.print();
+        //window.print();
         jQuery('#xuat_hang_hoa').submit();
+        // hủy hết sản phẩm đã nhập
+        jQuery('#danh_sach_san_pham_nhap tbody tr').html('');
+        jQuery('#danh_sach_san_pham').html('');
       }
       else{
         alert('Chưa có sản phẩm trong danh sách nhập');
@@ -309,5 +336,9 @@
       jQuery('#danh_sach_san_pham_nhap tbody tr').html('');
       jQuery('#danh_sach_san_pham').html('');
     });
+
+    xoaSanPhamNhap=function(row){
+      jQuery('.san_pham_thu_'+row).remove();
+    }
   })
 </script>
