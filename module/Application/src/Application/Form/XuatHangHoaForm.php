@@ -5,22 +5,22 @@ use Zend\Form\Form;
 /*
     sử dụng trong Application/Controller/HangHoaController themSanPhamAction
 */
-class NhapHangHoaForm extends Form
+class XuatHangHoaForm extends Form
 {
 
     public function __construct()
     {
-        parent::__construct("nhap_hang_hoa");
+        parent::__construct("xuat_hang_hoa");
         $this->setAttribute('method', 'post');
 
         $this->add(array(
-            'name' => 'id_nha_cung_cap',
+            'name' => 'id_khach_hang',
             'type' => 'Zend\Form\Element\Number',
             'options' => array(
-                'label' => "Id nhà cung cấp"
+                'label' => "Id khách hàng"
             ),
             'attributes' => array(
-                'title' => 'Id nhà cung cấp',
+                'title' => 'Id khách hàng',
                 'class' => 'form-control'
             )
         ));
@@ -57,6 +57,18 @@ class NhapHangHoaForm extends Form
             ),
             'attributes' => array(
                 'title' => 'Giá nhập',
+                'class' => 'form-control'
+            )
+        ));
+
+        $this->add(array(
+            'name' => 'gia_xuat',
+            'type' => 'Zend\Form\Element\Number',
+            'options' => array(
+                'label' => "Giá xuất"
+            ),
+            'attributes' => array(
+                'title' => 'Giá xuất',
                 'class' => 'form-control'
             )
         ));

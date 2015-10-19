@@ -161,7 +161,7 @@ class SanPhamTable
         // select
         $sqlSelect = $sql->select();
         $sqlSelect->from(array('t1'=>'san_pham'));
-        $sqlSelect->columns(array('id_san_pham', 'ten_san_pham', 'ma_san_pham', 'ma_vach'));
+        $sqlSelect->columns(array('id_san_pham', 'ten_san_pham', 'ma_san_pham', 'ma_vach', 'ton_kho', 'loai_gia', 'gia_nhap'));
         $sqlSelect->join(array('t2'=>'don_vi_tinh'), 't1.id_don_vi_tinh=t2.id_don_vi_tinh', array('don_vi_tinh'), 'LEFT');
         $sqlSelect->join(array('t3'=>'gia_xuat'), 't1.id_san_pham=t3.id_san_pham', array('gia_xuat'), 'LEFT');
         $sqlSelect->where(array('t1.id_kho'=>$id_kho, 't1.state'=>$state, 't3.id_kenh_phan_phoi'=>$id_kenh_phan_phoi));

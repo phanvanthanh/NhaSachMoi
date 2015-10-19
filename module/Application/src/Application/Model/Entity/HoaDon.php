@@ -8,7 +8,7 @@ class HoaDon
     protected $id_user;
     protected $ma_hoa_don;
     protected $ngay_xuat;
-    protected $status;
+    protected $state;
    
     public function exchangeArray($data)
     {
@@ -17,7 +17,7 @@ class HoaDon
         $this->id_user = (isset($data['id_user'])) ? $data['id_user'] : null;
         $this->ma_hoa_don = (isset($data['ma_hoa_don'])) ? $data['ma_hoa_don'] : null;
         $this->ngay_xuat = (isset($data['ngay_xuat'])) ? $data['ngay_xuat'] : null;
-        $this->status = (isset($data['status'])) ? $data['status'] : null;
+        $this->state = (isset($data['state'])) ? $data['state'] : null;
         
     }    
 
@@ -76,14 +76,14 @@ class HoaDon
         return $this->ngay_xuat;
     }
 
-    public function setStatus($status)
+    public function setState($state)
     {
-        $this->status=$status;
+        $this->state=$state;
     }
 
-    public function getStatus()
+    public function getState()
     {
-        return $this->status;
+        return $this->state;
     }
 
     

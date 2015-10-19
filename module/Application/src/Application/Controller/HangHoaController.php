@@ -249,7 +249,6 @@ class HangHoaController extends AbstractActionController
         $request=$this->getRequest();
         if($request->isPost()){
             $post=$request->getPost();
-            die(var_dump($post));
             if(isset($post['id_nha_cung_cap']) and $post['id_nha_cung_cap'] and isset($post['id_san_pham']) and $post['id_san_pham'] and isset($post['so_luong']) and $post['so_luong'] and isset($post['gia_nhap']) and $post['gia_nhap']){
                 $id_phieu_nhap='';
                 $user_id=$this->AuthService()->getUserId();
@@ -404,8 +403,38 @@ class HangHoaController extends AbstractActionController
     public function xuatHangHoaAction(){
         $request=$this->getRequest();
         if($request->isPost()){
+            $hoa_don_table=$this->getServiceLocator()->get('Application\Model\HoaDonTable');
             $post=$request->getPost();
-            die(var_dump($post));
+            $id_hoa_don='';
+            foreach ($post['id_san_pham'] as $key => $id_san_pham) {
+                $form=$this->getServiceLocator()->get('Application\Model\XuatHangHoaForm');
+                $data=array();
+                $data['id_khach_hang']=$post['id_khach_hang'];
+                $data['id_san_pham']=$id_san_pham;
+                $data['so_luong']=$post['so_luong'][$key];
+                $data['gia_nhap']=$post['gia_nhap'][$key];
+                $data['gia_xuat']=$post['gia_xuat'][$key];
+                $form->setData($data);
+                if($form->isValid()){
+                    if(!$id_hoa_don){
+                        $hoa_don_moi=new HoaDon();
+                        $hoa_don_moi->setIdKhachHang($post['id_khach_hang']);
+                        $hoa_don_moi->setIdUser($id_user);
+                        $date = date('Y-m-d h:i:s a', time());
+                        $hoa_don_moi->setNgayXuat($date);
+                        $hoa_don_moi->setState(0);
+                        $ma_hoa_don=$this->TaoMaTuDong()->taoMaHoaDon();;
+                        $hoa_don_moi->setMaHoaDon($ma_hoa_don);
+                        $hoa_don_table->saveHoaDon($hoa_don_moi);
+                    }
+                }
+                else{
+                    die(var_dump('not is valid'));
+                    // xóa dữ liệu hóa đơn
+
+                    // chuyển trang thông báo lỗi
+                }
+            }
         }
         else{
 
