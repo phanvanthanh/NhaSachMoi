@@ -15,6 +15,8 @@ use Application\Model\Entity\SanPham;
 use Application\Model\Entity\PhieuNhap;
 use Application\Model\Entity\CtPhieuNhap;
 use Application\Model\Entity\GiaXuat;
+use Application\Model\Entity\HoaDon;
+use Application\Model\Entity\CtHoaDon;
 use Zend\View\Model\JsonModel;
 
 
@@ -265,13 +267,13 @@ class HangHoaController extends AbstractActionController
                     $data=array();
                     $data['id_nha_cung_cap']=$post['id_nha_cung_cap'];
                     $data['id_san_pham']=$id_san_pham;
-                    $data['so_luong']=$post['so_luong'][$key];
+                    $data['so_luong']=ceil($post['so_luong'][$key]);
                     if($post['loai_gia'][$key]==1){
                         $loi_nhuan=(float)(((float)$post['gia_bia'][$key]*(float)$post['chiet_khau'][$key])/100);
-                        $data['gia_nhap']=(float)$post['gia_bia'][$key]-$loi_nhuan;
+                        $data['gia_nhap']=ceil((float)$post['gia_bia'][$key]-$loi_nhuan);
                     }
                     else{
-                        $data['gia_nhap']=$post['gia_nhap'][$key];
+                        $data['gia_nhap']=ceil($post['gia_nhap'][$key]);
                     }
                     
                     $form->setData($data);
@@ -314,20 +316,20 @@ class HangHoaController extends AbstractActionController
                     $san_pham_moi->exchangeArray($san_pham[0]);
                     $san_pham_moi->setLoaiGia($post['loai_gia'][$key]);
                     if($post['loai_gia'][$key]==1){
-                        $san_pham_moi->setGiaBia($post['gia_bia'][$key]);
+                        $san_pham_moi->setGiaBia(ceil($post['gia_bia'][$key]));
                         $san_pham_moi->setChietKhau($post['chiet_khau'][$key]);
 
                         $loi_nhuan=(float)(((float)$post['gia_bia'][$key]*(float)$post['chiet_khau'][$key])/100);
-                        $gia_nhap=(float)$post['gia_bia'][$key]-$loi_nhuan;                        
+                        $gia_nhap=ceil((float)$post['gia_bia'][$key]-$loi_nhuan);                        
                         $san_pham_moi->setGiaNhap($gia_nhap);
                     }
                     else{
-                        $san_pham_moi->setGiaNhap($post['gia_nhap'][$key]);
+                        $san_pham_moi->setGiaNhap(ceil($post['gia_nhap'][$key]));
                         $san_pham_moi->setGiaBia(0);
                         $san_pham_moi->setChietKhau(0);
                     }
                     $ton_kho=$san_pham[0]['ton_kho'];
-                    $so_luong=$post['so_luong'][$key];
+                    $so_luong=ceil($post['so_luong'][$key]);
                     $ton_kho+=$so_luong;
                     $san_pham_moi->setTonKho($ton_kho);
                     $san_pham_table->saveSanPham($san_pham_moi);
@@ -338,11 +340,11 @@ class HangHoaController extends AbstractActionController
                         $gia_xuat=0;
                         if($post['loai_gia'][$key]==1){
                             $loi_nhuan=(float)(((float)$post['gia_bia'][$key]*(float)$kenh_phan_phoi['chiet_khau'])/100);
-                            $gia_xuat=(float)$post['gia_bia'][$key]-$loi_nhuan;
+                            $gia_xuat=ceil((float)$post['gia_bia'][$key]-$loi_nhuan);
                         }
                         else{
                             $loi_nhuan=(float)(((float)$post['gia_nhap'][$key]*(float)$kenh_phan_phoi['chiet_khau'])/100);
-                            $gia_xuat=(float)$post['gia_nhap'][$key]+$loi_nhuan;
+                            $gia_xuat=ceil((float)$post['gia_nhap'][$key]+$loi_nhuan);
                         }
                         $gia_xuat_moi=new GiaXuat();
                         $gia_xuat_moi->setIdSanPham($id_san_pham);
@@ -403,19 +405,34 @@ class HangHoaController extends AbstractActionController
     public function xuatHangHoaAction(){
         $request=$this->getRequest();
         if($request->isPost()){
+            $san_pham_table=$this->getServiceLocator()->get('Application\Model\SanPhamTable');
             $hoa_don_table=$this->getServiceLocator()->get('Application\Model\HoaDonTable');
+            $ct_hoa_don_table=$this->getServiceLocator()->get('Application\Model\CtHoaDonTable');
+            $id_user=$this->AuthService()->getUserId();
             $post=$request->getPost();
             $id_hoa_don='';
+            $danh_sach_san_pham=array();
             foreach ($post['id_san_pham'] as $key => $id_san_pham) {
-                $form=$this->getServiceLocator()->get('Application\Model\XuatHangHoaForm');
+                $form=$this->getServiceLocator()->get('Application\Form\XuatHangHoaForm');
                 $data=array();
                 $data['id_khach_hang']=$post['id_khach_hang'];
                 $data['id_san_pham']=$id_san_pham;
-                $data['so_luong']=$post['so_luong'][$key];
-                $data['gia_nhap']=$post['gia_nhap'][$key];
-                $data['gia_xuat']=$post['gia_xuat'][$key];
+                $data['so_luong']=round($post['so_luong'][$key], 0, PHP_ROUND_HALF_DOWN);
+                $data['gia_nhap']=ceil($post['gia_nhap'][$key]);
+                $data['gia_xuat']=ceil($post['gia_xuat'][$key]);
+                $san_pham=$san_pham_table->getSanPhamByArrayConditionAndArrayColumn(array('id_san_pham'=>$id_san_pham), array());
+                $danh_sach_san_pham[$id_san_pham]=$san_pham[0];
+                $co_kiem_tra_so_luong=0;
+                if($san_pham[0]['ton_kho']<$data['so_luong']){
+                    $co_kiem_tra_so_luong=1;
+                }
+                else{
+                    $danh_sach_san_pham[$id_san_pham]['ton_kho']=$san_pham[0]['ton_kho']-$data['so_luong'];
+                }
+                               
                 $form->setData($data);
-                if($form->isValid()){
+                if($form->isValid() and $co_kiem_tra_so_luong==0){
+                    // tạo hóa đơn
                     if(!$id_hoa_don){
                         $hoa_don_moi=new HoaDon();
                         $hoa_don_moi->setIdKhachHang($post['id_khach_hang']);
@@ -426,19 +443,36 @@ class HangHoaController extends AbstractActionController
                         $ma_hoa_don=$this->TaoMaTuDong()->taoMaHoaDon();;
                         $hoa_don_moi->setMaHoaDon($ma_hoa_don);
                         $hoa_don_table->saveHoaDon($hoa_don_moi);
+                        $hoa_don=$hoa_don_table->getHoaDonByArrayConditionAndArrayColumn(array('ma_hoa_don'=>$ma_hoa_don), array('id_hoa_don'));
+                        $id_hoa_don=$hoa_don[0]['id_hoa_don'];
                     }
+                    // tạo chi tiết hóa đơn
+                    $ct_hoa_don_moi=new CtHoaDon();
+                    $ct_hoa_don_moi->exchangeArray($data);
+                    $ct_hoa_don_moi->setGia($data['gia_xuat']);
+                    $ct_hoa_don_moi->setIdHoaDon($id_hoa_don);
+                    $ct_hoa_don_table->saveCtHoaDon($ct_hoa_don_moi);
                 }
                 else{
-                    die(var_dump('not is valid'));
                     // xóa dữ liệu hóa đơn
-
+                    if($id_hoa_don){
+                        $hoa_don_table->xoaHoaDon(array('id_hoa_don'=>$id_hoa_don));
+                    }
                     // chuyển trang thông báo lỗi
+                    $this->flashMessenger()->addErrorMessage('Lỗi, không thể xuất hàng hóa!');
+                    return $this->redirect()->toRoute('hang_hoa', array('action'=>'xuat-hang-hoa'));
                 }
+            }            
+            // cập nhật lại số lượng trong csdl
+            foreach ($danh_sach_san_pham as $key => $san_pham) {
+                $san_pham_moi=new SanPham();
+                $san_pham_moi->exchangeArray($san_pham);                
+                $san_pham_table->saveSanPham($san_pham_moi);
             }
-        }
-        else{
-
-        }
+            // xuất hàng hóa thành công
+            $this->flashMessenger()->addSuccessMessage('Chúc mừng, xuất hàng hóa thành công!');
+            return $this->redirect()->toRoute('hang_hoa', array('action'=>'xuat-hang-hoa'));
+        }       
     }
 
     public function danhSachKhachHangAction(){

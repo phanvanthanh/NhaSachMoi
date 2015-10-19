@@ -145,10 +145,16 @@
             // chọn nhà cung cấp
               jQuery('#dev-table tbody tr').on('click', function(){
                 // xóa tất cả các danh sách hàng đã chọn
-                jQuery('#danh_sach_san_pham_nhap tbody').html('');
-                // xóa tất cả danh sách hàng trong form
+                jQuery('#danh_sach_san_pham_nhap tbody tr').html('');
                 jQuery('#danh_sach_san_pham').html('');
-                jQuery('#id_nha_cung_cap').val('');
+                jQuery('#dev-table-filter-2').val('');
+                jQuery('#ma_san_pham').val('');
+                jQuery('#ma_vach').val('');
+                jQuery('#so_luong').val('');
+                jQuery('#gia_nhap').val('');
+                jQuery('#gia_bia').val('');
+                jQuery('#chiet_khau').val('');
+                
                 // lấy id_nha_cung_cap mới nhất        
                 var id_nha_cung_cap=jQuery(this).find('td:first-child div:first-child').text().trim();
                 var ho_ten=jQuery(this).find('td:first-child div:nth-child(2)').text().trim();
@@ -325,6 +331,17 @@
         // hủy hết sản phẩm đã nhập
         jQuery('#danh_sach_san_pham_nhap tbody tr').html('');
         jQuery('#danh_sach_san_pham').html('');
+
+        jQuery('#dev-table-filter').val('');
+        jQuery('#dia_chi').val('');
+        jQuery('#di_dong').val('');
+        jQuery('#dev-table-filter-2').val('');
+        jQuery('#ma_san_pham').val('');
+        jQuery('#ma_vach').val('');
+        jQuery('#so_luong').val('');
+        jQuery('#gia_nhap').val('');
+        jQuery('#gia_bia').val('');
+        jQuery('#chiet_khau').val('');
       }
       else{
         alert('Chưa có sản phẩm trong danh sách nhập');
@@ -335,6 +352,17 @@
     jQuery('#btn_huy_don_hang').on('click', function(){
       jQuery('#danh_sach_san_pham_nhap tbody tr').html('');
       jQuery('#danh_sach_san_pham').html('');
+
+      jQuery('#dev-table-filter').val('');
+      jQuery('#dia_chi').val('');
+      jQuery('#di_dong').val('');
+      jQuery('#dev-table-filter-2').val('');
+      jQuery('#ma_san_pham').val('');
+      jQuery('#ma_vach').val('');
+      jQuery('#so_luong').val('');
+      jQuery('#gia_nhap').val('');
+      jQuery('#gia_bia').val('');
+      jQuery('#chiet_khau').val('');
     });
 
     xoaSanPhamNhap=function(row){

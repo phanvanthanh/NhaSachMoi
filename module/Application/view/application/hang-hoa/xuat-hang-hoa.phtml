@@ -239,7 +239,7 @@
               +'<td>'+don_vi_tinh+'</td>'
               +'<td>'+so_luong+'</td>'
               +'<td>'+gia_xuat+'</td>'
-              +'<td><a href="#">hủy</a></td>'
+              +'<td><a href="#" onclick="xoaSanPhamXuat('+so_dong+')">hủy</a></td>'
             +'</tr>';
           jQuery('#danh_sach_hang_xuat tbody').append(tr);
         }
@@ -253,6 +253,15 @@
     // btn_in_don_hang
     jQuery('#btn_in_don_hang').on('click', function(){
       jQuery('#xuat_hang_hoa').submit();
+
+      jQuery('#danh_sach_hang_xuat tbody').html('');
+      jQuery('#danh_sach_input_post').html('');
+      jQuery('#id_khach_hang').val('');
+      jQuery('#ten_san_pham').val('');
+      jQuery('#ma_san_pham').val('');
+      jQuery('#ma_vach').val('');
+      jQuery('#so_luong').val('');
+      jQuery('#gia_xuat').val('');
     });    
 
     // btn_huy_don_hang
@@ -266,5 +275,9 @@
       jQuery('#so_luong').val('');
       jQuery('#gia_xuat').val('');
     });
+
+    xoaSanPhamXuat=function(row){
+      jQuery('.san_pham_thu_'+row).remove();
+    }
   })
 </script>
