@@ -252,22 +252,33 @@
 
     // btn_in_don_hang
     jQuery('#btn_in_don_hang').on('click', function(){
-      jQuery('#xuat_hang_hoa').submit();
+      if(jQuery('#danh_sach_hang_xuat tbody tr').length>0){
+        jQuery('#xuat_hang_hoa').submit();
+        jQuery('#danh_sach_hang_xuat tbody').html('');
+        jQuery('#danh_sach_input_post').html('');
+        jQuery('#id_khach_hang').val('');
+        jQuery('#ten_san_pham').val('');
+        jQuery('#ma_san_pham').val('');
+        jQuery('#ma_vach').val('');
+        jQuery('#so_luong').val('');
+        jQuery('#gia_xuat').val('');
+      } 
+      else{
+        alert('Danh sách sản phẩm không được rổng');
+      } 
+        
 
-      jQuery('#danh_sach_hang_xuat tbody').html('');
-      jQuery('#danh_sach_input_post').html('');
-      jQuery('#id_khach_hang').val('');
-      jQuery('#ten_san_pham').val('');
-      jQuery('#ma_san_pham').val('');
-      jQuery('#ma_vach').val('');
-      jQuery('#so_luong').val('');
-      jQuery('#gia_xuat').val('');
+      
     });    
 
     // btn_huy_don_hang
     jQuery('#btn_huy_don_hang').on('click', function(){
       jQuery('#danh_sach_hang_xuat tbody').html('');
       jQuery('#danh_sach_input_post').html('');
+      jQuery('#ho_ten').val('');
+      jQuery('#dia_chi').val('');
+      jQuery('#di_dong').val('');
+      jQuery('#kenh_phan_phoi').val('');
       jQuery('#id_khach_hang').val('');
       jQuery('#ten_san_pham').val('');
       jQuery('#ma_san_pham').val('');

@@ -479,15 +479,15 @@ return array(
                     array(
                         'label' => ' Doanh thu', 
                         'title' => ' Doanh thu', 
-                        'route' => '/ban-hang/doanh-thu',
+                        'route' => '/ban-hang',
                         'id'=>'#',
                         'icon' => '',
                         'order' => 1
                     ),  
                     array(
-                        'label' => ' Phiếu xuất', 
-                        'title' => ' phiếu xuất', 
-                        'route' => '/ban-hang/phieu-xuat',
+                        'label' => ' Hóa đơn', 
+                        'title' => ' Hóa đơn', 
+                        'route' => '/ban-hang/hoa-don',
                         'id'=>'#',
                         'icon' => '',
                         'order' => 1
