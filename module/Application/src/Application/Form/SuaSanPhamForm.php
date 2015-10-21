@@ -140,5 +140,6 @@ class SuaSanPhamForm extends Form
                 'class' => 'form-control'
             )
         ));
+
     }
 }

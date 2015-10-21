@@ -67,7 +67,7 @@ echo $this->form()->openTag($form);
         echo $this->formFile($form->get('hinh_anh')); 
         ?>
       </span>
-      <img id="img" src="<?php echo $this->basePath().$form->get('hinh_anh')->getValue(); ?>" alt="..." class="img-circle" width="140px" height="140px">
+      <img id="img" src="<?php echo $this->basePath().$this->hinh_anh; ?>" alt="..." class="img-circle" width="140px" height="140px">
       <div class="text-danger">
         <?php echo $this->formElementErrors($form->get('hinh_anh')); ?>
       </div>

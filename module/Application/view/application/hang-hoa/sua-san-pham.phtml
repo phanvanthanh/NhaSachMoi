@@ -57,7 +57,7 @@ echo $this->form()->openTag($form);
         echo $this->formFile($form->get('hinh_anh')); 
         ?>
       </span>
-      <img id="img" src="<?php echo $form->get('hinh_anh')->getValue(); ?>" alt="..." class="img-circle" width="140px" height="140px">
+      <img id="img" src="<?php echo $this->basePath().$this->hinh_anh; ?>" alt="..." class="img-circle" width="140px" height="140px">
       <div class="text-danger">
         <?php echo $this->formElementErrors($form->get('hinh_anh')); ?>
       </div>
@@ -118,6 +118,21 @@ echo $this->form()->openTag($form);
         <?php echo $this->formElementErrors($form->get('chiet_khau')); ?>
       </div>
     </div>
+
+    <?php
+      foreach ($this->gia_xuat as $key => $value) {
+      ?>    
+        <div class="form-group">
+          <label><?php echo $this->formLabel($form->get($key)); ?></label>
+          <?php echo $this->formInput($form->get($key)); ?>
+          <div class="text-danger">
+            <?php echo $this->formElementErrors($form->get($key)); ?>
+          </div>
+        </div>
+      <?php
+      }
+    ?>
+
 
   </div>
   <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 text-right">

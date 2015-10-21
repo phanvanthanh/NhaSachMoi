@@ -48,7 +48,22 @@ class SuaSanPhamFormFactory implements FactoryInterface
                 'class' => 'form-control'
             ),
         ));
-        
+
+        $kenh_phan_phoi_table=$serviceLocator->get('Application\Model\KenhPhanPhoiTable');
+        $kenh_phan_phoi=$kenh_phan_phoi_table->getKenhPhanPhoiByIdKho($id_kho);
+        foreach ($kenh_phan_phoi as $key => $value) {
+            $form->add(array(
+                'name' => 'id_kenh_pha_phoi_'.$key,
+                'type' => 'Zend\Form\Element\Number',
+                'options' => array(
+                    'label' => $value
+                ),
+                'attributes' => array(
+                    'title' => $value,
+                    'class' => 'form-control'
+                )
+            ));
+        }
         $form->setInputFilter(new SuaSanPhamFormFilter());
         
         return $form;

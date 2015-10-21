@@ -139,9 +139,15 @@ class HangHoaController extends AbstractActionController
             $this->flashMessenger()->addErrorMessage('Sản phẩm không tồn tại');
             return $this->redirect()->toRoute('hang_hoa');
         }
+        // get giá xuất
+        $kenh_phan_phoi_table=$this->getServiceLocator()->get('Application\Model\KenhPhanPhoiTable');
+        $gia_xuat=$kenh_phan_phoi_table->getIdKenhPhanPhoiAndGiaXuatByIdKhoAndIdSanPham(array('id_kho'=>$id_kho, 'id_san_pham'=>$id));
+        $return['gia_xuat']=$gia_xuat;
+        $return['hinh_anh']=$san_pham[0]['hinh_anh'];
         //tạo form
         $form=$this->getServiceLocator()->get('Application\Form\SuaSanPhamForm');
         $form->setData($san_pham[0]);
+        $form->setData($gia_xuat);
         $return['form']=$form;
 
         $request=$this->getRequest();
@@ -207,6 +213,19 @@ class HangHoaController extends AbstractActionController
                 }
                 $san_pham_moi->setUserId($user_id);
                 $san_pham_table->saveSanPham($san_pham_moi);
+                // xóa giá xuất củ
+                $gia_xuat_table=$this->getServiceLocator()->get('Application\Model\GiaXuatTable');
+                $gia_xuat_table->deleteGiaXuat(array('id_san_pham'=>$id));
+                // lưu giá
+                foreach ($gia_xuat as $key => $value) {
+                    $array=explode('id_kenh_pha_phoi_', $key);
+                    $id_kenh_phan_phoi=$array[1];
+                    $gia_xuat_moi=new GiaXuat();
+                    $gia_xuat_moi->setIdSanPham($id);
+                    $gia_xuat_moi->setIdKenhPhanPhoi($id_kenh_phan_phoi);
+                    $gia_xuat_moi->setGiaXuat($post[$key]);
+                    $gia_xuat_table->saveGiaXuat($gia_xuat_moi);
+                }
                 $this->flashMessenger()->addSuccessMessage('Chúc mừng, cập nhật sản phẩm thành công!');
                 return $this->redirect()->toRoute('hang_hoa');
             }else{

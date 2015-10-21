@@ -88,7 +88,7 @@ class DoiTacController extends AbstractActionController
         }
         $form=$this->getServiceLocator()->get('Application\Form\SuaThongTinKhachHangForm');
         $form->setData($khach_hang[0]);
-        $return =array('form'=>$form, 'id'=>$id);
+        $return =array('form'=>$form, 'id'=>$id, 'hinh_anh'=>$khach_hang[0]['hinh_anh']);
         $request=$this->getRequest();
         if($request->isPost()){
             $post=array_merge_recursive($request->getPost()->toArray(), $request->getFiles()->toArray());
@@ -295,7 +295,7 @@ class DoiTacController extends AbstractActionController
         }
         $form=$this->getServiceLocator()->get('Application\Form\SuaThongTinNhaCungCapForm');
         $form->setData($nha_cung_cap[0]);
-        $return=array('id'=>$id, 'form'=>$form);
+        $return=array('id'=>$id, 'form'=>$form, 'hinh_anh'=>$nha_cung_cap[0]['hinh_anh']);
         $request=$this->getRequest();
         if($request->isPost()){
             $post=array_merge_recursive($request->getPost()->toArray(), $request->getFiles()->toArray());
