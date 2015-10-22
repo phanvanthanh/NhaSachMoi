@@ -374,7 +374,7 @@ class HangHoaController extends AbstractActionController
                 }
                 // lưu thành công
                 $this->flashMessenger()->addSuccessMessage('Chúc mừng, nhập hàng thành công!');
-                return $this->redirect()->toRoute('ban_hang', array('action'=>'chi-tiet-phieu-nhap', 'id'=>$id_phieu_nhap));
+                return $this->redirect()->toRoute('hang_hoa', array('action'=>'in-phieu-nhap', 'id'=>$id_phieu_nhap));
             
             }
             else{
@@ -383,7 +383,11 @@ class HangHoaController extends AbstractActionController
             }
             
         }
-    }   
+    }  
+
+    public function inPhieuNhapAction(){
+
+    } 
 
     public function danhSachNhaCungCapAction(){
         $request=$this->getRequest();
@@ -490,8 +494,12 @@ class HangHoaController extends AbstractActionController
             }
             // xuất hàng hóa thành công
             $this->flashMessenger()->addSuccessMessage('Chúc mừng, xuất hàng hóa thành công!');
-            return $this->redirect()->toRoute('ban_hang', array('action'=>'chi-tiet-hoa-don', 'id'=>$id_hoa_don));
+            return $this->redirect()->toRoute('hang_hoa', array('action'=>'in-hoa-don', 'id'=>$id_hoa_don));
         }       
+    }
+
+    public function inHoaDonAction(){
+
     }
 
     public function danhSachKhachHangAction(){
