@@ -433,7 +433,7 @@ return array(
                     array(
                         'label' => ' Tổng hợp thu chi', 
                         'title' => ' Tổng hợp thu chi', 
-                        'route' => '/thanh-toan/tong-hop-thu-chi',
+                        'route' => '/thanh-toan',
                         'id'=>'#',
                         'icon' => '',
                         'order' => 1
@@ -455,17 +455,17 @@ return array(
                         'order' => 1
                     ),  
                     array(
-                        'label' => ' Phiếu thu', 
-                        'title' => ' Phiếu thu', 
-                        'route' => '/thanh-toan/phieu-thu',
+                        'label' => ' Lập phiếu thu', 
+                        'title' => ' Lập phiếu thu', 
+                        'route' => '/thanh-toan/lap-phieu-thu',
                         'id'=>'#',
                         'icon' => '',
                         'order' => 1
                     ),
                     array(
-                        'label' => ' Phiếu chi', 
-                        'title' => ' Phiếu chi', 
-                        'route' => '/thanh-toan/phieu-chi',
+                        'label' => ' Lập phiếu chi', 
+                        'title' => ' Lập phiếu chi', 
+                        'route' => '/thanh-toan/lap-phieu-chi',
                         'id'=>'#',
                         'icon' => '',
                         'order' => 1

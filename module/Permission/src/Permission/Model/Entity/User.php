@@ -5,6 +5,7 @@ class User
 {
     
     protected $user_id;
+    protected $role_id;
     protected $id_kho;
     protected $username;
     protected $password;
@@ -24,6 +25,7 @@ class User
     public function exchangeArray($data)
     {
         $this->user_id = (isset($data['user_id'])) ? $data['user_id'] : null;
+        $this->role_id = (isset($data['role_id'])) ? $data['role_id'] : 1;
         $this->id_kho = (isset($data['id_kho'])) ? $data['id_kho'] : null;
         $this->username = (isset($data['username'])) ? $data['username'] : null;
         $this->password = (isset($data['password'])) ? $data['password'] : null;
@@ -69,6 +71,11 @@ class User
     public function setPassword($password)
     {
         return $this->password=$password;
+    }
+
+    public function setPasswordMd5($password)
+    {
+        return $this->password=md5($password);
     }
 
     public function getPassword()
@@ -169,6 +176,16 @@ class User
     public function getIdKho()
     {
         return $this->id_kho;
+    }
+
+    public function setRoleId($role_id)
+    {
+        $this->role_id=$role_id;
+    }
+
+    public function getRoleId()
+    {
+        return $this->role_id;
     }
 
     public function setHinhAnh($hinh_anh)

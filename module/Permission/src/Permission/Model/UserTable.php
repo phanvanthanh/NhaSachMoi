@@ -41,4 +41,36 @@ class UserTable
         }
         return $allRow;
     }
+
+    public function saveUser(User $user)
+    {
+        $data = array(
+            'role_id'               => $user->getRoleId(),
+            'id_kho'                => $user->getIdKho(),
+            'username'              => $user->getUsername(),
+            'email'                 => $user->getEmail(),
+            'display_name'          => $user->getDisplayName(),
+            'password'              => $user->getPassword(),
+            'ho_ten'                => $user->getHoTen(),
+            'dia_chi'               => $user->getDiaChi(),
+            'mo_ta'                 => $user->getMoTa(),
+            'dien_thoai_co_dinh'    => $user->getDienThoaiCoDinh(),
+            'di_dong'               => $user->getDiDong(),
+            'twitter'               => $user->getTwitter(),
+            'state'                 => $user->getState(),
+        );        
+        $user_id = (int) $user->getUserId();
+        if ($user_id == 0) {
+            $this->tableGateway->insert($data);
+        } else {
+            if ($this->getUserByArrayConditionAndArrayColumn(array('user_id'=>$user_id), array('username'))) {
+                $this->tableGateway->update($data, array(
+                    'user_id' => $user_id
+                ));
+            } else {
+                return false;
+            }
+        }
+        return true;
+    }
 }
