@@ -1,0 +1,102 @@
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right">
+  <div class="btn btn-default">import</div>
+  <div class="btn btn-default">export</div>  
+</div>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+  <span class="title">CHÍNH SÁCH BÁN HÀNG</span>
+</div>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">&nbsp;</div>
+<table id="example" class="table table-hover table-bordered cursor" cellspacing="0" width="100%"> <!--  table-striped -->
+  <thead>
+    <tr>
+      <th>Kênh phân phối</th>
+      <th>Chiết khấu xuống</th> 
+      <th>Chiết khấu lên</th> 
+      <th>Đơn vị</th>     
+    </tr>
+  </thead>     
+  <tbody>
+  <?php foreach ($this->danh_sach_chiet_khau as $key => $chiet_khau) { ?>
+    <tr data-toggle="modal" data-target="#myModal">
+      <td><div class="hidden-xs hidden-sm hidden-md hidden-lg"><?php echo $chiet_khau['id_kenh_phan_phoi']; ?></div><?php echo $chiet_khau['kenh_phan_phoi']; ?></td>
+      <td><?php echo $chiet_khau['chiet_khau_xuong']; ?></td>
+      <td><?php echo $chiet_khau['chiet_khau_len']; ?></td>
+      <td>%</td>      
+    </tr>
+  <?php }?>                  
+  </tbody>
+</table>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <?php
+    $form=$this->form;
+    $form->setAttribute('action', $this->url("chinh_sach", array('action'=>'sua-chiet-khau')));
+    $form->setAttribute('class','form');
+    $form->setAttribute('role','form');
+    $form->setAttribute('method','post');
+    $form->prepare();
+    echo $this->form()->openTag($form);
+    $form->get('id_kenh_phan_phoi')->setAttribute('id','id_kenh_phan_phoi');
+    echo $this->formHidden($form->get('id_kenh_phan_phoi'));
+    ?>
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> 
+          <h3 class="modal-title">Sửa chiết khấu</h3>              
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label><?php echo $this->formLabel($form->get('chiet_khau_xuong')); ?></label>
+            <?php 
+            $form->get('chiet_khau_xuong')->setAttribute('id','chiet_khau_xuong');
+            echo $this->formInput($form->get('chiet_khau_xuong')); 
+            ?>
+            <div class="text-danger">
+              <?php echo $this->formElementErrors($form->get('chiet_khau_xuong')); ?>
+            </div>
+          </div>
+          <div class="form-group">
+            <label><?php echo $this->formLabel($form->get('chiet_khau_len')); ?></label>
+            <?php 
+            $form->get('chiet_khau_len')->setAttribute('id','chiet_khau_len');
+            echo $this->formInput($form->get('chiet_khau_len')); 
+            ?>
+            <div class="text-danger">
+              <?php echo $this->formElementErrors($form->get('chiet_khau_len')); ?>
+            </div>
+          </div>
+          <div class="form-group">            
+            <?php 
+            $form->get('sua_gia_xuat')->setAttribute('id','sua_gia_xuat');
+            echo $this->formCheckbox($form->get('sua_gia_xuat')); 
+            ?>
+            <label for="sua_gia_xuat"><?php echo $this->formLabel($form->get('sua_gia_xuat')); ?></label>
+            <div class="text-danger">
+              <?php echo $this->formElementErrors($form->get('sua_gia_xuat')); ?>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <a type="button" class="btn btn-default" data-dismiss="modal">Close</a>
+          <button type="submit" class="btn btn-danger">Lưu</button>
+        </div>
+      </div>
+    <?php echo $this->form()->closeTag($form); ?>
+  </div>
+</div>
+<script type="text/javascript">
+  jQuery(document).ready(function(){
+    jQuery("#example").DataTable({
+      responsive: true,
+      "lengthMenu": [[-1, 10, 25, 50, 100, 200], ["All", 10, 25, 50, 100, 200]]
+    });
+    jQuery('#example tbody tr').on('click', function(){
+      var id_kenh_phan_phoi=jQuery(this).find('td:first-child div:first-child').text();
+      var chiet_khau_xuong=jQuery(this).find('td:nth-child(2)').text();
+      var chiet_khau_len=jQuery(this).find('td:nth-child(3)').text();
+      jQuery('#id_kenh_phan_phoi').val(id_kenh_phan_phoi);
+      jQuery('#chiet_khau_xuong').val(chiet_khau_xuong);
+      jQuery('#chiet_khau_len').val(chiet_khau_len);
+    });
+  })                
+</script>

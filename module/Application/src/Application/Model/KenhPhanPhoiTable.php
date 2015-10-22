@@ -85,5 +85,28 @@ class KenhPhanPhoiTable
         }
         return $allRow;
     }
+
+    public function saveKenhPhanPhoi(KenhPhanPhoi $kenh_phan_phoi)
+    {
+        $data = array(
+            'id_kho'            => $kenh_phan_phoi->getIdKho(), 
+            'kenh_phan_phoi'    => $kenh_phan_phoi->getKenhPhanPhoi(), 
+            'chiet_khau_xuong'        => $kenh_phan_phoi->getChietKhauXuong(), 
+            'chiet_khau_len'        => $kenh_phan_phoi->getChietKhauLen(), 
+        );        
+        $id_kenh_phan_phoi = (int) $kenh_phan_phoi->getIdKenhPhanPhoi();
+        if ($id_kenh_phan_phoi == 0) {
+            $this->tableGateway->insert($data);
+        } else {
+            if ($this->getKenhPhanPhoiByArrayConditionAndArrayColumn(array('id_kenh_phan_phoi'=>$id_kenh_phan_phoi), array('kenh_phan_phoi'))) {
+                $this->tableGateway->update($data, array(
+                    'id_kenh_phan_phoi' => $id_kenh_phan_phoi
+                ));
+            } else {
+                return false;
+            }
+        }
+        return true;
+    }
     
 }

@@ -327,7 +327,7 @@ class HangHoaController extends AbstractActionController
                     }
                 }
                 // get danh sách kênh phân phối
-                $danh_sach_kenh_phan_phoi=$kenh_phan_phoi_table->getKenhPhanPhoiByArrayConditionAndArrayColumn(array('id_kho'=>$id_kho), array('id_kenh_phan_phoi', 'chiet_khau'));
+                $danh_sach_kenh_phan_phoi=$kenh_phan_phoi_table->getKenhPhanPhoiByArrayConditionAndArrayColumn(array('id_kho'=>$id_kho), array('id_kenh_phan_phoi', 'chiet_khau_xuong', 'chiet_khau_len'));
                 // cập nhật lại số lượng và loại giá, giá nhập, giá bìa, chiết khấu trong csdl
                 foreach ($post['id_san_pham'] as $key => $id_san_pham) {
                     $san_pham=$san_pham_table->getSanPhamByArrayConditionAndArrayColumn(array('id_san_pham'=>$id_san_pham), array());
@@ -358,11 +358,11 @@ class HangHoaController extends AbstractActionController
                     foreach ($danh_sach_kenh_phan_phoi as $kenh_phan_phoi) {
                         $gia_xuat=0;
                         if($post['loai_gia'][$key]==1){
-                            $loi_nhuan=(float)(((float)$post['gia_bia'][$key]*(float)$kenh_phan_phoi['chiet_khau'])/100);
+                            $loi_nhuan=(float)(((float)$post['gia_bia'][$key]*(float)$kenh_phan_phoi['chiet_khau_xuong'])/100);
                             $gia_xuat=ceil((float)$post['gia_bia'][$key]-$loi_nhuan);
                         }
                         else{
-                            $loi_nhuan=(float)(((float)$post['gia_nhap'][$key]*(float)$kenh_phan_phoi['chiet_khau'])/100);
+                            $loi_nhuan=(float)(((float)$post['gia_nhap'][$key]*(float)$kenh_phan_phoi['chiet_khau_len'])/100);
                             $gia_xuat=ceil((float)$post['gia_nhap'][$key]+$loi_nhuan);
                         }
                         $gia_xuat_moi=new GiaXuat();
