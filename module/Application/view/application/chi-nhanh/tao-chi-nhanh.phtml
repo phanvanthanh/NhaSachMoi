@@ -1,15 +1,14 @@
 <?php
 $form=$this->form;
-$form->setAttribute('action', $this->url("chi_nhanh", array('action'=>'sua-chi-nhanh', 'id'=>$this->id)));
+$form->setAttribute('action', $this->url("chi_nhanh", array('action'=>'tao-chi-nhanh')));
 $form->setAttribute('class','form');
 $form->setAttribute('role','form');
 $form->setAttribute('method','post');
 $form->prepare();
 echo $this->form()->openTag($form);
-echo $this->formHidden($form->get('id_kho'));
 ?>  
   <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
-    <span class="title">CẬP NHẬT THÔNG TIN CHI NHÁNH</span>
+    <span class="title">THÊM CHI NHÁNH</span>
   </div>
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">&nbsp;</div>
   <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10">

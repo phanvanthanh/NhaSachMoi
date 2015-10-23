@@ -24,6 +24,65 @@ class ChiNhanhController extends AbstractActionController
         return array('danh_sach_kho'=>$danh_sach_kho);
     }
 
+    public function taoChiNhanhAction(){
+        $form=$this->getServiceLocator()->get('Application\Form\TaoChiNhanhForm');
+        $return=array('form'=>$form);
+        $request=$this->getRequest();
+        if($request->isPost()){
+            $post=$request->getPost();
+            $form->setData($post);
+            if($form->isValid()){                
+                $kho_table=$this->getServiceLocator()->get('Application\Model\KhoTable');
+                $kho=$kho_table->getKhoByArrayConditionAndArrayColumn(array('dia_chi_kho'=>$post['dia_chi_kho']), array('id_kho'));
+                if($kho){
+                    $this->flashMessenger()->addErrorMessage('Địa chỉ kho đã tồn tại');
+                    return $this->redirect()->toRoute('chi_nhanh');
+                }
+                $kho_moi=new Kho();
+                $kho_moi->exchangeArray($post);
+                $kho_table->saveKho($kho_moi);
+                $this->flashMessenger()->addSuccessMessage('Chúc mừng, tạo chi nhánh mới thành công');
+                return $this->redirect()->toRoute('chi_nhanh');
+            }
+            else{
+                $return['form']=$form;
+                return $return;
+            }  
+        }
+        else{
+            return $return;
+        }
+            
+    }
+
+    public function suaChiNhanhAction(){
+        $id=$this->params('id');
+        $kho_table=$this->getServiceLocator()->get('Application\Model\KhoTable');
+        $kho=$kho_table->getKhoByArrayConditionAndArrayColumn(array('id_kho'=>$id), array());
+        if(!$kho){
+            $this->flashMessenger()->addErrorMessage('Không tìm thấy chi nhánh cần sửa');
+            return $this->redirect()->toRoute('chi_nhanh');
+        }
+        $form=$this->getServiceLocator()->get('Application\Form\SuaChiNhanhForm');
+        $form->setData($kho[0]);
+        $return=array('form'=>$form, 'id'=>$id);
+        $request=$this->getRequest();
+        if($request->isPost()){
+            $post=$request->getPost();
+            $form->setData($post);
+            if($form->isValid()){
+
+            }
+            else{
+                $return['form']=$form;
+                return $return;
+            }
+        }
+        else{
+            return $return;
+        }
+    }
+
     public function quanLyChiNhanhAction(){
     	$id=$this->params('id');
     	$kho_table=$this->getServiceLocator()->get('Application\Model\KhoTable');
@@ -55,9 +114,7 @@ class ChiNhanhController extends AbstractActionController
     	}
     }
 
-    public function suaChiNhanhAction(){
-
-    }
+    
 
     public function getAuthService()
     {
