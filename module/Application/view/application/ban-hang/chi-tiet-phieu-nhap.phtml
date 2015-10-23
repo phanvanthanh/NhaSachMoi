@@ -8,6 +8,12 @@
         .lb{display: block;}   
     }
 </style>
+<?php 
+    $ct_phieu_nhap=$this->ct_phieu_nhap; 
+    $so=$ct_phieu_nhap[0]['ma_phieu_nhap'];
+    $ho_ten=$ct_phieu_nhap[0]['ho_ten'];
+    $date = new DateTime($ct_phieu_nhap[0]['ngay_nhap']);    
+?>
 <table class="table" width="">
     <tr style="text-align: -moz-center; border-style:hidden">
         <td>
@@ -33,14 +39,14 @@
                     <td></td>
                 </tr>
                 <tr>
-                    <td style="padding:0px;">Ngày 18 tháng 02 năm 2015</td>
+                    <td style="padding:0px;">Ngày <?php echo $date->format('d'); ?> tháng <?php echo $date->format('m'); ?> năm <?php echo $date->format('Y'); ?></td>
                     <td style="padding:0px;">
                         Nợ: ........................................
                     </td>
                 </tr>
                 <tr>
                     <td style="padding:0px;">
-                        Số: ........................................<div style="margin-left:30px; margin-top:-20px;">001 </div>
+                        Số: ........................................<div style="margin-left:30px; margin-top:-20px;"> <?php echo $so; ?> </div>
                     </td>
                     <td style="padding:0px;">
                         Có: ........................................
@@ -51,7 +57,7 @@
             <table border="0"  class="tb">
                 <tr>
                     <td colspan="4">
-                        - Họ và tên người giao: Phan Văn Thanh
+                        - Họ và tên người giao: <?php echo $ho_ten; ?>
                     </td>
                 </tr>
                 <tr>
@@ -62,7 +68,7 @@
                         số....................
                     </td>
                     <td style="width:215px">
-                        ngày 18 tháng 02 năm 2015 
+                        ngày <?php echo $date->format('d'); ?> tháng <?php echo $date->format('m'); ?> năm <?php echo $date->format('Y'); ?>
                     </td>
                     <td>                            
                         của............................
@@ -93,20 +99,29 @@
                     <td>Theo chứng từ</td>
                     <td>Thực nhập</td>
                 </tr>
-                
-                
-                    <tr style="text-align:center">
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>1</td>
-                        <td style="white-space:nowrap;"></td>
-                        <td style="white-space:nowrap;"></td>
-                        <td style="white-space:nowrap;">          
-                        </td>
-                    </tr> 
-                
+                <?php
+                    $tong_tien=0;
+                    foreach ($ct_phieu_nhap as $key => $phieu_nhap) {
+                    ?>
+                        <tr style="text-align:center">
+                            <td><?php $key++; echo $key; ?></td>
+                            <td><?php echo $phieu_nhap['ten_san_pham']; ?></td>
+                            <td><?php echo $phieu_nhap['ma_san_pham']; ?></td>
+                            <td><?php echo $phieu_nhap['don_vi_tinh']; ?></td>
+                            <td></td>
+                            <td style="white-space:nowrap;"><?php echo $phieu_nhap['so_luong']; ?></td>
+                            <td style="white-space:nowrap;"><?php echo $phieu_nhap['gia_nhap']; ?></td>
+                            <td style="white-space:nowrap;">
+                            <?php 
+                                $thanh_tien=$phieu_nhap['so_luong']*$phieu_nhap['gia_nhap'];
+                                $tong_tien+=$thanh_tien;
+                                echo number_format($thanh_tien,0,","," "); 
+                            ?>                            
+                            </td>
+                        </tr>
+                    <?php
+                    }
+                ?> 
                 <tr style="text-align:center">
                     <td rowspan="2" style="width:45px"></td>
                     <td rowspan="2"><b>Tổng cộng</b></td>
@@ -114,13 +129,20 @@
                     <td rowspan="2" class="td"></td>
                     <td colspan="2" style="width:300px"></td>
                     <td rowspan="2" class="td"></td>
-                    <td rowspan="2" class="td" style="white-space:nowrap;"><b></b></td>
+                    <td rowspan="2" class="td" style="white-space:nowrap;">
+                        <b>
+                        <?php 
+                            $tong_tien_bang_chu=convert_number_to_words($tong_tien);
+                            echo number_format($tong_tien,0,","," "); 
+                        ?>
+                        </b>
+                    </td>
                 </tr>                  
             </table>
         </td>
     </tr>
     <tr style="border-style:hidden">
-        <td style="padding-left:20px">- Tổng số tiền (viết bằng chữ): <span id="tongSoTien"></span>&nbsp;đồng</td>
+        <td style="padding-left:20px">- Tổng số tiền (viết bằng chữ): <span id="tongSoTien"><?php echo $tong_tien_bang_chu; ?></span>&nbsp;đồng.</td>
     </tr>
     <tr style="border-style:hidden">
         <td style="padding-left:20px">
@@ -131,7 +153,7 @@
         <td>
             <table border="0" class="tb" style="width:100%;">
                 <tr>
-                    <td colspan="4" style="text-align:right">Ngày 18 tháng 02 năm 2015</td>
+                    <td colspan="4" style="text-align:right">Ngày <?php echo $date->format('d'); ?> tháng <?php echo $date->format('m'); ?> năm <?php echo $date->format('Y'); ?></td>
                 </tr>
                 <tr style="text-align: center;">
                     <td>
@@ -155,6 +177,118 @@
         </td>
     </tr>
 </table>
+<?php
+function convert_number_to_words($number) { 
+    $hyphen      = ' ';
+    $conjunction = '  ';
+    $separator   = ' ';
+    $negative    = 'âm ';
+    $decimal     = ' phẩy ';
+    $dictionary  = array(
+    0                   => 'Không',
+    1                   => 'Một',
+    2                   => 'Hai',
+    3                   => 'Ba',
+    4                   => 'Bốn',
+    5                   => 'Năm',
+    6                   => 'Sáu',
+    7                   => 'Bảy',
+    8                   => 'Tám',
+    9                   => 'Chín',
+    10                  => 'Mười',
+    11                  => 'Mười một',
+    12                  => 'Mười hai',
+    13                  => 'Mười ba',
+    14                  => 'Mười bốn',
+    15                  => 'Mười năm',
+    16                  => 'Mười sáu',
+    17                  => 'Mười bảy',
+    18                  => 'Mười tám',
+    19                  => 'Mười chín',
+    20                  => 'Hai mươi',
+    30                  => 'Ba mươi',
+    40                  => 'Bốn mươi',
+    50                  => 'Năm mươi',
+    60                  => 'Sáu mươi',
+    70                  => 'Bảy mươi',
+    80                  => 'Tám mươi',
+    90                  => 'Chín mươi',
+    100                 => 'trăm',
+    1000                => 'ngàn',
+    1000000             => 'triệu',
+    1000000000          => 'tỷ',
+    1000000000000       => 'nghìn tỷ',
+    1000000000000000    => 'ngàn triệu triệu',
+    1000000000000000000 => 'tỷ tỷ'
+    );
+     
+    if (!is_numeric($number)) {
+    return false;
+    }
+     
+    if (($number >= 0 && (int) $number < 0) || (int) $number < 0 - PHP_INT_MAX) {
+    // overflow
+    trigger_error(
+    'convert_number_to_words only accepts numbers between -' . PHP_INT_MAX . ' and ' . PHP_INT_MAX,
+    E_USER_WARNING
+    );
+    return false;
+    }
+     
+    if ($number < 0) {
+    return $negative . convert_number_to_words(abs($number));
+    }
+     
+    $string = $fraction = null;
+     
+    if (strpos($number, '.') !== false) {
+    list($number, $fraction) = explode('.', $number);
+    }
+     
+    switch (true) {
+    case $number < 21:
+    $string = $dictionary[$number];
+    break;
+    case $number < 100:
+    $tens   = ((int) ($number / 10)) * 10;
+    $units  = $number % 10;
+    $string = $dictionary[$tens];
+    if ($units) {
+    $string .= $hyphen . $dictionary[$units];
+    }
+    break;
+    case $number < 1000:
+    $hundreds  = $number / 100;
+    $remainder = $number % 100;
+    $string = $dictionary[$hundreds] . ' ' . $dictionary[100];
+    if ($remainder) {
+    $string .= $conjunction . convert_number_to_words($remainder);
+    }
+    break;
+    default:
+    $baseUnit = pow(1000, floor(log($number, 1000)));
+    $numBaseUnits = (int) ($number / $baseUnit);
+    $remainder = $number % $baseUnit;
+    $string = convert_number_to_words($numBaseUnits) . ' ' . $dictionary[$baseUnit];
+    if ($remainder) {
+    $string .= $remainder < 100 ? $conjunction : $separator;
+    $string .= convert_number_to_words($remainder);
+    }
+    break;
+    }
+     
+    if (null !== $fraction && is_numeric($fraction)) {
+    $string .= $decimal;
+    $words = array();
+    foreach (str_split((string) $fraction) as $number) {
+    $words[] = $dictionary[$number];
+    }
+    $string .= implode(' ', $words);
+    }
+     
+    return $string;
+}
+?>
 <script type="text/javascript">
     jQuery(document).ready(function(){
         window.print();

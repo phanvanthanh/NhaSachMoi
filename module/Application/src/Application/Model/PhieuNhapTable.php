@@ -47,6 +47,29 @@ class PhieuNhapTable
         return $allRow;
     }
 
+    public function getPhieuNhap($array){
+        $id_phieu_nhap=$array['id_phieu_nhap'];
+        $id_kho=$array['id_kho'];
+        $adapter = $this->tableGateway->adapter;
+        $sql = new Sql($adapter);        
+        // select
+        $sqlSelect = $sql->select();
+        $sqlSelect->from(array('t1'=>'phieu_nhap'));
+        $sqlSelect->join(array('t2'=>'ct_phieu_nhap'), 't1.id_phieu_nhap=t2.id_phieu_nhap', array('gia_nhap', 'so_luong'), 'LEFT');
+        $sqlSelect->join(array('t3'=>'san_pham'), 't2.id_san_pham=t3.id_san_pham', array('ten_san_pham', 'ma_san_pham', 'ma_vach'), 'LEFT');
+        $sqlSelect->join(array('t4'=>'don_vi_tinh'), 't3.id_don_vi_tinh=t4.id_don_vi_tinh', array('don_vi_tinh'), 'LEFT');
+        $sqlSelect->join(array('t5'=>'nha_cung_cap'), 't1.id_nha_cung_cap=t5.id_nha_cung_cap', array('ho_ten'), 'LEFT');
+        $sqlSelect->columns(array('ma_phieu_nhap', 'ngay_nhap'));        
+        $sqlSelect->where(array('t1.id_phieu_nhap'=>$id_phieu_nhap, 't5.id_kho'=>$id_kho));
+        $statement = $this->tableGateway->getSql()->prepareStatementForSqlObject($sqlSelect);
+        $resultSets = $statement->execute();
+        $allRow = array();
+        foreach ($resultSets as $key => $resultSet) {
+            $allRow[] = $resultSet;
+        }
+        return $allRow;
+    }
+
     /*
         sử dụng trong: Application/Controller/Plugin/TaoMaTuDong taoMaPhieuNhap
     */

@@ -67,5 +67,13 @@ class KhoTable
         }
         return true;
     }
+
+    public function deleteKho($array=array())
+    {
+        if ($this->tableGateway->delete($array)) {
+            return true;
+        }
+        return false;
+    }
     
 }

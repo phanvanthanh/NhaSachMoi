@@ -101,7 +101,18 @@ class ChiNhanhController extends AbstractActionController
     }
 
     public function xoaChiNhanhAction(){
-        
+        $id=$this->params('id');
+        $kho_table=$this->getServiceLocator()->get('Application\Model\KhoTable');
+        if($id){
+            $kho=$kho_table->getKhoByArrayConditionAndArrayColumn(array('id_kho'=>$id), array('ten_kho'));
+            if($kho){
+                $kho_table->deleteKho(array('id_kho'=>$id));
+                $this->flashMessenger()->addSuccessMessage('Chúc mừng, xóa chi nhánh mới thành công');
+                return $this->redirect()->toRoute('chi_nhanh');
+            }
+        }
+        $this->flashMessenger()->addErrorMessage('Lỗi không tìm thấy chi nhánh cần xóa');
+        return $this->redirect()->toRoute('chi_nhanh');
     }
 
     public function quanLyChiNhanhAction(){

@@ -34,7 +34,19 @@ class BanHangController extends AbstractActionController
     }
 
     public function chiTietPhieuNhapAction(){
-
+        $id=$this->params('id');
+        if($id){
+            $id_kho=$this->AuthService()->getIdKho();
+            $phieu_nhap_table=$this->getServiceLocator()->get('Application\Model\PhieuNhapTable');
+            $ct_phieu_nhap=$phieu_nhap_table->getPhieuNhap(array('id_phieu_nhap'=>$id, 'id_kho'=>$id_kho));
+            if($ct_phieu_nhap){
+                return array('ct_phieu_nhap'=>$ct_phieu_nhap);
+            }            
+        }
+        $this->flashMessenger()->addErrorMessage('Phiếu nhập tồn tại');
+        return $this->redirect()->toRoute('ban_hang');
+       
+            
     }
 
     public function hoaDonAction(){
