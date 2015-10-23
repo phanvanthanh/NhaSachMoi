@@ -37,21 +37,6 @@ class SuaChiNhanhForm extends Form
                 'title' => 'Địa chỉ',
                 'class' => 'form-control'
             )
-        ));
-
-
-        $this->add(array(
-            'name' => 'sua_gia_xuat',
-            'type' => 'Zend\Form\Element\Checkbox',
-            'options' => array(
-                'label' => 'Sửa tất cả giá xuất theo tỉ lệ chiết khấu mới',
-                'use_hidden_element' => true,
-                'checked_value' => 1,
-                'unchecked_value' => 0
-            ),
-            'attributes' => array(
-                'title' => 'Sửa tất cả giá xuất theo tỉ lệ chiết khấu mới',
-            )
-        ));
+        ));        
     }
 }

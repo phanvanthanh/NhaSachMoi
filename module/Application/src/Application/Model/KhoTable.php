@@ -57,7 +57,7 @@ class KhoTable
         if ($id_kho == 0) {
             $this->tableGateway->insert($data);
         } else {
-            if ($this->getSanPhamByArrayConditionAndArrayColumn(array('id_kho'=>$id_kho), array('ten_kho'))) {
+            if ($this->getKhoByArrayConditionAndArrayColumn(array('id_kho'=>$id_kho), array('ten_kho'))) {
                 $this->tableGateway->update($data, array(
                     'id_kho' => $id_kho
                 ));

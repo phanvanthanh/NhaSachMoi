@@ -31,6 +31,7 @@ echo $this->formHidden($form->get('id_kho'));
   </div>
   <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 text-right">
     <a class="btn btn-default" href="<?php echo $this->url('chi_nhanh'); ?>">Quay lại</a>
+    <a onclick="confirmSetLocation('Bạn thật sự muốn xóa bỏ chi nhánh này khỏi hệ thống?', '<?php echo $this->url('chi_nhanh', array('action'=>'xoa-chi-nhanh', 'id'=>$this->id)); ?>')" class="btn btn-default">Xóa</a>
     <button class="btn btn-danger">Lưu</button>
   </div>
 <?php

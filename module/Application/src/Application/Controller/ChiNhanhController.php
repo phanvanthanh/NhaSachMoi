@@ -41,6 +41,9 @@ class ChiNhanhController extends AbstractActionController
                 $kho_moi=new Kho();
                 $kho_moi->exchangeArray($post);
                 $kho_table->saveKho($kho_moi);
+                // tạo kênh phân phối
+
+
                 $this->flashMessenger()->addSuccessMessage('Chúc mừng, tạo chi nhánh mới thành công');
                 return $this->redirect()->toRoute('chi_nhanh');
             }
@@ -71,9 +74,23 @@ class ChiNhanhController extends AbstractActionController
             $post=$request->getPost();
             $form->setData($post);
             if($form->isValid()){
-
+                $kho_ton_tai=$kho_table->getKhoByArrayConditionAndArrayColumn(array('dia_chi_kho'=>$post['dia_chi_kho']), array('id_kho'));
+                // nếu địa chỉ mới sửa chưa được sủ dụng, hoặc địa chỉ đó thuộc về kho cần sửa
+                if(!$kho_ton_tai or ($kho_ton_tai and $kho_ton_tai[0]['id_kho']==$id)){
+                    $kho_moi=new Kho();
+                    $kho_moi->exchangeArray($post);
+                    $kho_moi->setIdKho($id);
+                    $kho_table->saveKho($kho_moi);
+                    $this->flashMessenger()->addSuccessMessage('Chúc mừng, cập nhật chi nhánh mới thành công');
+                    return $this->redirect()->toRoute('chi_nhanh');
+                }
+                else{
+                    $this->flashMessenger()->addErrorMessage('Địa chỉ này đã tồn tại một chi nhánh khác');
+                    return $this->redirect()->toRoute('chi_nhanh');
+                }
             }
             else{
+                die(var_dump($form->getMessages()));
                 $return['form']=$form;
                 return $return;
             }
@@ -81,6 +98,10 @@ class ChiNhanhController extends AbstractActionController
         else{
             return $return;
         }
+    }
+
+    public function xoaChiNhanhAction(){
+        
     }
 
     public function quanLyChiNhanhAction(){
