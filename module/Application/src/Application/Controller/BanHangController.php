@@ -17,7 +17,17 @@ class BanHangController extends AbstractActionController
 	// doanh thu
     public function indexAction()
     {
-        
+        $form=$this->getServiceLocator()->get('Application\Form\LoaiDoanhThuForm');
+        $return=array('form'=>$form);
+        $request=$this->getRequest();
+        if($request->isPost()){
+
+        }
+        return $return;
+    }
+
+    public function chiTietDoanhThuAction(){
+
     }
 
     public function phieuNhapAction(){

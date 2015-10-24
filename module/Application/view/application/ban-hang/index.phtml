@@ -1,0 +1,30 @@
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right">
+   <?php
+	$form=$this->form;
+	$form->setAttribute('action', $this->url("ban_hang", array('action'=>'index')));
+	$form->setAttribute('class','form');
+	$form->setAttribute('role','form');
+	$form->setAttribute('method','post');
+	$form->prepare();
+	echo $this->form()->openTag($form);
+	?> 
+		<div class="form-group">
+	      	<?php echo $this->formSelect($form->get('loai_doanh_thu')); ?>
+	      	<div class="text-danger">
+	        <?php 
+	        	$form->get('loai_doanh_thu')->setAttribute('id','chon_loai_doanh_thu');
+	        	echo $this->formElementErrors($form->get('loai_doanh_thu')); 
+	        ?>
+	      	</div>
+	    </div>
+
+	<?php echo $this->form()->closeTag($form); ?>
+</div>
+
+<script type="text/javascript">
+	jQuery(document).ready(function(){
+		$( "#chon_loai_doanh_thu" ).change(function() {
+		  alert( "Handler for .change() called." );
+		});
+	})
+</script>
