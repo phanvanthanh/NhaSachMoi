@@ -15,7 +15,6 @@ class Module
 
     public function onBootstrap(MvcEvent $e)
     { 
-        date_default_timezone_set("Asia/Ho_Chi_Minh");
         // Phân quyền ACL
         $eventManager = $e->getApplication()->getEventManager();        
         $eventManager->attach(MvcEvent::EVENT_DISPATCH, array(
