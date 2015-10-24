@@ -155,5 +155,28 @@ class HoaDonTable
         }
         return $allRow;
     }
+
+    public function getHoaDon($array){
+        $id_hoa_don=$array['id_hoa_don'];
+        $id_kho=$array['id_kho'];
+        $adapter = $this->tableGateway->adapter;
+        $sql = new Sql($adapter);        
+        // select
+        $sqlSelect = $sql->select();
+        $sqlSelect->from(array('t1'=>'hoa_don'));
+        $sqlSelect->join(array('t2'=>'ct_hoa_don'), 't1.id_hoa_don=t2.id_hoa_don', array('gia', 'so_luong'), 'LEFT');
+        $sqlSelect->join(array('t3'=>'san_pham'), 't2.id_san_pham=t3.id_san_pham', array('ten_san_pham', 'ma_san_pham', 'ma_vach'), 'LEFT');
+        $sqlSelect->join(array('t4'=>'don_vi_tinh'), 't3.id_don_vi_tinh=t4.id_don_vi_tinh', array('don_vi_tinh'), 'LEFT');
+        $sqlSelect->join(array('t5'=>'khach_hang'), 't1.id_khach_hang=t5.id_khach_hang', array('ho_ten'), 'LEFT');
+        $sqlSelect->columns(array('ma_hoa_don', 'ngay_xuat'));        
+        $sqlSelect->where(array('t1.id_hoa_don'=>$id_hoa_don, 't3.id_kho'=>$id_kho));
+        $statement = $this->tableGateway->getSql()->prepareStatementForSqlObject($sqlSelect);
+        $resultSets = $statement->execute();
+        $allRow = array();
+        foreach ($resultSets as $key => $resultSet) {
+            $allRow[] = $resultSet;
+        }
+        return $allRow;
+    }
     
 }

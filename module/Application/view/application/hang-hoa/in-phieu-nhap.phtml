@@ -1,6 +1,6 @@
 <style type="text/css">   
     @media print {
-        #header, .nav-side-menu, #alert, #btn-flash-messenger, .alert{display: none; }
+        #header, .nav-side-menu, #alert, #btn-flash-messenger, .alert, #btn_print{display: none; }
         .tb{width: 900px; margin-left: -10px; margin-top: -30px;}
         .td{width: 80px;}
         table {display: table; }
@@ -8,6 +8,15 @@
         .lb{display: block;}   
     }
 </style>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right">
+  <div class="btn btn-default" id="btn_print">in</div>  
+</div>
+<?php 
+    $ct_phieu_nhap=$this->ct_phieu_nhap; 
+    $so=$ct_phieu_nhap[0]['ma_phieu_nhap'];
+    $ho_ten=$ct_phieu_nhap[0]['ho_ten'];
+    $date = new DateTime($ct_phieu_nhap[0]['ngay_nhap']);    
+?>
 <table class="table" width="">
     <tr style="text-align: -moz-center; border-style:hidden">
         <td>
@@ -33,14 +42,14 @@
                     <td></td>
                 </tr>
                 <tr>
-                    <td style="padding:0px;">Ngày 18 tháng 02 năm 2015</td>
+                    <td style="padding:0px;">Ngày <?php echo $date->format('d'); ?> tháng <?php echo $date->format('m'); ?> năm <?php echo $date->format('Y'); ?></td>
                     <td style="padding:0px;">
                         Nợ: ........................................
                     </td>
                 </tr>
                 <tr>
                     <td style="padding:0px;">
-                        Số: ........................................<div style="margin-left:30px; margin-top:-20px;">001 </div>
+                        Số: ........................................<div style="margin-left:30px; margin-top:-20px;"> <?php echo $so; ?> </div>
                     </td>
                     <td style="padding:0px;">
                         Có: ........................................
@@ -51,7 +60,7 @@
             <table border="0"  class="tb">
                 <tr>
                     <td colspan="4">
-                        - Họ và tên người giao: Phan Văn Thanh
+                        - Họ và tên người giao: <?php echo $ho_ten; ?>
                     </td>
                 </tr>
                 <tr>
@@ -62,7 +71,7 @@
                         số....................
                     </td>
                     <td style="width:215px">
-                        ngày 18 tháng 02 năm 2015 
+                        ngày <?php echo $date->format('d'); ?> tháng <?php echo $date->format('m'); ?> năm <?php echo $date->format('Y'); ?>
                     </td>
                     <td>                            
                         của............................
@@ -93,20 +102,29 @@
                     <td>Theo chứng từ</td>
                     <td>Thực nhập</td>
                 </tr>
-                
-                
-                    <tr style="text-align:center">
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>1</td>
-                        <td style="white-space:nowrap;"></td>
-                        <td style="white-space:nowrap;"></td>
-                        <td style="white-space:nowrap;">          
-                        </td>
-                    </tr> 
-                
+                <?php
+                    $tong_tien=0;
+                    foreach ($ct_phieu_nhap as $key => $phieu_nhap) {
+                    ?>
+                        <tr style="text-align:center">
+                            <td><?php $key++; echo $key; ?></td>
+                            <td><?php echo $phieu_nhap['ten_san_pham']; ?></td>
+                            <td><?php echo $phieu_nhap['ma_san_pham']; ?></td>
+                            <td><?php echo $phieu_nhap['don_vi_tinh']; ?></td>
+                            <td></td>
+                            <td style="white-space:nowrap;"><?php echo $phieu_nhap['so_luong']; ?></td>
+                            <td style="white-space:nowrap;"><?php echo number_format($phieu_nhap['gia_nhap'],0,","," "); ?></td>
+                            <td style="white-space:nowrap;">
+                            <?php 
+                                $thanh_tien=$phieu_nhap['so_luong']*$phieu_nhap['gia_nhap'];
+                                $tong_tien+=$thanh_tien;
+                                echo number_format($thanh_tien,0,","," "); 
+                            ?>                            
+                            </td>
+                        </tr>
+                    <?php
+                    }
+                ?> 
                 <tr style="text-align:center">
                     <td rowspan="2" style="width:45px"></td>
                     <td rowspan="2"><b>Tổng cộng</b></td>
@@ -114,13 +132,20 @@
                     <td rowspan="2" class="td"></td>
                     <td colspan="2" style="width:300px"></td>
                     <td rowspan="2" class="td"></td>
-                    <td rowspan="2" class="td" style="white-space:nowrap;"><b></b></td>
+                    <td rowspan="2" class="td" style="white-space:nowrap;">
+                        <b>
+                        <?php 
+                            $tong_tien_bang_chu=$this->MyViewHelper()->ConvertNumberToWords($tong_tien);
+                            echo number_format($tong_tien,0,","," "); 
+                        ?>
+                        </b>
+                    </td>
                 </tr>                  
             </table>
         </td>
     </tr>
     <tr style="border-style:hidden">
-        <td style="padding-left:20px">- Tổng số tiền (viết bằng chữ): <span id="tongSoTien"></span>&nbsp;đồng</td>
+        <td style="padding-left:20px">- Tổng số tiền (viết bằng chữ): <span id="tongSoTien"><?php echo $tong_tien_bang_chu; ?></span>&nbsp;đồng.</td>
     </tr>
     <tr style="border-style:hidden">
         <td style="padding-left:20px">
@@ -131,7 +156,7 @@
         <td>
             <table border="0" class="tb" style="width:100%;">
                 <tr>
-                    <td colspan="4" style="text-align:right">Ngày 18 tháng 02 năm 2015</td>
+                    <td colspan="4" style="text-align:right">Ngày <?php echo $date->format('d'); ?> tháng <?php echo $date->format('m'); ?> năm <?php echo $date->format('Y'); ?></td>
                 </tr>
                 <tr style="text-align: center;">
                     <td>
@@ -157,7 +182,7 @@
 </table>
 <script type="text/javascript">
     jQuery(document).ready(function(){
-        window.print();
-        window.location.href = '/hang-hoa/nhap-hang-hoa';
+        window.print();  
+        window.location.href = '/hang-hoa/nhap-hang-hoa';     
     })
 </script>

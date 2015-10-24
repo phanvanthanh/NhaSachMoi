@@ -43,7 +43,7 @@ class BanHangController extends AbstractActionController
                 return array('ct_phieu_nhap'=>$ct_phieu_nhap);
             }            
         }
-        $this->flashMessenger()->addErrorMessage('Phiếu nhập tồn tại');
+        $this->flashMessenger()->addErrorMessage('Phiếu nhập không tồn tại');
         return $this->redirect()->toRoute('ban_hang');
        
             
@@ -63,6 +63,16 @@ class BanHangController extends AbstractActionController
     }
 
     public function chiTietHoaDonAction(){
-    	
+    	$id=$this->params('id');
+        if($id){
+            $id_kho=$this->AuthService()->getIdKho();
+            $hoa_don_table=$this->getServiceLocator()->get('Application\Model\HoaDonTable');
+            $ct_hoa_don=$hoa_don_table->getHoaDon(array('id_hoa_don'=>$id, 'id_kho'=>$id_kho));
+            if($ct_hoa_don){
+                return array('ct_hoa_don'=>$ct_hoa_don);
+            }            
+        }
+        $this->flashMessenger()->addErrorMessage('Hóa đơn không tồn tại');
+        return $this->redirect()->toRoute('ban_hang');
     }
 }

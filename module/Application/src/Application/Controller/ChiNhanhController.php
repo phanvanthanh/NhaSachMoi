@@ -12,6 +12,7 @@ namespace Application\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Application\Model\Entity\Kho;
+use Application\Model\Entity\KenhPhanPhoi;
 use Permission\Model\Entity\User;
 
 class ChiNhanhController extends AbstractActionController
@@ -41,9 +42,20 @@ class ChiNhanhController extends AbstractActionController
                 $kho_moi=new Kho();
                 $kho_moi->exchangeArray($post);
                 $kho_table->saveKho($kho_moi);
+                $id_kho_moi=$kho_table->getKhoByArrayConditionAndArrayColumn(array('dia_chi_kho'=>$post['dia_chi_kho']), array('id_kho'));
+                $id_kho_moi=$id_kho_moi[0]['id_kho'];
                 // tạo kênh phân phối
-
-
+                $id_kho=$this->AuthService()->getIdKho();
+                $kenh_phan_phoi_table=$this->getServiceLocator()->get('Application\Model\KenhPhanPhoiTable');
+                $danh_sach_kenh_phan_phoi=$kenh_phan_phoi_table->getKenhPhanPhoiByIdKho($id_kho);
+                foreach ($danh_sach_kenh_phan_phoi as $key => $value) {
+                	$kenh_phan_phoi_moi=new KenhPhanPhoi();
+                	$kenh_phan_phoi_moi->setIdKho($id_kho_moi);
+                	$kenh_phan_phoi_moi->setKenhPhanPhoi($value);
+                	$kenh_phan_phoi_moi->setChietKhauXuong(0);
+                	$kenh_phan_phoi_moi->setChietKhauLen(0);
+                	$kenh_phan_phoi_table->saveKenhPhanPhoi($kenh_phan_phoi_moi);
+                }
                 $this->flashMessenger()->addSuccessMessage('Chúc mừng, tạo chi nhánh mới thành công');
                 return $this->redirect()->toRoute('chi_nhanh');
             }

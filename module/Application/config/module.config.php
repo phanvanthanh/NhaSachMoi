@@ -200,6 +200,11 @@ return array(
             'ViewJsonStrategy', //add to use AJAX
         ),
     ),
+    'view_helpers' => array(
+        'invokables' => array(
+            'my_view_helper' => 'Application\View\Helper\MyViewHelper',
+        )
+    ),
     // Placeholder for console routes
     'console' => array(
         'router' => array(

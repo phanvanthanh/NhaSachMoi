@@ -386,7 +386,16 @@ class HangHoaController extends AbstractActionController
     }  
 
     public function inPhieuNhapAction(){
-
+        $id=$this->params('id');
+        if($id){
+            $id_kho=$this->AuthService()->getIdKho();
+            $phieu_nhap_table=$this->getServiceLocator()->get('Application\Model\PhieuNhapTable');
+            $ct_phieu_nhap=$phieu_nhap_table->getPhieuNhap(array('id_phieu_nhap'=>$id, 'id_kho'=>$id_kho));
+            if($ct_phieu_nhap){
+                return array('ct_phieu_nhap'=>$ct_phieu_nhap);
+            }            
+        }
+        return $this->redirect()->toRoute('hang_hoa', array('action'=>'nhap-hang-hoa'));
     } 
 
     public function danhSachNhaCungCapAction(){
@@ -499,7 +508,16 @@ class HangHoaController extends AbstractActionController
     }
 
     public function inHoaDonAction(){
-
+        $id=$this->params('id');
+        if($id){
+            $id_kho=$this->AuthService()->getIdKho();
+            $hoa_don_table=$this->getServiceLocator()->get('Application\Model\HoaDonTable');
+            $ct_hoa_don=$hoa_don_table->getHoaDon(array('id_hoa_don'=>$id, 'id_kho'=>$id_kho));
+            if($ct_hoa_don){
+                return array('ct_hoa_don'=>$ct_hoa_don);
+            }            
+        }
+        return $this->redirect()->toRoute('hang_hoa', array('action'=>'xuat-hang-hoa'));
     }
 
     public function danhSachKhachHangAction(){
