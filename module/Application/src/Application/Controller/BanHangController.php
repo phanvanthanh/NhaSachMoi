@@ -18,16 +18,69 @@ class BanHangController extends AbstractActionController
     public function indexAction()
     {
         $form=$this->getServiceLocator()->get('Application\Form\LoaiDoanhThuForm');
+        $hoa_don_table=$this->getServiceLocator()->get('Application\Model\HoaDonTable');
+        $kenh_phan_phoi_table=$this->getServiceLocator()->get('Application\Model\KenhPhanPhoiTable');
+        $id_kho=$this->AuthService()->getIdKho();
         $return=array('form'=>$form);
         $request=$this->getRequest();
+        $loai_doanh_thu='ngay';
         if($request->isPost()){
-
+            $post=$request->getPost();
+            $form->setData($post);
+            if($form->isValid()){
+                $loai_doanh_thu=$post['loai_doanh_thu'];
+            }
         }
+        $danh_sach_kenh_phan_phoi=$kenh_phan_phoi_table->getKenhPhanPhoiByIdKho($id_kho);
+        $tat_ca_doanh_thu=$hoa_don_table->getDoanhThu(array('loai_doanh_thu'=>$loai_doanh_thu, 'id_kho'=>$id_kho));
+        $danh_sach_doanh_thu_theo_kenh=array();
+        foreach ($danh_sach_kenh_phan_phoi as $key => $value) {
+            $danh_sach_doanh_thu_theo_kenh[$key]=$hoa_don_table->getDoanhThu(array('loai_doanh_thu'=>$loai_doanh_thu, 'where'=>$key, 'id_kho'=>$id_kho));
+        }
+        $return['tat_ca_doanh_thu']=$tat_ca_doanh_thu;
+        $return['danh_sach_doanh_thu_theo_kenh']=$danh_sach_doanh_thu_theo_kenh;
+        $return['danh_sach_kenh_phan_phoi']=$danh_sach_kenh_phan_phoi;
         return $return;
     }
 
     public function chiTietDoanhThuAction(){
+        $date=$this->params('id');
+        $length=strlen($date);        
+        if($length==8){
+            $date_type='ngay';
+            $tam=$date[0].$date[1].'-'.$date[2].$date[3].'-'.$date[4].$date[5].$date[6].$date[7];
+            $date=$tam;
+        }
+        elseif($length==6){
+            $date_type='thang';
+            $tam=$date[0].$date[1].'-'.$date[2].$date[3].$date[4].$date[5];
+            $date=$tam;
+        }
+        elseif ($length==4) {
+            $date_type='nam';
+        }
+        $hoa_don_table=$this->getServiceLocator()->get('Application\Model\HoaDonTable');
+        $id_kho=$this->AuthService()->getIdKho();
+        $danh_sach_chi_tiet_doanh_thu=$hoa_don_table->getChiTietDoanhThu(array('date_type'=>$date_type, 'date_value'=>$date, 'id_kho'=>$id_kho));
+        $return=array();
+        $return['danh_sach_chi_tiet_doanh_thu']=$danh_sach_chi_tiet_doanh_thu;
+        $return['date']=$date;
+        return $return;
+    }
 
+    public function chiTietDonHangAction(){
+        $id=$this->params('id');
+        if($id){
+            $id_kho=$this->AuthService()->getIdKho();
+            $hoa_don_table=$this->getServiceLocator()->get('Application\Model\HoaDonTable');
+            $ct_don_hang=$hoa_don_table->getHoaDon(array('id_hoa_don'=>$id, 'id_kho'=>$id_kho));
+            //die(var_dump($ct_don_hang));
+            if($ct_don_hang){
+                return array('ct_don_hang'=>$ct_don_hang);
+            }            
+        }
+        $this->flashMessenger()->addErrorMessage('Đơn hàng không tồn tại');
+        return $this->redirect()->toRoute('ban_hang');
     }
 
     public function phieuNhapAction(){

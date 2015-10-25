@@ -31,8 +31,8 @@ return array(
                     'defaults' => array(
                         'controller' => 'Application\Controller\BanHang',
                         'action' => 'index'
-                    )
-                )
+                    ),
+                ),
             ),
             'chi_nhanh' => array(
                 'type' => 'Segment',
