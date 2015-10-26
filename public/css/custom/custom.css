@@ -83,6 +83,10 @@
   padding: 0px 15px 0px 15px;
 }
 
+div.table-responsive{
+  border:none;
+}
+
 .dropdown>.dropdown-menu{
   background-color: #f8f8f8;
 }

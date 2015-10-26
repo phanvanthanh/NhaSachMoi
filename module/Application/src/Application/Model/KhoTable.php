@@ -46,6 +46,29 @@ class KhoTable
         return $allRow;
     }
 
+    /*
+        sử dụng trong Application\Factory\Form\TaoTaiKhoanFormFactory
+    */
+    public function getKho(){
+        /*
+            chuyền vào 2 tham số:   1 tham số là mảng điều kiện, 
+                                    1 tham số là mảng cột cần lấy ra
+        */
+        $adapter = $this->tableGateway->adapter;
+        $sql = new Sql($adapter);        
+        // select
+        $sqlSelect = $sql->select();
+        $sqlSelect->from(array('t1'=>'kho'));
+        $sqlSelect->columns(array('id_kho', 'ten_kho'));        
+        $statement = $this->tableGateway->getSql()->prepareStatementForSqlObject($sqlSelect);
+        $resultSets = $statement->execute();
+        $allRow = array();
+        foreach ($resultSets as $key => $resultSet) {
+            $allRow[$resultSet['id_kho']] = $resultSet['ten_kho'];
+        }
+        return $allRow;
+    }
+
 
     public function saveKho(Kho $kho)
     {

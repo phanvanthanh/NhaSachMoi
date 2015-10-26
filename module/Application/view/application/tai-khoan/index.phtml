@@ -1,0 +1,54 @@
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right">
+  <div class="btn btn-default">import</div>
+  <div class="btn btn-default" onclick="tableToExcel('user_table', 'export')">export</div>
+  <a href="<?php echo $this->url('tai_khoan', array('action'=>'tao-tai-khoan')); ?>" class="btn btn-danger">Tạo tài khoản</a>
+</div>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+  <span class="title">DANH SÁCH TÀI KHOẢN</span>
+</div>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">&nbsp;</div>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+  <div class="table-responsive">
+    <table id="user_table" class="table table-hover table-bordered" > <!--  table-striped -->
+      <thead>
+        <tr>
+          <th>Tên đăng nhập</th>   
+          <th>Họ và tên</th>   
+          <th>Email</th>   
+          <th>Địa chỉ</th>   
+          <th>Điện thoại di động</th>   
+          <th>Điện thoại cố định</th> 
+          <th>Thuộc kho</th>
+          <th>Sửa</th>
+        </tr>
+      </thead>     
+      <tbody>
+        <?php
+          $all_user=$this->all_user;
+          foreach ($all_user as $user) {
+          ?>
+            <tr>
+              <td><?php echo $user['username']; ?></td>
+              <td><?php echo $user['ho_ten']; ?></td>
+              <td><?php echo $user['email']; ?></td>
+              <td><?php echo $user['dia_chi']; ?></td>
+              <td><?php echo $user['di_dong']; ?></td>
+              <td><?php echo $user['dien_thoai_co_dinh']; ?></td>
+              <td><?php echo $user['ten_kho']; ?></td>
+              <td><a href="<?php echo $this->url('tai_khoan', array('action'=>'sua-tai-khoan', 'id'=>$user['user_id'])); ?>">Sửa</a></td>
+            </tr>
+          <?php
+          }
+        ?>                      
+      </tbody>
+    </table>
+  </div>
+</div>
+<script type="text/javascript">
+  jQuery(document).ready(function(){
+    jQuery("#user_table").DataTable({
+      responsive: true,
+      "lengthMenu": [[-1, 10, 25, 50, 100, 200], ["All", 10, 25, 50, 100, 200]]
+    });
+  })
+</script>

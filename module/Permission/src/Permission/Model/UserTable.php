@@ -17,6 +17,30 @@ class UserTable
         $this->tableGateway = $tableGateway;
     }
 
+    /*
+        hàm này lấy user đặc biệt
+        không lấy user_id=1
+        không lấy user có state !=1
+    */
+    public function getAllUser(){
+        $adapter = $this->tableGateway->adapter;
+        $sql = new Sql($adapter);        
+        // select
+        $sqlSelect = $sql->select();
+        $sqlSelect->from(array('t1'=>'user'));
+        $sqlSelect->join(array('t2'=>'kho'), 't1.id_kho=t2.id_kho', array('ten_kho'), 'LEFT');
+        $sqlSelect->join(array('t3'=>'jos_admin_role'), 't1.role_id=t3.role_id', array('role_name'), 'LEFT');
+        $sqlSelect->where('t3.role_name!="admin" and t1.state=1');
+        $statement = $this->tableGateway->getSql()->prepareStatementForSqlObject($sqlSelect);
+        $resultSets = $statement->execute();
+        $allRow = array();
+        foreach ($resultSets as $key => $resultSet) {
+            $allRow[] = $resultSet;
+        }
+        return $allRow;
+    }
+
+
     public function getUserByArrayConditionAndArrayColumn($array_conditions=array(), $array_columns=array()){
         /*
             chuyền vào 2 tham số:   1 tham số là mảng điều kiện, 
@@ -57,6 +81,7 @@ class UserTable
             'dien_thoai_co_dinh'    => $user->getDienThoaiCoDinh(),
             'di_dong'               => $user->getDiDong(),
             'twitter'               => $user->getTwitter(),
+            'hinh_anh'               => $user->getHinhAnh(),
             'state'                 => $user->getState(),
         );        
         $user_id = (int) $user->getUserId();

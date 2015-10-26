@@ -9,66 +9,82 @@
   <label for="">Mã đơn hàng: </label> <?php echo  $ct_don_hang[0]['ma_hoa_don'] ?><br>
   <label for="">Khách hàng: </label> <?php echo  $ct_don_hang[0]['ho_ten']?><br>
 </div>
-  
-<div class="table-responsive">
-<table id="doanh_thu_table" class="table table-hover table-bordered" cellspacing="0" width="100%"> <!--  table-striped -->
-  <thead>
-    <tr>
-      <th>Tến sản phẩm</th>   
-      <th>Mã sản phẩm</th>   
-      <th>Đơn vị tính</th>   
-      <th>Giá nhập</th>   
-      <th>Giá xuất</th>   
-      <th>Số lượng</th> 
-      <th>Nguồn vốn chi</th>
-      <th>Doanh thu</th>
-      <th>Lợi nhuận</th>
-    </tr>
-  </thead>     
-  <tbody>
-  
-  <?php 
-  $tong_von=0;
-  $tong_doanh_thu=0;
-  $tong_loi_nhuan=0;
-  foreach ($this->ct_don_hang as $don_hang) { 
-    ?>
-    <tr>
-      	<td><?php echo $don_hang['ten_san_pham']; ?></td>
-        <td><?php echo $don_hang['ma_san_pham']; ?></td>
-        <td><?php echo $don_hang['don_vi_tinh']; ?></td>
-        <td><?php echo number_format($don_hang['gia_nhap'],0,","," "); ?></td>
-        <td><?php echo number_format($don_hang['gia'],0,","," "); ?></td>
-        <td><?php number_format($don_hang['so_luong'],0,","," "); ?></td>
-        <td>
-        <?php 
-          $von=(float)$don_hang['gia_nhap']*(float)$don_hang['so_luong'];
-          $tong_von+=$von;
-          echo number_format($von,0,","," "); 
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+  <div class="table-responsive">
+    <table id="doanh_thu_table" class="table table-hover table-bordered" > <!--  table-striped -->
+      <thead>
+        <tr>
+          <th>Tến sản phẩm</th>   
+          <th>Mã sản phẩm</th>   
+          <th>Đơn vị tính</th>   
+          <th>Giá nhập</th>   
+          <th>Giá xuất</th>   
+          <th>Số lượng</th> 
+          <th>Nguồn vốn chi</th>
+          <th>Doanh thu</th>
+          <th>Lợi nhuận</th>
+        </tr>
+      </thead>     
+      <tbody>
+      
+      <?php 
+      $tong_von=0;
+      $tong_doanh_thu=0;
+      $tong_loi_nhuan=0;
+      foreach ($this->ct_don_hang as $don_hang) { 
         ?>
-        </td>
-        <td>
-        <?php 
-          $doanh_thu=(float)$don_hang['gia']*(float)$don_hang['so_luong'];
-          $tong_doanh_thu+=$doanh_thu;
-          echo number_format($doanh_thu,0,","," "); 
-        ?>
-        </td>
-        <td>
-        <?php 
-          $loi_nhuan=$doanh_thu-$von;
-          $tong_loi_nhuan+=$loi_nhuan;
-          echo number_format($loi_nhuan,0,","," "); 
-        ?>
-        </td>
-    </tr>
-  <?php }?>  
-    <tr>
-      <td colspan="6" class="text-center"><label for="">Tổng cộng</label></td>
-      <td><label><?php echo number_format($tong_von,0,","," "); ?></label></td>
-      <td><label><?php echo number_format($tong_doanh_thu,0,","," "); ?></label></td>
-      <td><label for=""><?php echo number_format($tong_loi_nhuan,0,","," "); ?></label></td>
-    </tr>                
-  </tbody>
-</table>
+        <tr>
+          	<td><?php echo $don_hang['ten_san_pham']; ?></td>
+            <td><?php echo $don_hang['ma_san_pham']; ?></td>
+            <td><?php echo $don_hang['don_vi_tinh']; ?></td>
+            <td><?php echo number_format($don_hang['gia_nhap'],0,","," "); ?></td>
+            <td><?php echo number_format($don_hang['gia'],0,","," "); ?></td>
+            <td><?php number_format($don_hang['so_luong'],0,","," "); ?></td>
+            <td>
+            <?php 
+              $von=(float)$don_hang['gia_nhap']*(float)$don_hang['so_luong'];
+              $tong_von+=$von;
+              echo number_format($von,0,","," "); 
+            ?>
+            </td>
+            <td>
+            <?php 
+              $doanh_thu=(float)$don_hang['gia']*(float)$don_hang['so_luong'];
+              $tong_doanh_thu+=$doanh_thu;
+              echo number_format($doanh_thu,0,","," "); 
+            ?>
+            </td>
+            <td>
+            <?php 
+              $loi_nhuan=$doanh_thu-$von;
+              $tong_loi_nhuan+=$loi_nhuan;
+              echo number_format($loi_nhuan,0,","," "); 
+            ?>
+            </td>
+        </tr>
+      <?php }?>  
+        <tr>
+          <!--
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>  
+          -->         
+          <td colspan="6" class="text-center"><label for="">Tổng cộng</label></td>
+          <td><label><?php echo number_format($tong_von,0,","," "); ?></label></td>
+          <td><label><?php echo number_format($tong_doanh_thu,0,","," "); ?></label></td>
+          <td><label for=""><?php echo number_format($tong_loi_nhuan,0,","," "); ?></label></td>
+        </tr>                
+      </tbody>
+    </table>
+  </div>
 </div>
+<script type="text/javascript">
+  jQuery(document).ready(function(){
+    /*jQuery("#doanh_thu_table").DataTable({
+      responsive: true,
+      "lengthMenu": [[-1, 10, 25, 50, 100, 200], ["All", 10, 25, 50, 100, 200]]
+    });*/
+  })
+</script>

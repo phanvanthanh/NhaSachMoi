@@ -75,6 +75,8 @@ class Module
                 'Application\Form\TaoChiNhanhForm' => 'Application\Factory\Form\TaoChiNhanhFormFactory',
                 'Application\Form\SuaChiNhanhForm' => 'Application\Factory\Form\SuaChiNhanhFormFactory',
                 'Application\Form\LoaiDoanhThuForm' => 'Application\Factory\Form\LoaiDoanhThuFormFactory',
+                'Application\Form\TaoTaiKhoanForm' => 'Application\Factory\Form\TaoTaiKhoanFormFactory',
+                'Application\Form\SuaTaiKhoanForm' => 'Application\Factory\Form\SuaTaiKhoanFormFactory',
             )
             
         );

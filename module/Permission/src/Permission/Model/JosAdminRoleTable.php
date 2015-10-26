@@ -47,6 +47,26 @@ class JosAdminRoleTable
     }
 
     /*
+        sử dụng trong Application\Factory\Form\TaoTaiKhoanFormFactory
+    */
+    public function getRole(){      
+        $adapter = $this->tableGateway->adapter;
+        $sql = new Sql($adapter);        
+        // select
+        $sqlSelect = $sql->select();
+        $sqlSelect->from(array('t1'=>'jos_admin_role'));        
+        $sqlSelect->columns(array('role_id', 'role_name'));       
+        $sqlSelect->where('role_name!="admin"');
+        $statement = $this->tableGateway->getSql()->prepareStatementForSqlObject($sqlSelect);
+        $resultSets = $statement->execute();
+        $allRow = array();
+        foreach ($resultSets as $key => $resultSet) {
+            $allRow[$resultSet['role_id']] = $resultSet['role_name'];
+        }
+        return $allRow;
+    }
+
+    /*
         sử dụng trong Permission/Controller/Permission updateAction
     */
     public function saveRole(JosAdminRole $role)
