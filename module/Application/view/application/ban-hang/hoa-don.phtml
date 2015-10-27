@@ -11,7 +11,7 @@
     <tr>
       <th>Ngày xuất hóa đơn</th>
       <th>Mã hóa đơn</th>
-      <th>Khách hàng</th>
+      <th class="hidden-xs">Khách hàng</th>
       <th>Thanh toán</th>
     </tr>
   </thead>     
@@ -27,19 +27,19 @@
       <td>
         <a href="<?php echo $this->url('ban_hang', array('action'=>'chi-tiet-hoa-don', 'id'=>$hoa_don['id_hoa_don'])); ?>"><?php echo $hoa_don['ma_hoa_don']; ?></a>      
       </td>
-      <td>
+      <td class="hidden-xs">
       <a href="<?php echo $this->url('doi_tac', array('action'=>'sua-thong-tin-khach-hang', 'id'=>$hoa_don['id_khach_hang'])); ?>"><?php echo $hoa_don['ho_ten']; ?></a> 
       </td>
       <td>
       <?php 
         if($hoa_don['state']==0){
-          echo '<span class="label label-danger">Chưa thanh toán</span>';
+          echo '<span class="label label-danger hidden-xs">Chưa thanh toán</span><span class="label label-danger hidden-sm hidden-md hidden-lg">Chưa</span>';
         }
         elseif($hoa_don['state']==1){
-          echo '<span class="label label-warning">Thanh toán một phần</span>';
+          echo '<span class="label label-warning hidden-xs">Thanh toán một phần</span><span class="label label-warning hidden-sm hidden-md hidden-lg">Một phần</span>';
         }
         else{
-          echo '<span class="label label-success">Đã thanh toán</span>';
+          echo '<span class="label label-success hidden-xs">Đã thanh toán</span><span class="label label-success hidden-sm hidden-md hidden-lg">Xong</span>';
         }
       ?>
       </td>

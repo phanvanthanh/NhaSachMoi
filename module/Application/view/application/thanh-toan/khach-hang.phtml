@@ -6,15 +6,14 @@
   <span class="title">CÔNG NỢ KHÁCH HÀNG</span>
 </div>
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">&nbsp;</div>
-<div class="">
-<table id="cong_no_table" class="table table-hover table-bordered"> 
+<table id="cong_no_table" class="table table-hover table-bordered" cellspacing="0" width="100%">
   <thead>
     <tr>
       <th>Họ tên khách hàng</th>
-      <th>Ngày</th>
-      <th>Kênh phân phối</th>
-      <th>Nợ đầu kì</th>
-      <th>Nợ phát sinh</th> 
+      <th class="hidden-xs">Kênh phân phối</th>
+      <th>Ngày</th>      
+      <th class="hidden-xs">Nợ đầu kì</th>
+      <th class="hidden-xs">Nợ phát sinh</th> 
       <th>Nợ cuối kì</th>    
     </tr>
   </thead>     
@@ -24,12 +23,12 @@
       	<td>
       		<a href="<?php echo $this->url('doi_tac', array('action'=>'sua-thong-tin-khach-hang', 'id'=>$cong_no['id_khach_hang'])); ?>"><?php echo $cong_no['ho_ten']; ?></a> 
       	</td>
-      	<td>
+      	<td class="hidden-xs">
       		<?php echo $cong_no['kenh_phan_phoi']; ?>
       	</td>
       	<td><?php $date = new DateTime($cong_no['ki']); echo $date->format('d-m-Y'); ?></td>
-      	<td><?php echo number_format($cong_no['du_no'],0,","," "); ?></td>
-      	<td><?php echo number_format($cong_no['no_phat_sinh'],0,","," "); ?></td>
+      	<td class="hidden-xs"><?php echo number_format($cong_no['du_no'],0,","," "); ?></td>
+      	<td class="hidden-xs"><?php echo number_format($cong_no['no_phat_sinh'],0,","," "); ?></td>
       	<td>
       		<?php 
       			$no_cuoi_ki=(float)$cong_no['du_no']+(float)$cong_no['no_phat_sinh']; 
@@ -40,7 +39,6 @@
   <?php }?>                  
   </tbody>
 </table>
-</div>
 <script type="text/javascript">
   jQuery(document).ready(function(){
     jQuery("#cong_no_table").DataTable({

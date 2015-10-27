@@ -74,7 +74,6 @@ class BanHangController extends AbstractActionController
             $id_kho=$this->AuthService()->getIdKho();
             $hoa_don_table=$this->getServiceLocator()->get('Application\Model\HoaDonTable');
             $ct_don_hang=$hoa_don_table->getHoaDon(array('id_hoa_don'=>$id, 'id_kho'=>$id_kho));
-            //die(var_dump($ct_don_hang));
             if($ct_don_hang){
                 return array('ct_don_hang'=>$ct_don_hang);
             }            
@@ -113,7 +112,7 @@ class BanHangController extends AbstractActionController
     }
 
     public function hoaDonAction(){
-        $id=$this->params('id');
+        $id=$this->params('id');        
         $id_kho=$this->AuthService()->getIdKho();
         $hoa_don_table=$this->getServiceLocator()->get('Application\Model\HoaDonTable');
         if($id){

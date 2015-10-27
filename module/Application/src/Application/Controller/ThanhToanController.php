@@ -23,11 +23,12 @@ class ThanhToanController extends AbstractActionController
     	$cong_no_khach_hang_table=$this->getServiceLocator()->get('Application\Model\CongNoKhachHangTable');
     	$danh_sach_cong_no=$cong_no_khach_hang_table->getCongNo(array());
     	return array('danh_sach_cong_no'=>$danh_sach_cong_no);
-    	die(var_dump($danh_sach_cong_no));
     }
 
     public function nhaCungCapAction(){
-
+        $cong_no_nha_cung_cap_table=$this->getServiceLocator()->get('Application\Model\CongNoNhaCungCapTable');
+        $danh_sach_cong_no=$cong_no_nha_cung_cap_table->getCongNo(array());
+        return array('danh_sach_cong_no'=>$danh_sach_cong_no);
     }
 
     public function lapPhieuThuAction(){

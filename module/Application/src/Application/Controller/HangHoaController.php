@@ -18,6 +18,9 @@ use Application\Model\Entity\GiaXuat;
 use Application\Model\Entity\HoaDon;
 use Application\Model\Entity\CtHoaDon;
 use Zend\View\Model\JsonModel;
+use Zend\Db\Sql\Expression;
+use Application\Model\Entity\CongNoNhaCungCap;
+use Application\Model\Entity\CongNoKhachHang;
 
 
 class HangHoaController extends AbstractActionController
@@ -279,7 +282,8 @@ class HangHoaController extends AbstractActionController
                 $san_pham_table=$this->getServiceLocator()->get('Application\Model\SanPhamTable');
                 $kenh_phan_phoi_table=$this->getServiceLocator()->get('Application\Model\KenhPhanPhoiTable');
                 $gia_xuat_table=$this->getServiceLocator()->get('Application\Model\GiaXuatTable');
-                
+                // kiểm tra vs id_kho đó có tồn tại id_nha_cung_cap vừa post không
+                    /*code*/
                 // tạo phiếu nhập và chi tiết phiếu nhập
                 foreach ($post['id_san_pham'] as $key => $id_san_pham) {
                     $form=$this->getServiceLocator()->get('Application\Form\NhapHangHoaForm');
@@ -371,6 +375,19 @@ class HangHoaController extends AbstractActionController
                         $gia_xuat_moi->setGiaXuat($gia_xuat);
                         $gia_xuat_table->saveGiaXuat($gia_xuat_moi);                        
                     }                    
+                }
+                // kiểm tra bảng công nợ nhà cung cấp, nếu chưa tồn tại dòng công nợ nào của nhà cung cấp thì thêm vào, vì nếu ko có dòng công nợ đó thì phần ( thanh_toan => nhà cung cấp ) chạy sai
+                $cong_no_nha_cung_cap_table=$this->getServiceLocator()->get('Application\Model\CongNoNhaCungCapTable');
+                $cong_no_exist=$cong_no_nha_cung_cap_table->getCongNoNhaCungCapByArrayConditionAndArrayColumn(array('id_nha_cung_cap'=>$post['id_nha_cung_cap']), array('id_cong_no'=>new Expression('max(id_cong_no)')));
+                if(!$cong_no_exist[0]['id_cong_no']){
+                    $cong_no_moi=new CongNoNhaCungCap();
+                    $cong_no_moi->setIdNhaCungCap($post['id_nha_cung_cap']);
+                    $date = date('Y-m-d h:i:s a', time());
+                    $cong_no_moi->setKi($date);
+                    $cong_no_moi->setNoDauKi(0);
+                    $cong_no_moi->setNoPhatSinh(0);
+                    $cong_no_moi->setDuNo(0);
+                    $cong_no_nha_cung_cap_table->saveCongNo($cong_no_moi);
                 }
                 // lưu thành công
                 $this->flashMessenger()->addSuccessMessage('Chúc mừng, nhập hàng thành công!');
@@ -500,6 +517,19 @@ class HangHoaController extends AbstractActionController
                 $san_pham_moi=new SanPham();
                 $san_pham_moi->exchangeArray($san_pham);                
                 $san_pham_table->saveSanPham($san_pham_moi);
+            }            
+            // kiểm tra bảng công nợ nhà cung cấp, nếu chưa tồn tại dòng công nợ nào của nhà cung cấp thì thêm vào, vì nếu ko có dòng công nợ đó thì phần ( thanh_toan => nhà cung cấp ) chạy sai
+            $cong_no_khach_hang_table=$this->getServiceLocator()->get('Application\Model\CongNoKhachHangTable');
+            $cong_no_exist=$cong_no_khach_hang_table->getCongNoKhachHangByArrayConditionAndArrayColumn(array('id_khach_hang'=>$post['id_khach_hang']), array('id_cong_no'=>new Expression('max(id_cong_no)')));
+            if(!$cong_no_exist[0]['id_cong_no']){
+                $cong_no_moi=new CongNoKhachHang();
+                $cong_no_moi->setIdKhachHang($post['id_khach_hang']);
+                $date = date('Y-m-d h:i:s a', time());
+                $cong_no_moi->setKi($date);
+                $cong_no_moi->setNoDauKi(0);
+                $cong_no_moi->setNoPhatSinh(0);
+                $cong_no_moi->setDuNo(0);
+                $cong_no_khach_hang_table->saveCongNo($cong_no_moi);
             }
             // xuất hàng hóa thành công
             $this->flashMessenger()->addSuccessMessage('Chúc mừng, xuất hàng hóa thành công!');

@@ -5,3 +5,4 @@
 
 Chu y:
 	Truong hop 1: neu khong vao duoc trang dang nhap hoac khong vao duoc trang logout thi vao csdl bang resource sua lai du lieu dong co cot resource la login va dong co cot resource la logout sua cot is_white_list=1
+

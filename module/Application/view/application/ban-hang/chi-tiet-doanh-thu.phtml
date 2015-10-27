@@ -23,8 +23,8 @@
       		echo $date->format('d-m-Y'); 
       	?>
       	</td>
-      	<td><?php echo $doanh_thu['ma_hoa_don']; ?></td>
-      	<td><?php echo $doanh_thu['ho_ten']; ?></td>
+      	<td><a href="<?php echo $this->url('ban_hang', array('action'=>'chi-tiet-don-hang', 'id'=>$doanh_thu['id_hoa_don'])); ?>"><?php echo $doanh_thu['ma_hoa_don']; ?></a> </td>
+      	<td><a href="<?php echo $this->url('doi_tac', array('action'=>'sua-thong-tin-khach-hang', 'id'=>$doanh_thu['id_khach_hang'])); ?>"><?php echo $doanh_thu['ho_ten']; ?></a> </td>
       	<td><?php echo $doanh_thu['kenh_phan_phoi']; ?></td>
       	<td>
       	<?php 

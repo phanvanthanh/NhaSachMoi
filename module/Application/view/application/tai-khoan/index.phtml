@@ -13,12 +13,12 @@
       <thead>
         <tr>
           <th>Tên đăng nhập</th>   
-          <th>Họ và tên</th>   
-          <th>Email</th>   
-          <th>Địa chỉ</th>   
-          <th>Điện thoại di động</th>   
-          <th>Điện thoại cố định</th> 
-          <th>Thuộc kho</th>
+          <th class="hidden-xs">Họ và tên</th>   
+          <th class="hidden-xs">Email</th>   
+          <th class="hidden-xs">Địa chỉ</th>   
+          <th class="hidden-xs">Điện thoại di động</th>   
+          <th class="hidden-xs">Điện thoại cố định</th> 
+          <th class="hidden-xs">Thuộc kho</th>
           <th>Sửa</th>
         </tr>
       </thead>     
@@ -29,12 +29,12 @@
           ?>
             <tr>
               <td><?php echo $user['username']; ?></td>
-              <td><?php echo $user['ho_ten']; ?></td>
-              <td><?php echo $user['email']; ?></td>
-              <td><?php echo $user['dia_chi']; ?></td>
-              <td><?php echo $user['di_dong']; ?></td>
-              <td><?php echo $user['dien_thoai_co_dinh']; ?></td>
-              <td><?php echo $user['ten_kho']; ?></td>
+              <td class="hidden-xs"><?php echo $user['ho_ten']; ?></td>
+              <td class="hidden-xs"><?php echo $user['email']; ?></td>
+              <td class="hidden-xs"><?php echo $user['dia_chi']; ?></td>
+              <td class="hidden-xs"><?php echo $user['di_dong']; ?></td>
+              <td class="hidden-xs"><?php echo $user['dien_thoai_co_dinh']; ?></td>
+              <td class="hidden-xs"><?php echo $user['ten_kho']; ?></td>
               <td><a href="<?php echo $this->url('tai_khoan', array('action'=>'sua-tai-khoan', 'id'=>$user['user_id'])); ?>">Sửa</a></td>
             </tr>
           <?php

@@ -108,7 +108,7 @@ echo $this->form()->openTag($form);
   </div>
   <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 text-right">
     <a class="btn btn-default" href="<?php echo $this->url('tai_khoan'); ?>">Quay lại</a>
-    <a class="btn btn-default" href="<?php echo $this->url('tai_khoan', array('action'=>'xoa-tai-khoan', 'id'=>$this->id)); ?>">Xóa</a>
+    <a class="btn btn-default" onclick='confirmSetLocation("Bạn thật sự muốn xóa tài khoản này?","<?php echo $this->url('tai_khoan', array('action'=>'xoa-tai-khoan', 'id'=>$this->id)); ?>")'>Xóa</a>
     <button class="btn btn-danger">Lưu</button>
   </div>
 <?php

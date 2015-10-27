@@ -165,7 +165,7 @@ class HoaDonTable
         $sqlSelect = $sql->select();
         $sqlSelect->from(array('t1'=>'hoa_don'));
         $sqlSelect->join(array('t2'=>'ct_hoa_don'), 't1.id_hoa_don=t2.id_hoa_don', array('gia', 'so_luong', 'gia_nhap'), 'LEFT');
-        $sqlSelect->join(array('t3'=>'san_pham'), 't2.id_san_pham=t3.id_san_pham', array('ten_san_pham', 'ma_san_pham', 'ma_vach'), 'LEFT');
+        $sqlSelect->join(array('t3'=>'san_pham'), 't2.id_san_pham=t3.id_san_pham', array('id_san_pham', 'ten_san_pham', 'ma_san_pham', 'ma_vach'), 'LEFT');
         $sqlSelect->join(array('t4'=>'don_vi_tinh'), 't3.id_don_vi_tinh=t4.id_don_vi_tinh', array('don_vi_tinh'), 'LEFT');
         $sqlSelect->join(array('t5'=>'khach_hang'), 't1.id_khach_hang=t5.id_khach_hang', array('ho_ten'), 'LEFT');
         $sqlSelect->columns(array('ma_hoa_don', 'ngay_xuat'));        

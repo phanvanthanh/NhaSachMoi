@@ -161,7 +161,7 @@ class DoiTacController extends AbstractActionController
             $id_kho=$this->AuthService()->getIdKho();
             $id_khach_hang=$post['id_khach_hang'];
             $khach_hang_table=$this->getServiceLocator()->get('Application\Model\KhachHangTable');
-            $khach_hang=$khach_hang_table->getKhachHangAndKenhPhanPhoiByArrayConditionAnd2ArrayColumn(array('t1.id_khach_hang'=>$id_khach_hang, 't2.id_kho'=>$id_kho), array('ho_ten'), array('chiet_khau'));
+            $khach_hang=$khach_hang_table->getKhachHangAndKenhPhanPhoiByArrayConditionAnd2ArrayColumn(array('t1.id_khach_hang'=>$id_khach_hang, 't2.id_kho'=>$id_kho), array('ho_ten'), array('chiet_khau_xuong', 'chiet_khau_len'));
             if(!$khach_hang){
                 $response=array('error'=>'Khách hàng không tồn tại');
                 $json = new JsonModel($response);
@@ -190,8 +190,10 @@ class DoiTacController extends AbstractActionController
                     $no_phat_sinh+=$thanh_tien;
                 }
                 $so_hoa_don=count($mang_ds_hoa_don);
+                $so_hoa_don=number_format($so_hoa_don,0,","," ");
             }
             $tong_no=$du_no+$no_phat_sinh;
+            $tong_no=number_format($tong_no,0,","," ");
             $response=array('error'=>'', 'so_hoa_don'=>$so_hoa_don, 'tong_no'=>$tong_no);
             $json = new JsonModel($response);
             return $json;
@@ -398,8 +400,10 @@ class DoiTacController extends AbstractActionController
                     $no_phat_sinh+=$thanh_tien;
                 }
                 $so_phieu_nhap=count($mang_ds_phieu_nhap);
+                $so_phieu_nhap=number_format($so_phieu_nhap,0,","," ");
             }
             $tong_no=$du_no+$no_phat_sinh;
+            $tong_no=number_format($tong_no,0,","," ");
             $response=array('error'=>'', 'so_phieu_nhap'=>$so_phieu_nhap, 'tong_no'=>$tong_no);
             $json = new JsonModel($response);
             return $json;

@@ -34,7 +34,7 @@
       foreach ($this->ct_don_hang as $don_hang) { 
         ?>
         <tr>
-          	<td><?php echo $don_hang['ten_san_pham']; ?></td>
+          	<td><a href="<?php echo $this->url('hang_hoa', array('action'=>'sua-san-pham', 'id'=>$don_hang['id_san_pham'])); ?>"><?php echo $don_hang['ten_san_pham']; ?></a> </td>
             <td><?php echo $don_hang['ma_san_pham']; ?></td>
             <td><?php echo $don_hang['don_vi_tinh']; ?></td>
             <td><?php echo number_format($don_hang['gia_nhap'],0,","," "); ?></td>

@@ -11,7 +11,7 @@
   <thead>
     <tr>
       <th>Tên chi nhánh</th>
-      <th>Địa chỉ</th>
+      <th class="hidden-xs">Địa chỉ</th>
       <th>Quản lý</th> 
       <th>Sửa</th>    
     </tr>
@@ -20,7 +20,7 @@
   <?php foreach ($this->danh_sach_kho as $key => $kho) { ?>
     <tr>
       <td><?php echo $kho['ten_kho']; ?></td>
-      <td><?php echo $kho['dia_chi_kho']; ?></td>
+      <td class="hidden-xs"><?php echo $kho['dia_chi_kho']; ?></td>
       <td><a href="<?php echo $this->url('chi_nhanh', array('action'=>'quan-ly-chi-nhanh','id'=>$kho['id_kho'])); ?>">Quản lý</a></td>
       <td><a href="<?php echo $this->url('chi_nhanh', array('action'=>'sua-chi-nhanh', 'id'=>$kho['id_kho'])); ?>">Sửa</a></td>
     </tr>

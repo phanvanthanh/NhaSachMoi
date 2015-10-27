@@ -11,7 +11,7 @@
     <tr>
       <th>Ngày xuất phiếu nhập</th>
       <th>Mã phiếu nhập</th>
-      <th>Nhà cung cấp</th>
+      <th class="hidden-xs">Nhà cung cấp</th>
       <th>Thanh toán</th>
     </tr>
   </thead>     
@@ -27,19 +27,19 @@
       <td>
         <a href="<?php echo $this->url('ban_hang', array('action'=>'chi-tiet-phieu-nhap', 'id'=>$phieu_nhap['id_phieu_nhap'])); ?>"><?php echo $phieu_nhap['ma_phieu_nhap']; ?></a>      
       </td>
-      <td>
+      <td class="hidden-xs">
       <a href="<?php echo $this->url('doi_tac', array('action'=>'sua-thong-tin-nha-cung-cap', 'id'=>$phieu_nhap['id_phieu_nhap'])); ?>"><?php echo $phieu_nhap['ho_ten']; ?></a> 
       </td>
       <td>
       <?php 
         if($phieu_nhap['state']==0){
-          echo '<span class="label label-danger">Chưa thanh toán</span>';
+          echo '<span class="label label-danger hidden-xs">Chưa thanh toán</span><span class="label label-danger hidden-sm hidden-md hidden-lg">Chưa</span>';
         }
         elseif($phieu_nhap['state']==1){
-          echo '<span class="label label-warning">Thanh toán một phần</span>';
+          echo '<span class="label label-warning hidden-xs">Thanh toán một phần</span><span class="label label-warning hidden-sm hidden-md hidden-lg">Một phần</span>';
         }
         else{
-          echo '<span class="label label-success">Đã thanh toán</span>';
+          echo '<span class="label label-success hidden-xs">Đã thanh toán</span><span class="label label-success hidden-sm hidden-md hidden-lg">Xong</span>';
         }
       ?>
       </td>

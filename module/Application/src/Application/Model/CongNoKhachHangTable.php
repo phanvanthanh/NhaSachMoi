@@ -65,5 +65,29 @@ class CongNoKhachHangTable
         }
         return $allRow;
     }
+
+    public function saveCongNo(CongNoKhachHang $cong_no_khach_hang)
+    {
+        $data = array(
+            'id_khach_hang'         =>$cong_no_khach_hang->getIdKhachHang(),
+            'ki'                    =>$cong_no_khach_hang->getKi(),
+            'no_dau_ki'             =>$cong_no_khach_hang->getNoDauKi(),
+            'no_phat_sinh'          =>$cong_no_khach_hang->getNoPhatSinh(),
+            'du_no'                 =>$cong_no_khach_hang->getDuNo(),
+        );        
+        $id_cong_no = (int) $cong_no_khach_hang->getIdCongNo();
+        if ($id_cong_no == 0) {
+            $this->tableGateway->insert($data);
+        } else {
+            if ($this->getCongNoKhachHangByArrayConditionAndArrayColumn(array('id_cong_no'=>$id_cong_no), array('id_khach_hang'))) {
+                $this->tableGateway->update($data, array(
+                    'id_cong_no' => $id_cong_no
+                ));
+            } else {
+                return false;
+            }
+        }
+        return true;
+    }
     
 }
