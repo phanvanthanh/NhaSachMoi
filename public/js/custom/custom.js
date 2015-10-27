@@ -62,5 +62,9 @@ $(document).ready(function(){
     // attach table filter plugin to inputs
     $('[data-action="filter"]').filterTable();
     $('[data-action="filter-2"]').filterTable();
+
+    $('.date-time').datepicker({
+        format: "dd-mm-yyyy"
+    });
 });
 

@@ -1,0 +1,96 @@
+<?php
+$form=$this->form;
+$form->setAttribute('action', $this->url("thanh_toan", array('action'=>'index')));
+$form->setAttribute('class','form');
+$form->setAttribute('role','form');
+$form->setAttribute('method','post');
+$form->prepare();
+echo $this->form()->openTag($form);
+?>
+	<div class="col-xs-12 col-sm-5 col-md-5 col-lg-5">
+		<div class="form-group">
+	      <label><?php echo $this->formLabel($form->get('thoi_gian_bat_dau')); ?></label>
+	      <?php echo $this->formInput($form->get('thoi_gian_bat_dau')); ?>
+	      <div class="text-danger">
+	        <?php echo $this->formElementErrors($form->get('thoi_gian_bat_dau')); ?>
+	      </div>
+	    </div>
+	</div>
+	<div class="col-xs-12 col-sm-5 col-md-5 col-lg-5">
+		<div class="form-group">
+	      <label><?php echo $this->formLabel($form->get('thoi_gian_ket_thuc')); ?></label>
+	      <?php echo $this->formInput($form->get('thoi_gian_ket_thuc')); ?>
+	      <div class="text-danger">
+	        <?php echo $this->formElementErrors($form->get('thoi_gian_ket_thuc')); ?>
+	      </div>
+	    </div>
+	</div>
+	<div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 text-right">
+		<div class="form-group">
+			<label>&nbsp;</label><br>
+			<button class="btn btn-danger">Tìm</button>
+		</div>
+	</div>	
+<?php echo $this->form()->closeTag($form); ?>
+<div class="print">
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		<h3>
+			<b>NHÀ SÁCH VINH QUANG<br>
+			45A Phạm Ngũ Lão, Phường 1, TP. Trà Vinh
+			</b>
+		</h3>
+	</div>
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+		<h3>
+			<b>SỔ QUỸ TIỀN MẶT</b><br>			
+			<small>Ngày <?php echo date('d', time()); ?> Tháng <?php echo date('m', time()); ?> Năm <?php echo date('Y', time()); ?></small>
+		</h3>
+	</div>	
+	<table class="table table-hover table-bordered" cellspacing="0" width="100%"> <!--  table-striped -->
+	  <thead>
+	  	<tr>
+	      <th colspan="2" class="text-center">Chứng từ</th>
+	      <th class="text-center">Diễn giải</th>
+	      <th colspan="2" class="text-center">Phát sinh</th>
+	    </tr>
+	    <tr>
+	      <th class="text-center">Ngày</th>
+	      <th class="text-center">Số</th>
+	      <th class="text-center">Lý do</th>
+	      <th class="text-center">Thu</th> 
+	      <th class="text-center">Chi</th>    
+	    </tr>
+	  </thead>     
+	  <tbody>
+	  <?php foreach ($this->danh_sach_thu_chi as $thu_chi) { ?>
+	    <tr>
+	      	<td class="text-center">
+	      		<?php 
+	      			$date=new DateTime($thu_chi['ngay_thanh_toan']); 
+	      			echo $date->format('d-m-Y');
+	      		?>
+	      	</td>
+	      	<td class="text-center"><?php echo $thu_chi['ma']; ?></td>
+	      	<td><?php echo $thu_chi['ly_do']; ?></td>
+	      	<td class="text-center">
+	      		<?php 
+	      			$co=0;
+	      			if($co==0 and $thu_chi['loai']=='phieu_thu'){
+	      				$co=1;
+	      				echo $thu_chi['so_tien']; 	
+	      			}      			
+	      		?>
+	      	</td>
+	      	<td class="text-center">
+	      		<?php 
+	      			if($co==0 and $thu_chi['loai']=='phieu_chi'){
+	      				$co=1;
+	      				echo $thu_chi['so_tien']; 	
+	      			}      			
+	      		?>
+	      	</td>
+	    </tr>
+	  <?php }?>                  
+	  </tbody>
+	</table>
+</div>

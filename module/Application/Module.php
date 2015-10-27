@@ -77,6 +77,7 @@ class Module
                 'Application\Form\LoaiDoanhThuForm' => 'Application\Factory\Form\LoaiDoanhThuFormFactory',
                 'Application\Form\TaoTaiKhoanForm' => 'Application\Factory\Form\TaoTaiKhoanFormFactory',
                 'Application\Form\SuaTaiKhoanForm' => 'Application\Factory\Form\SuaTaiKhoanFormFactory',
+                'Application\Form\TongHopThuChiForm' => 'Application\Factory\Form\TongHopThuChiFormFactory',
             )
             
         );
