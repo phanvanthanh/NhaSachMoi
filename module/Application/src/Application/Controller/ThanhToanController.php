@@ -60,6 +60,10 @@ class ThanhToanController extends AbstractActionController
     }
 
     public function lapPhieuChiAction(){
+       
+    }
+
+    public function lapPhieuChiKhachHangAction(){
 
     }
 }
