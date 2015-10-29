@@ -54,7 +54,9 @@ class ThanhToanController extends AbstractActionController
     }
 
     public function lapPhieuThuAction(){
-
+        $form=$this->getServiceLocator()->get('Application\Form\LapPhieuThuForm');
+        $return=array('form'=>$form);
+        return $return;
     }
 
     public function lapPhieuChiAction(){

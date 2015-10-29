@@ -1,2 +1,3 @@
 khi nhap hang, xuat hang kiem tra neu vs id khach hang hoac id nha cung cap do ma trong bang cong no chua ton tai thi tao mot dong cho khach hang va nha cung cap do
 khi tao kho thi tao luon 1 khach hang ban le. tao luon 1 doi tac doi tra hang
+tao mot truong state cho ct_hoa_don va ct_phieu_nhap: de danh dau neu thanh toan het hoa don hoac thanh toan mot phan hoa don

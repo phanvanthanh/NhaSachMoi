@@ -50,7 +50,7 @@ class CongNoNhaCungCapTable
         $adapter = $this->tableGateway->adapter;
         $sql="SELECT t1.ki, t1.id_nha_cung_cap, t3.ho_ten, t1.du_no as no_dau_ki, sum(t5.gia_nhap*t5.so_luong) as no_phat_sinh
             FROM cong_no_nha_cung_cap t1 
-            LEFT JOIN cong_no_nha_cung_cap t2 ON (t1.id_nha_cung_cap = t2.id_nha_cung_cap AND t1.ki < t2.ki)
+            LEFT JOIN cong_no_nha_cung_cap t2 ON (t1.id_nha_cung_cap = t2.id_nha_cung_cap AND t1.ki < t2.ki AND t1.id_cong_no < t2.id_cong_no)
             left join nha_cung_cap as t3 on t1.id_nha_cung_cap=t3.id_nha_cung_cap
             left join phieu_nhap as t4 on t1.id_nha_cung_cap=t4.id_nha_cung_cap and t4.state=0
             left join ct_phieu_nhap as t5 on t4.id_phieu_nhap=t5.id_phieu_nhap
