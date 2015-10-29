@@ -1,20 +1,22 @@
+
 <style type="text/css">   
     @media print {
         #header, .nav-side-menu, #alert, #btn-flash-messenger, .alert, #btn_print, form{display: none; }
         table.table.table-hover.table-bordered {
         	display: table; 
-        	border-top-width: 1px;
-		    border-right-width: 1px;
-		    border-bottom-width: 1px;
-		    border-left-width: 1px;
+        	border-spacing: 0px;
 		    width: 100%;
-		    border-color: grey;
         }   
+
         .text-center{
         	text-align: center;
         }    
     }
 </style>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+  <span class="title">TỔNG HỢP THU CHI</span>
+</div>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">&nbsp;</div>
 <?php
 $form=$this->form;
 $form->setAttribute('action', $this->url("thanh_toan", array('action'=>'index')));
@@ -64,7 +66,7 @@ echo $this->form()->openTag($form);
 			<small>Ngày <?php echo date('d', time()); ?> Tháng <?php echo date('m', time()); ?> Năm <?php echo date('Y', time()); ?></small>
 		</h3>
 	</div>	
-	<table class="table table-hover table-bordered"  width="100%"> <!--  table-striped -->
+	<table border="1" id="tbSanPham" width="100%" cellspacing="0"> <!--  table-striped -->
 	  <thead>
 	  	<tr>
 	      <th colspan="2" class="text-center">Chứng từ</th>

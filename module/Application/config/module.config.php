@@ -474,7 +474,15 @@ return array(
                         'id'=>'#',
                         'icon' => '',
                         'order' => 1
-                    ),                 
+                    ),  
+                    array(
+                        'label' => ' Lập phiếu chi khách hàng', 
+                        'title' => ' Lập phiếu chi khách hàng', 
+                        'route' => '/thanh-toan/lap-phieu-chi-khach-hang',
+                        'id'=>'#',
+                        'icon' => '',
+                        'order' => 1
+                    ),               
                 ),
             ),
 

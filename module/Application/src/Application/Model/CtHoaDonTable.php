@@ -53,6 +53,8 @@ class CtHoaDonTable
             'gia'     			=> $ct_hoa_don->getGia(),        
             'so_luong'         	=> $ct_hoa_don->getSoLuong(),
             'gia_nhap'         	=> $ct_hoa_don->getGiaNhap(),
+            'so_luong_tra'      => $ct_hoa_don->getSoLuongTra(),
+            'state'             => $ct_hoa_don->getState(),
             
 
         );        

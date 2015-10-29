@@ -78,6 +78,8 @@ class Module
                 'Application\Form\TaoTaiKhoanForm' => 'Application\Factory\Form\TaoTaiKhoanFormFactory',
                 'Application\Form\SuaTaiKhoanForm' => 'Application\Factory\Form\SuaTaiKhoanFormFactory',
                 'Application\Form\TongHopThuChiForm' => 'Application\Factory\Form\TongHopThuChiFormFactory',
+                'Application\Form\LapPhieuThuForm' => 'Application\Factory\Form\LapPhieuThuFormFactory',
+                'Application\Form\LapPhieuChiForm' => 'Application\Factory\Form\LapPhieuChiFormFactory',
             )
             
         );

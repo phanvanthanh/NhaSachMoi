@@ -500,6 +500,8 @@ class HangHoaController extends AbstractActionController
                     $ct_hoa_don_moi->exchangeArray($data);
                     $ct_hoa_don_moi->setGia($data['gia_xuat']);
                     $ct_hoa_don_moi->setIdHoaDon($id_hoa_don);
+                    $ct_hoa_don_moi->setState(0);
+                    $ct_hoa_don_moi->setSoLuongTra(0);
                     $ct_hoa_don_table->saveCtHoaDon($ct_hoa_don_moi);
                 }
                 else{

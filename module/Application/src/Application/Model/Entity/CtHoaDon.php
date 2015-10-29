@@ -10,6 +10,8 @@ class CtHoaDon
     protected $gia;
     protected $so_luong;
     protected $gia_nhap;
+    protected $state;
+    protected $so_luong_tra;
 
     
 
@@ -21,6 +23,8 @@ class CtHoaDon
         $this->gia = (isset($data['gia'])) ? $data['gia'] : null;
         $this->so_luong = (isset($data['so_luong'])) ? $data['so_luong'] : null;
         $this->gia_nhap = (isset($data['gia_nhap'])) ? $data['gia_nhap'] : null;
+        $this->state = (isset($data['state'])) ? $data['state'] : 0;
+        $this->so_luong_tra = (isset($data['so_luong_tra'])) ? $data['so_luong_tra'] : 0;
     }    
 
     public function getArrayCopy()
@@ -87,6 +91,26 @@ class CtHoaDon
     public function getGiaNhap()
     {
         return $this->gia_nhap;
+    }
+
+    public function setState($state)
+    {
+        $this->state=$state;
+    }
+
+    public function getState()
+    {
+        return $this->state;
+    }
+
+    public function setSoLuongTra($so_luong_tra)
+    {
+        $this->so_luong_tra=$so_luong_tra;
+    }
+
+    public function getSoLuongTra()
+    {
+        return $this->so_luong_tra;
     }
     
 }
