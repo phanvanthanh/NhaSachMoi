@@ -41,31 +41,33 @@ class ThanhToanController extends AbstractActionController
         return $return;
     }
 
-    public function khachHangAction(){
+    public function thuKhachHangAction(){
     	$cong_no_khach_hang_table=$this->getServiceLocator()->get('Application\Model\CongNoKhachHangTable');
     	$danh_sach_cong_no=$cong_no_khach_hang_table->getCongNo(array());
     	return array('danh_sach_cong_no'=>$danh_sach_cong_no);
     }
+    public function chiKhachHangAction(){
+    }
 
-    public function nhaCungCapAction(){
+    public function chiNhaCungCapAction(){
         $cong_no_nha_cung_cap_table=$this->getServiceLocator()->get('Application\Model\CongNoNhaCungCapTable');
         $danh_sach_cong_no=$cong_no_nha_cung_cap_table->getCongNo(array());
         return array('danh_sach_cong_no'=>$danh_sach_cong_no);
     }
 
-    public function lapPhieuThuAction(){
+    public function lapPhieuThuKhachHangAction(){
         $form=$this->getServiceLocator()->get('Application\Form\LapPhieuThuForm');
         $return=array('form'=>$form);
         return $return;
-    }
-
-    public function lapPhieuChiAction(){
-       $form=$this->getServiceLocator()->get('Application\Form\LapPhieuChiForm');
-        $return=array('form'=>$form);
-        return $return;
-    }
+    }   
 
     public function lapPhieuChiKhachHangAction(){
 
+    }
+
+    public function lapPhieuChiNhaCungCapAction(){
+       $form=$this->getServiceLocator()->get('Application\Form\LapPhieuChiForm');
+        $return=array('form'=>$form);
+        return $return;
     }
 }

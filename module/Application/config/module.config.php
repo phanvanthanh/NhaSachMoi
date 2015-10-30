@@ -444,37 +444,37 @@ return array(
                         'order' => 1
                     ), 
                     array(
-                        'label' => ' Khách hàng', 
-                        'title' => ' Khách hàng', 
-                        'route' => '/thanh-toan/khach-hang',
-                        'id'=>'#',
-                        'icon' => '',
-                        'order' => 1
-                    ),   
-                    array(
-                        'label' => ' Nhà cung cấp', 
-                        'title' => ' Nhà cung cấp', 
-                        'route' => '/thanh-toan/nha-cung-cap',
-                        'id'=>'#',
-                        'icon' => '',
-                        'order' => 1
-                    ),  
-                    array(
-                        'label' => ' Lập phiếu thu', 
-                        'title' => ' Lập phiếu thu', 
-                        'route' => '/thanh-toan/lap-phieu-thu',
+                        'label' => ' Thu khách hàng', 
+                        'title' => ' Thu khách hàng', 
+                        'route' => '/thanh-toan/thu-khach-hang',
                         'id'=>'#',
                         'icon' => '',
                         'order' => 1
                     ),
                     array(
-                        'label' => ' Lập phiếu chi', 
-                        'title' => ' Lập phiếu chi', 
-                        'route' => '/thanh-toan/lap-phieu-chi',
+                        'label' => ' Chi khách hàng', 
+                        'title' => ' Chi khách hàng', 
+                        'route' => '/thanh-toan/chi-khach-hang',
+                        'id'=>'#',
+                        'icon' => '',
+                        'order' => 1
+                    ),    
+                    array(
+                        'label' => ' Chi nhà cung cấp', 
+                        'title' => ' Chi nhà cung cấp', 
+                        'route' => '/thanh-toan/chi-nha-cung-cap',
                         'id'=>'#',
                         'icon' => '',
                         'order' => 1
                     ),  
+                    array(
+                        'label' => ' Lập phiếu thu khách hàng', 
+                        'title' => ' Lập phiếu thu khách hàng', 
+                        'route' => '/thanh-toan/lap-phieu-thu-khach-hang',
+                        'id'=>'#',
+                        'icon' => '',
+                        'order' => 1
+                    ),
                     array(
                         'label' => ' Lập phiếu chi khách hàng', 
                         'title' => ' Lập phiếu chi khách hàng', 
@@ -482,7 +482,15 @@ return array(
                         'id'=>'#',
                         'icon' => '',
                         'order' => 1
-                    ),               
+                    ),
+                    array(
+                        'label' => ' Lập phiếu chi nhà cung cấp', 
+                        'title' => ' Lập phiếu chi nhà cung cấp', 
+                        'route' => '/thanh-toan/lap-phieu-chi-nha-cung-cap',
+                        'id'=>'#',
+                        'icon' => '',
+                        'order' => 1
+                    ),             
                 ),
             ),
 
@@ -512,7 +520,15 @@ return array(
                         'id'=>'#',
                         'icon' => '',
                         'order' => 1
-                    ),                              
+                    ), 
+                    array(
+                        'label' => ' Phiếu đổi trả', 
+                        'title' => ' Phiếu đổi trả', 
+                        'route' => '/ban-hang/phieu-doi-tra',
+                        'id'=>'#',
+                        'icon' => '',
+                        'order' => 1
+                    ),                             
                 ),
             ),
             array(

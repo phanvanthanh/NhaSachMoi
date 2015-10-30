@@ -156,7 +156,7 @@ class HoaDonTable
         return $allRow;
     }
 
-    public function getHoaDon($array){
+    public function getHoaDon($array){        
         $id_hoa_don=$array['id_hoa_don'];
         $id_kho=$array['id_kho'];
         $adapter = $this->tableGateway->adapter;
@@ -164,7 +164,7 @@ class HoaDonTable
         // select
         $sqlSelect = $sql->select();
         $sqlSelect->from(array('t1'=>'hoa_don'));
-        $sqlSelect->join(array('t2'=>'ct_hoa_don'), 't1.id_hoa_don=t2.id_hoa_don', array('gia', 'so_luong', 'gia_nhap'), 'LEFT');
+        $sqlSelect->join(array('t2'=>'ct_hoa_don'), 't1.id_hoa_don=t2.id_hoa_don', array('gia', 'so_luong', 'gia_nhap', 'state', 'so_luong_tra'), 'LEFT');
         $sqlSelect->join(array('t3'=>'san_pham'), 't2.id_san_pham=t3.id_san_pham', array('id_san_pham', 'ten_san_pham', 'ma_san_pham', 'ma_vach'), 'LEFT');
         $sqlSelect->join(array('t4'=>'don_vi_tinh'), 't3.id_don_vi_tinh=t4.id_don_vi_tinh', array('don_vi_tinh'), 'LEFT');
         $sqlSelect->join(array('t5'=>'khach_hang'), 't1.id_khach_hang=t5.id_khach_hang', array('ho_ten'), 'LEFT');
@@ -200,8 +200,8 @@ class HoaDonTable
             DATE_FORMAT(t1.ngay_xuat,"'.$loai_doanh_thu.'") as thoi_gian, 
             count(DISTINCT  t1.ma_hoa_don) as so_hoa_don, 
             t4.id_kenh_phan_phoi, t4.kenh_phan_phoi,
-            sum(t2.gia*t2.so_luong) as doanh_thu, 
-            sum(t2.gia_nhap*t2.so_luong) as von 
+            sum(t2.gia*t2.so_luong-t2.gia*t2.so_luong_tra) as doanh_thu, 
+            sum(t2.gia_nhap*t2.so_luong-t2.gia_nhap*t2.so_luong_tra) as von 
             from hoa_don as t1
             left join ct_hoa_don as t2 on t1.id_hoa_don=t2.id_hoa_don
             left join khach_hang as t3 on t1.id_khach_hang=t3.id_khach_hang
@@ -230,7 +230,7 @@ class HoaDonTable
         elseif($date_type=='nam'){
             $dieu_kien_1='%Y';
         }
-        $sql='select t5.kenh_phan_phoi, t1.id_khach_hang, t4.ho_ten, t1.ma_hoa_don, t1.id_hoa_don, t1.ngay_xuat, sum(t2.gia*t2.so_luong) as doanh_thu, sum(t2.gia_nhap*t2.so_luong) as von
+        $sql='select t5.kenh_phan_phoi, t1.id_khach_hang, t4.ho_ten, t1.ma_hoa_don, t1.id_hoa_don, t1.ngay_xuat, sum(t2.gia*t2.so_luong-t2.gia*t2.so_luong_tra) as doanh_thu, sum(t2.gia_nhap*t2.so_luong-t2.gia_nhap*t2.so_luong_tra) as von
             from hoa_don as t1
             left join ct_hoa_don as t2 on t1.id_hoa_don=t2.id_hoa_don
             left join san_pham as t3 on t2.id_san_pham=t3.id_san_pham

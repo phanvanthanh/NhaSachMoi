@@ -24,10 +24,12 @@ class PhieuThuTable
     	}      
         $adapter = $this->tableGateway->adapter;
         $sql="SELECT  *  FROM  (
-			select ma_phieu_thu as ma, ly_do, ngay_thanh_toan, so_tien, 'phieu_chi' as loai from phieu_thu
+			select ma_phieu_thu as ma, ly_do, ngay_thanh_toan, so_tien, 'phieu_thu' as loai from phieu_thu
 			union  all
-			select ma_phieu_chi as ma, ly_do, ngay_thanh_toan, so_tien, 'phieu_thu' as loai from phieu_chi
-			) as tong_hop ".$where."			
+			select ma_phieu_chi as ma, ly_do, ngay_thanh_toan, so_tien, 'phieu_chi' as loai from phieu_chi
+			union all
+            select ma_phieu_chi as ma, ly_do, ngay_thanh_toan, so_tien, 'phieu_chi' as loai from phieu_chi_khach_hang
+            ) as tong_hop ".$where."			
 			ORDER   BY ngay_thanh_toan, loai";
         $statement = $adapter->query($sql);
         $resultSets = $statement->execute();
