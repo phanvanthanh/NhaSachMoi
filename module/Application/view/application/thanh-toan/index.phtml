@@ -97,7 +97,7 @@ echo $this->form()->openTag($form);
 	      			$co=0;
 	      			if($co==0 and $thu_chi['loai']=='phieu_thu'){
 	      				$co=1;
-	      				echo $thu_chi['so_tien']; 	
+	      				echo number_format($thu_chi['so_tien'],0,","," ");	
 	      			}      			
 	      		?>
 	      	</td>
@@ -105,7 +105,7 @@ echo $this->form()->openTag($form);
 	      		<?php 
 	      			if($co==0 and $thu_chi['loai']=='phieu_chi'){
 	      				$co=1;
-	      				echo $thu_chi['so_tien']; 	
+	      				echo number_format($thu_chi['so_tien'],0,","," ");	
 	      			}      			
 	      		?>
 	      	</td>

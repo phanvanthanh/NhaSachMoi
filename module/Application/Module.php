@@ -60,8 +60,10 @@ class Module
                 'Application\Model\LoaiSanPhamTable' => 'Application\Factory\Table\LoaiSanPhamTableFactory',
                 'Application\Model\NhaCungCapTable' => 'Application\Factory\Table\NhaCungCapTableFactory',
                 'Application\Model\PhieuChiTable' => 'Application\Factory\Table\PhieuChiTableFactory',
+                'Application\Model\PhieuChiKhachHangTable' => 'Application\Factory\Table\PhieuChiKhachHangTableFactory',
                 'Application\Model\PhieuNhapTable' => 'Application\Factory\Table\PhieuNhapTableFactory',
                 'Application\Model\PhieuThuTable' => 'Application\Factory\Table\PhieuThuTableFactory',
+                'Application\Model\PhieuDoiTraTable' => 'Application\Factory\Table\PhieuDoiTraTableFactory',
                 // form
                 'Application\Form\ThemSanPhamForm' => 'Application\Factory\Form\ThemSanPhamFormFactory',
                 'Application\Form\SuaSanPhamForm' => 'Application\Factory\Form\SuaSanPhamFormFactory',

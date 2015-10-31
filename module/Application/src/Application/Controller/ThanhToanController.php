@@ -16,6 +16,7 @@ class ThanhToanController extends AbstractActionController
 {
     public function indexAction()
     {
+        $id_kho=$this->AuthService()->getIdKho();        
         $phieu_thu_table=$this->getServiceLocator()->get('Application\Model\PhieuThuTable');
         $form=$this->getServiceLocator()->get('Application\Form\TongHopThuChiForm');
         $request=$this->getRequest();
@@ -30,29 +31,46 @@ class ThanhToanController extends AbstractActionController
 
         		$array=explode('/', $post['thoi_gian_ket_thuc']);
         		$ket_thuc = $array[2].'-'.$array[0].'-'.$array[1];
-        		//die(var_dump($bat_dau, $ket_thuc));
-        		$danh_sach_thu_chi=$phieu_thu_table->tongHopThuChi(array('thoi_gian_bat_dau'=>$bat_dau, 'thoi_gian_ket_thuc'=>$ket_thuc));
+        		$danh_sach_thu_chi=$phieu_thu_table->tongHopThuChi(array('id_kho'=>$id_kho, 'thoi_gian_bat_dau'=>$bat_dau, 'thoi_gian_ket_thuc'=>$ket_thuc));
         		$return['danh_sach_thu_chi']=$danh_sach_thu_chi;
         		return $return;
         	}
         }
-        $danh_sach_thu_chi=$phieu_thu_table->tongHopThuChi(array());
+        $danh_sach_thu_chi=$phieu_thu_table->tongHopThuChi(array('id_kho'=>$id_kho));
         $return['danh_sach_thu_chi']=$danh_sach_thu_chi;
         return $return;
     }
 
     public function thuKhachHangAction(){
-    	$cong_no_khach_hang_table=$this->getServiceLocator()->get('Application\Model\CongNoKhachHangTable');
-    	$danh_sach_cong_no=$cong_no_khach_hang_table->getCongNo(array());
+    	/*
+        $id_kho=$this->AuthService()->getIdKho();
+        $cong_no_khach_hang_table=$this->getServiceLocator()->get('Application\Model\CongNoKhachHangTable');
+    	$danh_sach_cong_no=$cong_no_khach_hang_table->getCongNo(array('id_kho'=>$id_kho));
     	return array('danh_sach_cong_no'=>$danh_sach_cong_no);
+        */
+        $id_kho=$this->AuthService()->getIdKho();
+        $phieu_thu_table=$this->getServiceLocator()->get('Application\Model\PhieuThuTable');
+        $danh_sach_phieu_thu=$phieu_thu_table->getPhieuThuAndUserByArrayConditionAnd2ArrayColumn(array('t2.id_kho'=>$id_kho), array('ma'=>'ma_phieu_thu', 'ly_do', 'so_tien', 'ngay_thanh_toan'), array());
+        return array('danh_sach_phieu_thu'=>$danh_sach_phieu_thu);
     }
     public function chiKhachHangAction(){
+        $id_kho=$this->AuthService()->getIdKho();
+        $phieu_chi_khach_hang_table=$this->getServiceLocator()->get('Application\Model\PhieuChiKhachHangTable');
+        $danh_sach_phieu_chi_khach_hang=$phieu_chi_khach_hang_table->getPhieuChiKhachHangAndUserByArrayConditionAnd2ArrayColumn(array('t2.id_kho'=>$id_kho), array('ma'=>'ma_phieu_chi', 'ly_do', 'so_tien', 'ngay_thanh_toan'), array());
+        return array('danh_sach_phieu_chi_khach_hang'=>$danh_sach_phieu_chi_khach_hang);
     }
 
     public function chiNhaCungCapAction(){
+        /*
+        $id_kho=$this->AuthService()->getIdKho();
         $cong_no_nha_cung_cap_table=$this->getServiceLocator()->get('Application\Model\CongNoNhaCungCapTable');
-        $danh_sach_cong_no=$cong_no_nha_cung_cap_table->getCongNo(array());
+        $danh_sach_cong_no=$cong_no_nha_cung_cap_table->getCongNo(array('id_kho'=>$id_kho));
         return array('danh_sach_cong_no'=>$danh_sach_cong_no);
+        */
+        $id_kho=$this->AuthService()->getIdKho();
+        $phieu_chi_table=$this->getServiceLocator()->get('Application\Model\PhieuChiTable');
+        $danh_sach_phieu_chi=$phieu_chi_table->getPhieuChiAndUserByArrayConditionAnd2ArrayColumn(array('t2.id_kho'=>$id_kho), array('ma'=>'ma_phieu_chi', 'ly_do', 'so_tien', 'ngay_thanh_toan'), array());
+        return array('danh_sach_phieu_chi'=>$danh_sach_phieu_chi);
     }
 
     public function lapPhieuThuKhachHangAction(){
@@ -66,7 +84,7 @@ class ThanhToanController extends AbstractActionController
     }
 
     public function lapPhieuChiNhaCungCapAction(){
-       $form=$this->getServiceLocator()->get('Application\Form\LapPhieuChiForm');
+        $form=$this->getServiceLocator()->get('Application\Form\LapPhieuChiForm');
         $return=array('form'=>$form);
         return $return;
     }

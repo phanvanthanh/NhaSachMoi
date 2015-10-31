@@ -3,9 +3,10 @@
   <div class="btn btn-default" onclick="tableToExcel('cong_no_table', 'export')">export</div>
 </div>
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-  <span class="title">CÔNG NỢ NHÀ CUNG CẤP</span>
+  <span class="title">CHI NHÀ CUNG CẤP</span>
 </div>
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">&nbsp;</div>
+<!-- 
 <table id="cong_no_table" class="table table-hover table-bordered" cellspacing="0" width="100%">
   <thead>
     <tr>
@@ -33,6 +34,37 @@
       	</td>
     </tr>
   <?php }?>                  
+  </tbody>
+</table>
+-->
+
+<table id="cong_no_table" class="table table-hover table-bordered" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th>Mã phiếu chi</th>
+      <th>Ngày</th> 
+      <th class="hidden-xs">Diễn giải</th>           
+      <th class="hidden-xs">Số tiền</th>   
+    </tr>
+  </thead>     
+  <tbody>
+    <?php
+    foreach ($danh_sach_phieu_chi as $key => $phieu_chi) {
+      ?>
+      <tr>
+        <td><?php echo $phieu_chi['ma']; ?></td>
+        <td>
+        <?php
+          $date=new DateTime($phieu_chi['ngay_thanh_toan']); 
+          echo $date->format('d-m-Y'); 
+        ?>
+        </td>
+        <td><?php echo $phieu_chi['ly_do']; ?></td>
+        <td><?php echo number_format($phieu_chi['so_tien'],0,","," "); ?></td>
+      </tr>
+      <?php
+    }
+    ?>
   </tbody>
 </table>
 <script type="text/javascript">

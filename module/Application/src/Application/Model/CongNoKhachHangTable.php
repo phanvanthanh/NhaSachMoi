@@ -55,7 +55,7 @@ class CongNoKhachHangTable
             left join hoa_don as t4 on t1.id_khach_hang=t4.id_khach_hang and t4.state=0
             left join ct_hoa_don as t5 on t4.id_hoa_don=t5.id_hoa_don
             left join kenh_phan_phoi as t6 on t3.id_kenh_phan_phoi=t6.id_kenh_phan_phoi
-            WHERE t2.id_cong_no IS NULL
+            WHERE t2.id_cong_no IS NULL AND t6.id_kho=".$array['id_kho']."
             GROUP BY t1.id_khach_hang";
         $statement = $adapter->query($sql);
         $resultSets = $statement->execute();

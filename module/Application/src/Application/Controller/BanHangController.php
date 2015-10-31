@@ -83,7 +83,7 @@ class BanHangController extends AbstractActionController
     }
 
     public function phieuNhapAction(){
-        $id=$this->params('id');
+        $id=$this->params('id'); // chinh la id_nha_cung_cap
         $id_kho=$this->AuthService()->getIdKho();
         $phieu_nhap_table=$this->getServiceLocator()->get('Application\Model\PhieuNhapTable');
         if($id){
@@ -96,7 +96,7 @@ class BanHangController extends AbstractActionController
     }
 
     public function chiTietPhieuNhapAction(){
-        $id=$this->params('id');
+        $id=$this->params('id'); 
         if($id){
             $id_kho=$this->AuthService()->getIdKho();
             $phieu_nhap_table=$this->getServiceLocator()->get('Application\Model\PhieuNhapTable');
@@ -112,7 +112,7 @@ class BanHangController extends AbstractActionController
     }
 
     public function hoaDonAction(){
-        $id=$this->params('id');        
+        $id=$this->params('id'); // chính là id_khach_hang
         $id_kho=$this->AuthService()->getIdKho();
         $hoa_don_table=$this->getServiceLocator()->get('Application\Model\HoaDonTable');
         if($id){
@@ -136,5 +136,30 @@ class BanHangController extends AbstractActionController
         }
         $this->flashMessenger()->addErrorMessage('Hóa đơn không tồn tại');
         return $this->redirect()->toRoute('ban_hang');
+    }
+
+
+    public function phieuDoiTraAction(){
+        $id=$this->params('id'); // chinh la id_khach_hang       
+        $id_kho=$this->AuthService()->getIdKho();
+        $phieu_doi_tra_table=$this->getServiceLocator()->get('Application\Model\PhieuDoiTraTable');
+        if($id){
+            $danh_sach_phieu_doi_tra=$phieu_doi_tra_table->getPhieuDoiTraAndHoaDonAndKhachHangAndKenhPhanPhoiByArrayConditionAnd4ArrayColumn(array('t4.id_kho'=>$id_kho, 't3.id_khach_hang'=>$id), array('id_phieu_doi_tra', 'ngay_xuat'), array('ma'=>'ma_hoa_don'), array('ho_ten', 'id_khach_hang'), array());
+        }
+        else{
+            $danh_sach_phieu_doi_tra=$phieu_doi_tra_table->getPhieuDoiTraAndHoaDonAndKhachHangAndKenhPhanPhoiByArrayConditionAnd4ArrayColumn(array('t4.id_kho'=>$id_kho), array('id_phieu_doi_tra', 'ngay_xuat'), array('ma'=>'ma_hoa_don'), array('ho_ten', 'id_khach_hang'), array());
+        }      
+        return array('danh_sach_phieu_doi_tra'=>$danh_sach_phieu_doi_tra);
+    }
+
+    public function chiTietPhieuDoiTraAction(){
+        $id=$this->params('id'); // chinh la id_khach_hang       
+        $id_kho=$this->AuthService()->getIdKho();
+        $phieu_doi_tra_table=$this->getServiceLocator()->get('Application\Model\PhieuDoiTraTable');
+        $return=array('chi_tiet_phieu_doi_tra'=>'');
+        if($id){
+            
+        }
+        return $return;
     }
 }

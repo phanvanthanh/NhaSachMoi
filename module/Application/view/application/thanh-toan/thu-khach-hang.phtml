@@ -3,9 +3,10 @@
   <div class="btn btn-default" onclick="tableToExcel('cong_no_table', 'export')">export</div>
 </div>
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-  <span class="title">CÔNG NỢ KHÁCH HÀNG</span>
+  <span class="title">THU KHÁCH HÀNG</span>
 </div>
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">&nbsp;</div>
+<!--
 <table id="cong_no_table" class="table table-hover table-bordered" cellspacing="0" width="100%">
   <thead>
     <tr>
@@ -20,23 +21,53 @@
   <tbody>
   <?php foreach ($this->danh_sach_cong_no as $cong_no) { ?>
     <tr>
-      	<td>
-      		<a href="<?php echo $this->url('doi_tac', array('action'=>'sua-thong-tin-khach-hang', 'id'=>$cong_no['id_khach_hang'])); ?>"><?php echo $cong_no['ho_ten']; ?></a> 
-      	</td>
-      	<td class="hidden-xs">
-      		<?php echo $cong_no['kenh_phan_phoi']; ?>
-      	</td>
-      	<td><?php $date = new DateTime($cong_no['ki']); echo $date->format('d-m-Y'); ?></td>
-      	<td class="hidden-xs"><?php echo number_format($cong_no['du_no'],0,","," "); ?></td>
-      	<td class="hidden-xs"><?php echo number_format($cong_no['no_phat_sinh'],0,","," "); ?></td>
-      	<td>
-      		<?php 
-      			$no_cuoi_ki=(float)$cong_no['du_no']+(float)$cong_no['no_phat_sinh']; 
-      			echo number_format($no_cuoi_ki,0,","," ");
-      		?>
-      	</td>
+        <td>
+          <a href="<?php echo $this->url('doi_tac', array('action'=>'sua-thong-tin-khach-hang', 'id'=>$cong_no['id_khach_hang'])); ?>"><?php echo $cong_no['ho_ten']; ?></a> 
+        </td>
+        <td class="hidden-xs">
+          <?php echo $cong_no['kenh_phan_phoi']; ?>
+        </td>
+        <td><?php $date = new DateTime($cong_no['ki']); echo $date->format('d-m-Y'); ?></td>
+        <td class="hidden-xs"><?php echo number_format($cong_no['du_no'],0,","," "); ?></td>
+        <td class="hidden-xs"><?php echo number_format($cong_no['no_phat_sinh'],0,","," "); ?></td>
+        <td>
+          <?php 
+            $no_cuoi_ki=(float)$cong_no['du_no']+(float)$cong_no['no_phat_sinh']; 
+            echo number_format($no_cuoi_ki,0,","," ");
+          ?>
+        </td>
     </tr>
   <?php }?>                  
+  </tbody>
+</table> 
+-->
+<table id="cong_no_table" class="table table-hover table-bordered" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th>Mã phiếu thu</th>
+      <th>Ngày</th> 
+      <th class="hidden-xs">Diễn giải</th>           
+      <th class="hidden-xs">Số tiền</th>   
+    </tr>
+  </thead>     
+  <tbody>
+    <?php
+    foreach ($danh_sach_phieu_thu as $key => $phieu_thu) {
+      ?>
+      <tr>
+        <td><?php echo $phieu_thu['ma']; ?></td>
+        <td>
+        <?php
+          $date=new DateTime($phieu_thu['ngay_thanh_toan']); 
+          echo $date->format('d-m-Y'); 
+        ?>
+        </td>
+        <td><?php echo $phieu_thu['ly_do']; ?></td>
+        <td><?php echo number_format($phieu_thu['so_tien'],0,","," "); ?></td>
+      </tr>
+      <?php
+    }
+    ?>
   </tbody>
 </table>
 <script type="text/javascript">

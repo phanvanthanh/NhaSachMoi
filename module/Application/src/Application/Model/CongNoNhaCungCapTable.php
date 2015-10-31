@@ -54,7 +54,7 @@ class CongNoNhaCungCapTable
             left join nha_cung_cap as t3 on t1.id_nha_cung_cap=t3.id_nha_cung_cap
             left join phieu_nhap as t4 on t1.id_nha_cung_cap=t4.id_nha_cung_cap and t4.state=0
             left join ct_phieu_nhap as t5 on t4.id_phieu_nhap=t5.id_phieu_nhap
-            WHERE t2.id_cong_no IS NULL
+            WHERE t2.id_cong_no IS NULL AND t3.id_kho=".$array['id_kho']."
             GROUP BY t1.id_nha_cung_cap";
         $statement = $adapter->query($sql);
         $resultSets = $statement->execute();

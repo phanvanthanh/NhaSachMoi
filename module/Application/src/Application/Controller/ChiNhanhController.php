@@ -136,10 +136,10 @@ class ChiNhanhController extends AbstractActionController
     			$user_id=$this->AuthService()->getUserId();
     			$user_table=$this->getServiceLocator()->get('Permission\Model\UserTable');
     			$user=$user_table->getUserByArrayConditionAndArrayColumn(array('user_id'=>$user_id), array());
-    			$user_moi=new User();
-    			$user_moi->exchangeArray($user[0]);
-    			$user_moi->setIdKho($id);
-    			$user_table->saveUser($user_moi);
+    			// $user_moi=new User();
+    			// $user_moi->exchangeArray($user[0]);
+    			// $user_moi->setIdKho($id);
+    			// $user_table->saveUser($user_moi);
 
     			$session=$this->getAuthService()->getStorage()->read();
     			$session['id_kho']=$id;

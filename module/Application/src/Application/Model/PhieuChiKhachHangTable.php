@@ -5,9 +5,9 @@ use Zend\Db\TableGateway\TableGateway;
 use Zend\Db\Sql\Expression;
 use Zend\Db\Sql\Sql;
 
-use Application\Model\Entity\PhieuChi;
+use Application\Model\Entity\PhieuChiKhachHang;
 
-class PhieuChiTable
+class PhieuChiKhachHangTable
 {
 
     protected $tableGateway;
@@ -17,7 +17,7 @@ class PhieuChiTable
         $this->tableGateway = $tableGateway;
     }
 
-    public function getPhieuChiAndUserByArrayConditionAnd2ArrayColumn($array_conditions=array(), $array_columns_1=array(), $array_columns_2=array()){
+    public function getPhieuChiKhachHangAndUserByArrayConditionAnd2ArrayColumn($array_conditions=array(), $array_columns_1=array(), $array_columns_2=array()){
         /*
             chuyền vào 2 tham số:   1 tham số là mảng điều kiện, 
                                     1 tham số là mảng cột ở bảng 1 cần lấy ra,
@@ -27,7 +27,7 @@ class PhieuChiTable
         $sql = new Sql($adapter);        
         // select
         $sqlSelect = $sql->select();
-        $sqlSelect->from(array('t1'=>'phieu_chi'));
+        $sqlSelect->from(array('t1'=>'phieu_chi_khach_hang'));
         $sqlSelect->join(array('t2'=>'user'), 't1.id_user=t2.user_id', $array_columns_2, 'LEFT');
         if($array_columns_1){
             $sqlSelect->columns($array_columns_1);
