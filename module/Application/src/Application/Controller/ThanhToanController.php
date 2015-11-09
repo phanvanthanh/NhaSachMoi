@@ -11,6 +11,8 @@ namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Zend\View\Model\JsonModel;
+use Zend\Db\Sql\Expression;
 
 class ThanhToanController extends AbstractActionController
 {
@@ -78,6 +80,46 @@ class ThanhToanController extends AbstractActionController
         $return=array('form'=>$form);
         return $return;
     }   
+
+    // là danh sách khách hàng đã mua hàng ở hệ thống
+    public function danhSachKhachHangAction(){
+        
+        $request=$this->getRequest();
+        if($request->isXmlHttpRequest())
+        {
+            $id_kho=$this->AuthService()->getIdKho();
+            $hoa_don_table=$this->getServiceLocator()->get('Application\Model\HoaDonTable');
+            $danh_sach_khach_hang=$hoa_don_table->getHoaDonAndUserAndKhachHangByArrayConditionAnd3ArrayColumn(array('t2.id_kho'=>$id_kho), array('id_khach_hang'=>new Expression('DISTINCT(t3.id_khach_hang)')), array(), array('ho_ten', 'dia_chi', 'di_dong'));
+            $response=array('error'=>'', 'danh_sach_khach_hang'=>$danh_sach_khach_hang);
+            $json = new JsonModel($response);
+            return $json;
+        }
+        else{
+            $response=array('error'=>'Phương thức nhập không đúng');
+            $json = new JsonModel($response);
+            return $json;
+        }
+    }
+
+    public function congNoKhachHangAction(){
+        $request=$this->getRequest();
+        if($request->isXmlHttpRequest())
+        {
+            $data=$request->getPost();
+            $id_khach_hang=$data['id_khach_hang'];
+            $id_kho=$this->AuthService()->getIdKho();
+            $cong_no_khach_hang_table=$this->getServiceLocator()->get('Application\Model\CongNoKhachHangTable');
+            $danh_sach_cong_no=$cong_no_khach_hang_table->getCongNo(array('id_kho'=>$id_kho, 'id_khach_hang'=>$id_khach_hang));
+            $response=array('error'=>'', 'danh_sach_cong_no'=>$danh_sach_cong_no);
+            $json = new JsonModel($response);
+            return $json;
+        }
+        else{
+            $response=array('error'=>'Phương thức nhập không đúng');
+            $json = new JsonModel($response);
+            return $json;
+        }
+    }
 
     public function lapPhieuChiKhachHangAction(){
 

@@ -158,8 +158,13 @@ class BanHangController extends AbstractActionController
         $phieu_doi_tra_table=$this->getServiceLocator()->get('Application\Model\PhieuDoiTraTable');
         $return=array('chi_tiet_phieu_doi_tra'=>'');
         if($id){
-            
+            $chi_tiet_phieu_doi_tra=$phieu_doi_tra_table->getChiTietPhieuDoiTra(array('t1.id_phieu_doi_tra'=>$id, 't3.state'=>3, 't6.id_kho'=>$id_kho), array('ngay_xuat'), array('ma'=>'ma_hoa_don'), array('so_luong_tra', 'gia'), array('ten_san_pham', 'ma_san_pham', 'ma_vach'), array('ho_ten', 'id_khach_hang'), array('kenh_phan_phoi'), array('don_vi_tinh'));
+            $return['chi_tiet_phieu_doi_tra']=$chi_tiet_phieu_doi_tra;
+            return $return;
         }
-        return $return;
+        else{
+            return $this->redirect()->toRoute('ban_hang');
+        }
+        
     }
 }

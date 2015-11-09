@@ -75,7 +75,7 @@ class PhieuDoiTraTable
         return $allRow;
     }  
 
-    public function getPhieuDoiTraAndHoaDonAndCtHoaDonAndKhachHangByArrayConditionAnd5ArrayColumn($array_conditions=array(), $array_columns_1=array(), $array_columns_2=array(), $array_columns_3=array(), $array_columns_4=array(), $array_columns_5= array()){
+    public function getChiTietPhieuDoiTra($array_conditions=array(), $array_columns_1=array(), $array_columns_2=array(), $array_columns_3=array(), $array_columns_4=array(), $array_columns_5= array(), $array_columns_6=array(), $array_columns_7=array()){
         /*
             chuyền vào 2 tham số:   1 tham số là mảng điều kiện, 
                                     1 tham số là mảng cột ở bảng 1 cần lấy ra,
@@ -88,8 +88,10 @@ class PhieuDoiTraTable
         $sqlSelect->from(array('t1'=>'phieu_doi_tra'));
         $sqlSelect->join(array('t2'=>'hoa_don'), 't1.id_hoa_don=t2.id_hoa_don', $array_columns_2, 'LEFT');
         $sqlSelect->join(array('t3'=>'ct_hoa_don'), 't2.id_hoa_don=t3.id_hoa_don', $array_columns_3, 'LEFT');
-        $sqlSelect->join(array('t4'=>'khach_hang'), 't2.id_khach_hang=t4.id_khach_hang', $array_columns_4, 'LEFT');
-        $sqlSelect->join(array('t5'=>'kenh_phan_phoi'), 't4.id_kenh_phan_phoi=t5.id_kenh_phan_phoi', $array_columns_5, 'LEFT');
+        $sqlSelect->join(array('t4'=>'san_pham'), 't3.id_san_pham=t4.id_san_pham', $array_columns_4, 'LEFT');
+        $sqlSelect->join(array('t5'=>'khach_hang'), 't2.id_khach_hang=t5.id_khach_hang', $array_columns_5, 'LEFT');
+        $sqlSelect->join(array('t6'=>'kenh_phan_phoi'), 't5.id_kenh_phan_phoi=t6.id_kenh_phan_phoi', $array_columns_6, 'LEFT');
+        $sqlSelect->join(array('t7'=>'don_vi_tinh'), 't4.id_don_vi_tinh=t7.id_don_vi_tinh', $array_columns_7, 'LEFT');
         if($array_columns_1){
             $sqlSelect->columns($array_columns_1);
         }

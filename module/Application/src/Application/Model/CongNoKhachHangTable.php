@@ -47,6 +47,10 @@ class CongNoKhachHangTable
     }
 
     public function getCongNo($array){        
+        $where_id_khach_hang='';
+        if(isset($array['id_khach_hang'])){
+            $where_id_khach_hang='and t1.id_khach_hang='.$array['id_khach_hang'];
+        }
         $adapter = $this->tableGateway->adapter;
         $sql="SELECT t1.ki, t1.du_no, t3.ho_ten, t3.id_khach_hang, sum(t5.gia*t5.so_luong) as no_phat_sinh, t6.kenh_phan_phoi
             FROM cong_no_khach_hang t1 
@@ -55,7 +59,7 @@ class CongNoKhachHangTable
             left join hoa_don as t4 on t1.id_khach_hang=t4.id_khach_hang and t4.state=0
             left join ct_hoa_don as t5 on t4.id_hoa_don=t5.id_hoa_don
             left join kenh_phan_phoi as t6 on t3.id_kenh_phan_phoi=t6.id_kenh_phan_phoi
-            WHERE t2.id_cong_no IS NULL AND t6.id_kho=".$array['id_kho']."
+            WHERE t2.id_cong_no IS NULL AND t6.id_kho=".$array['id_kho']." ".$where_id_khach_hang."
             GROUP BY t1.id_khach_hang";
         $statement = $adapter->query($sql);
         $resultSets = $statement->execute();

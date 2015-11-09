@@ -1,0 +1,189 @@
+<style type="text/css">   
+    @media print {
+        #header, .nav-side-menu, #alert, #btn-flash-messenger, .alert, #btn_print{display: none; }
+        .tb{width: 900px; margin-left: -10px; margin-top: -30px;}
+        .td{width: 80px;}
+        table {display: table; }
+        #tbSanPham{ border: 0px; }
+        .lb{display: block;}   
+    }
+</style>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right">
+  <div class="btn btn-default" id="btn_print">in</div>  
+</div>
+<?php 
+    $chi_tiet_phieu_doi_tra=$this->chi_tiet_phieu_doi_tra; 
+    $so=$chi_tiet_phieu_doi_tra[0]['ma'];
+    $ho_ten=$chi_tiet_phieu_doi_tra[0]['ho_ten'];
+    $date = new DateTime($chi_tiet_phieu_doi_tra[0]['ngay_xuat']);    
+?>
+<table class="table" width="">
+    <tr style="text-align: -moz-center; border-style:hidden">
+        <td>
+            <table border="0" class="tb">
+                <tr>
+                    <td style="width:60%">
+                        <b>
+                            NHÀ SÁCH VINH QUANG</br>
+                            45A Phạm Ngũ Lão, Phường 1, TP. Trà Vinh</br>
+                            Mã số thuế: 
+                        </b>
+                    </td>
+                    <td style="text-align:center">
+                        <b>Mẫ số: 01 - TT</b></br>
+                        (Ban hành theo QĐ số: 15/2006/QĐ-BTC ngày 20/3/2006 của Bộ trưởng BTC)
+                    </td>            
+                </tr>
+            </table>
+
+            <table border="0" style="width:65%; margin-left:220px"  class="tb">
+                <tr>
+                    <td style="width:50%; padding:0px 0px 0px 30px; font-size:16px; font-weight:bold">PHIẾU NHẬP KHO</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td style="padding:0px;">Ngày <?php echo $date->format('d'); ?> tháng <?php echo $date->format('m'); ?> năm <?php echo $date->format('Y'); ?></td>
+                    <td style="padding:0px;">
+                        Nợ: ........................................
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding:0px;">
+                        Số: ........................................<div style="margin-left:30px; margin-top:-20px;"> <?php echo $so; ?> </div>
+                    </td>
+                    <td style="padding:0px;">
+                        Có: ........................................
+                    </td>
+                </tr>
+            </table>
+            <br>
+            <table border="0"  class="tb">
+                <tr>
+                    <td colspan="4">
+                        - Họ và tên người giao: <?php echo $ho_ten; ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:200px">
+                        - Theo.......................
+                    </td>
+                    <td style="width:100px;">
+                        số....................
+                    </td>
+                    <td style="width:215px">
+                        ngày <?php echo $date->format('d'); ?> tháng <?php echo $date->format('m'); ?> năm <?php echo $date->format('Y'); ?>
+                    </td>
+                    <td>                            
+                        của............................
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">                        
+                        Nhập tại kho:....................................
+                    </td>                    
+                    <td colspan="2">
+                        Địa điểm............................................................................................
+                    </td>
+                </tr>
+                <tr><td></td></tr>
+            </table>
+
+            <table border="1" id="tbSanPham">
+                <tr style="text-align:center">
+                    <td rowspan="2" style="width:45px">STT</td>
+                    <td rowspan="2">Tên, nhãn hiệu quy cách, phẩm chất vật tư, dụng cụ sản phẩm, hàng hóa</td>
+                    <td rowspan="2" class="td">Mã số</td>
+                    <td rowspan="2" class="td">Đơn vị tính</td>
+                    <td colspan="2" style="width:300px">Số lượng</td>
+                    <td rowspan="2" class="td">Đơn giá</td>
+                    <td rowspan="2" class="td">Thành tiền</br>(vnđ)</td>
+                </tr>
+                <tr style="text-align:center">
+                    <td>Theo chứng từ</td>
+                    <td>Thực nhập</td>
+                </tr>
+                <?php
+                    $tong_tien=0;
+                    foreach ($chi_tiet_phieu_doi_tra as $key => $phieu_doi_tra) {
+                    ?>
+                        <tr style="text-align:center">
+                            <td><?php $key++; echo $key; ?></td>
+                            <td><?php echo $phieu_doi_tra['ten_san_pham']; ?></td>
+                            <td><?php echo $phieu_doi_tra['ma_san_pham']; ?></td>
+                            <td><?php echo $phieu_doi_tra['don_vi_tinh']; ?></td>
+                            <td></td>
+                            <td style="white-space:nowrap;"><?php echo $phieu_doi_tra['so_luong_tra']; ?></td>
+                            <td style="white-space:nowrap;"><?php echo number_format($phieu_doi_tra['gia'],0,","," "); ?></td>
+                            <td style="white-space:nowrap;">
+                            <?php 
+                                $thanh_tien=$phieu_doi_tra['so_luong_tra']*$phieu_doi_tra['gia'];
+                                $tong_tien+=$thanh_tien;
+                                echo number_format($thanh_tien,0,","," "); 
+                            ?>                            
+                            </td>
+                        </tr>
+                    <?php
+                    }
+                ?> 
+                <tr style="text-align:center">
+                    <td rowspan="2" style="width:45px"></td>
+                    <td rowspan="2"><b>Tổng cộng</b></td>
+                    <td rowspan="2" class="td"></td>
+                    <td rowspan="2" class="td"></td>
+                    <td colspan="2" style="width:300px"></td>
+                    <td rowspan="2" class="td"></td>
+                    <td rowspan="2" class="td" style="white-space:nowrap;">
+                        <b>
+                        <?php 
+                            $tong_tien_bang_chu=$this->MyViewHelper()->ConvertNumberToWords($tong_tien);
+                            echo number_format($tong_tien,0,","," "); 
+                        ?>
+                        </b>
+                    </td>
+                </tr>                  
+            </table>
+        </td>
+    </tr>
+    <tr style="border-style:hidden">
+        <td style="padding-left:20px">- Tổng số tiền (viết bằng chữ): <span id="tongSoTien"><?php echo $tong_tien_bang_chu; ?></span>&nbsp;đồng.</td>
+    </tr>
+    <tr style="border-style:hidden">
+        <td style="padding-left:20px">
+            - Số chứng từ gốc kèm theo: ..............................................................................................................................................................
+        </td>
+    </tr>
+    <tr style="text-align: -moz-center">
+        <td>
+            <table border="0" class="tb" style="width:100%;">
+                <tr>
+                    <td colspan="4" style="text-align:right">Ngày <?php echo $date->format('d'); ?> tháng <?php echo $date->format('m'); ?> năm <?php echo $date->format('Y'); ?></td>
+                </tr>
+                <tr style="text-align: center;">
+                    <td>
+                        Người lập phiếu</br>(Ký, họ tên)
+                    </td>
+                    <td>
+                        Người giao hàng</br>(Ký, họ tên)
+                    </td>
+                    <td>
+                        Thủ kho</br>(Ký, họ tên)
+                    </td>
+                    <td>
+                        Thủ trưởng đơn vị<br>(Hoặc bộ phận có nhu cầu nhập)</br>(Ký, họ tên)
+                    </td>
+                </tr>
+                <tr>
+                    <td style="height:100px"></td>
+                </tr>  
+                          
+            </table>
+        </td>
+    </tr>
+</table>
+<script type="text/javascript">
+    jQuery(document).ready(function(){
+        jQuery('#btn_print').on('click', function(){
+            window.print();
+        });            
+    })
+</script>
